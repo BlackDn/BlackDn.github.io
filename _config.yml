@@ -6,7 +6,7 @@ email: t.l.black@qq.com
 description: "Every failure is leading towards success."
 keyword: "Thanks for qiubaiying"
 url: "https://blackdn.github.io/"          # your host, for absolute URL
-baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: "/blog"      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/BlackDn/BlackDn.github.io.git"  # you code repository
 
 # Sidebar settings
