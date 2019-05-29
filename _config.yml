@@ -12,7 +12,7 @@ github_repo: "https://github.com/BlackDn/BlackDn.github.io.git"  # you code repo
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Angels Here!"
-sidebar-avatar: /img/avatar-by.JPG      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/avatar-m.JPG/      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
