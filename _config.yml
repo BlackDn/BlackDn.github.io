@@ -1,7 +1,7 @@
 # Site settings
 title: BlackDn
 SEOTitle: WelcomeQwQ
-header-img: img/post-bg-universe.jpg 
+header-img: img/ac.gy_25.jpg 
 email: t.l.black@qq.com
 description: "Every failure is leading towards success."
 keyword: "Thanks for qiubaiying"
@@ -12,7 +12,7 @@ github_repo: "https://github.com/BlackDn/BlackDn.github.io.git"  # you code repo
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Angels Here!"
-sidebar-avatar: /img/avatar_m.jpg     # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/headm.jpg     # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
