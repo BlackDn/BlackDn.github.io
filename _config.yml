@@ -17,7 +17,7 @@ sidebar-avatar: /img/headm.jpg     # use absolute URL, seeing it's used in both 
 
 
 # SNS settings
-RSS: false
+RSS: true
  weibo_username:     晓黑黑杂D
  zhihu_username:     酸奶不酸
  github_username:    BlackDn
