@@ -4,7 +4,7 @@ title:        Java对象和类的介绍
 subtitle:     Quanta安卓课程-第一节课
 date:         2019-08-22
 auther:       BlackDn
-header-img:   img/acg.gy_05.jpg 
+header-img:   img/acg.gy_25.jpg
 catalog:      true
 tags:
     - Android
