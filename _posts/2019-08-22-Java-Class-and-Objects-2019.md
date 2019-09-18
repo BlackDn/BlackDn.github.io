@@ -7,7 +7,7 @@ auther:       BlackDn
 header-img:   img/acg.gy_25.jpg
 catalog:      true
 tags:
-    - Android
+    - Java
     - Quanta
 ---
 
