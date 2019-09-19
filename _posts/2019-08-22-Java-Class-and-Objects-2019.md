@@ -254,7 +254,7 @@ Person man = new Person();
 实际上，通过构造方法我们才能将类实例化成对象（所以构造方法是必须的），在我们不定义他的时候，系统会默认给我们生成一个没有参数，没有返回值的构造方法，就像这样：  
 
 ```
-	Person() {
+	public Person() {
 		
 	}
 ```
@@ -269,7 +269,7 @@ class Person {
 	private int age;
 	
 	//构造方法
-	Person() {
+	public Person() {
 		
 	}
 	
@@ -303,7 +303,7 @@ class Person {
 	private int age;
 	
 	//构造方法
-	Person(String myName, int myAge) {
+	public Person(String myName, int myAge) {
 		name = myName;
 		age = myAge;
 		System.out.println("我是构造函数中的print");
@@ -376,16 +376,16 @@ class Person {
 	private int age;
 	
 	//构造方法
-	Person() {
+	public Person() {
 		System.out.println("我是没有参数的构造方法");
 	}
 	
-	Person(String myName) {
+	public Person(String myName) {
 		name = myName;
 		System.out.println("我是有一个参数的构造方法");
 	}
 	
-	Person(String myName, int myAge) {
+	public Person(String myName, int myAge) {
 		name = myName;
 		age = myAge;
 		System.out.println("我是有两个参数的构造方法");
