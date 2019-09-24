@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        一些有用但接触较少的Java知识点
+title:        接触较少的Java知识点
 subtitle:     主要是日期表示和保留位数
 date:         2019-09-24
 auther:       BlackDn
