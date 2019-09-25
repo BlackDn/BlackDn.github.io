@@ -17,7 +17,7 @@ tags:
 所以特地回过头来整理一下，不然每次都要再搜，怪麻烦的...  
 这里按顺序列一下所提及的知识点，比较粗略的认识没什么逻辑，以后有必要就单独列出探讨：
 1. 日期时间的表示方法：Date、SimpleDateFormat和Calendar类  
-2. 保留数位：Math.round(), BigDecimal, DecimalFormat
+2. final关键字
 3. Object类  
 4. 接口
 5. 类型转换
@@ -109,99 +109,14 @@ Calendar 类提供了 getTime() 方法，用来获取 Date 对象，完成 Calen
 Date: Tue Sep 24 11:10:22 CST 2019
 毫秒: 1569294622566
 ```
+## final关键字
+final关键字，可以修饰类、方法、属性、变量  
+#### 修饰不同对象的作用
+1. 修饰类：该类不允许被继承
+2. 修饰方法：该方法不允许被重写
+3. 修饰属性：该属性不会被隐式初始化。即若该属性在定义时没有初始化，则在构造方法中一定要初始化；若在构造方法中初始化，则定义时不能被初始化
+4. 修饰变量：该变量只能赋值一次，即成为常量
 
-## 保留位数
-#### Math.round()
-Math.round()可以对小数进行“四舍五入”，在参数上加0.5然后进行下取整，返回的时整数  
-```
-Math.round(1.5);    //返回值是2
-Math.round(-1.5);    //返回值是-1
-```  
-实际上Math.round()存在方法重载，为了保证精度不丢失，一个接收float类型返回int类型，另一个接收double类型返回long类型  
-#### BigDecimal
-使用时，先实例化其对象，并传入相应的值进行实例化，这个值可为double，也可为String  
-BigDecimal的对象间的运算不能简单的进行加减乘除，必须调用其对应的方法  
-```
-BigDecimal b1 = BigDecimal.valueOf(value1);
-```
-示例如下  
-```
-    public static void main(String[] args) {
-        BigDecimal bigDecimal = BigDecimal.valueOf(2.0358);
-        System.out.println("print BigDecimal: " + bigDecimal);
-    }
-//运行结果
-print BigDecimal: 2.0358
-```
-利用**setScale()方法**用于格式化小数点，可以实现四舍五入。它接收两个参数，第一个表示保留小数位数，第二个参数若不传则默认四舍五入，也可传入以下值：  
-```
-1. BigDecimal.ROUND_HALF_UP表示四舍五入
-2. BigDecimal.ROUND_HALF_DOWN也是五舍六入
-3. BigDecimal.ROUND_UP表示进位处理（就是直接加1）
-4. BigDecimal.ROUND_DOWN表示直接去掉尾数
-```
-示例如下  
-
-```
-    public static void main(String[] args) {
-        BigDecimal bigDecimal = BigDecimal.valueOf(2.0358);
-        double d = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        System.out.println("print BigDecimal: " + d);
-    }
-//运行结果
-print BigDecimal: 2.04
-```
-但是我的IDEA会显示**xxx is deprecated**，于是我去查了Java文档，在Java SE 10 & JDK 10及以上中，将这些移除了，要用以下替换。  
-
-|      Field      |                  Description                  |
-| :-------------: | :-------------------------------------------: |
-|  ROUND_HALF_UP  |  Deprecated,Use RoundingMode.HALF_UP instead  |
-| ROUND_HALF_DOWN | Deprecated,Use RoundingMode.HALF_DOWN instead |
-|    ROUND_UP     |    Deprecated,Use RoundingMode.UP instead     |
-|   ROUND_DOWN    |   Deprecated,Use RoundingMode.DOWN instead    |
-
-不过我是Java8所以没有影响  
-[Java文档](https://docs.oracle.com/javase/10/docs/api/java/math/BigDecimal.html)  
-#### DecimalFormat
-DecimalFormat能方便地将数字进行格式化，通常用0和#作为占位符进行格式设定  
-format中，0.000和#.###的区别是，如果小数部分不足3位，前者会用0补足，而后者不会  
-
-```
-    public static void main(String[] args) {
-        double test = 3.56;
-        DecimalFormat decimalFormat1 = new DecimalFormat("0");   //四舍五入取整
-        DecimalFormat decimalFormat2 = new DecimalFormat("0.000");  //四舍五入保留三位小数，不足用0补位
-        DecimalFormat decimalFormat3 = new DecimalFormat("00.000");     //四舍五入保留两位整数+三位小数。不足用0补位
-        DecimalFormat decimalFormat4 = new DecimalFormat("#.000");   //四舍五入保留所有整数+三位小数，小数不足用0补位
-        DecimalFormat decimalFormat5 = new DecimalFormat("#");      //四舍五入保留所有整数
-        DecimalFormat decimalFormat6 = new DecimalFormat("#.###");   //四舍五入保留所有整数和小数，不足不补位
-        DecimalFormat decimalFormat7 = new DecimalFormat("#.##%");      //有%会自动变成百分数
-        DecimalFormat decimalFormat8 = new DecimalFormat("##.##E0");     //科学计数法，显示两个整数，保留两位小数
-        DecimalFormat decimalFormat9 = new DecimalFormat(",###");      //每三位逗号分隔
-
-        System.out.println("format 0: " + decimalFormat1.format(test));
-        System.out.println("format 0.000: " + decimalFormat2.format(test));
-        System.out.println("format 00.000: " + decimalFormat3.format(test));
-        System.out.println("format #.000: " + decimalFormat4.format(test));
-        System.out.println("format #: " + decimalFormat5.format(test));
-        System.out.println("format #.##: " + decimalFormat6.format(test));
-        System.out.println("format #.##%: " + decimalFormat7.format(test));
-        System.out.println("format ##.##E0: " + decimalFormat8.format(test));
-        System.out.println("format .###: " + decimalFormat9.format(test));
-    }
-//运行结果
-format 0: 4
-format 0.000: 3.560
-format 00.000: 03.560
-format #.000: 3.560
-format #: 4
-format #.##: 3.56
-format #.##%: 356%
-format ##.##E0: 3.56E0
-format .###: 4
-```
-更多地占位符及其作用可以参考Java SE8手册中的部分  
-[Java SE8手册](https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html)
 ## Object类
 在Java中，Object类是所有类的父类，如果一个类没有明确extends另外一个类，那么这个类默认继承Object类。  
 Object类中的方法适用于所有子类  
