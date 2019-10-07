@@ -12,7 +12,8 @@ tags:
 
 >"要去远的海岸边，看天空把雨滴结成晶亮的星，看浪起时吞没尘埃"
 
-# 前言
+# 前言  
+-2019.10.7更新，解决Nullable报错问题  
 没想到过了新生周还是这么忙...我要裂开  
 明天试试网安面试  
 然后周末想去看罗小黑，等了好久，点映的时候没上到这边的电影院，好遗憾哦  
@@ -88,7 +89,16 @@ all new development will be included in only AndroidX versions 1.0.0 and higher.
 最方便快捷的方法是用Android Studio的一键迁移，项目名右击 -> Refactor -> Migrate to AndroidX  
 ![Migrate](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_AndroidX/Migrate.jpg?raw=true)  
 当然，可能出现一些错误需要我们手动去调试，基本上是一些命名问题或者重名问题等小问题。  
-另外，Android Studio还会将你原来的项目备份成一个zip文件，这样即使迁移之后的代码出现了问题你还可以随时还原回之前的代码。  
+另外，Android Studio还会将你原来的项目备份成一个zip文件，这样即使迁移之后的代码出现了问题你还可以随时还原回之前的代码。 
+## 解决我的bug
+如果迁移后还是报错，那么需要进一步进行处理  
+首先介绍一下Nullable的作用，Nullable类在修饰参数时，这表示该参数可以合法地为空  
+我们需要做的就是在build.gradle中导入依赖即可  
+```
+dependencies {
+    implementation 'androidx.annotation:annotation:+'
+}
+```  
 ##### 参考  
-公众号：郭霖  
-[Android:你好,androidX！再见,android.support](https://www.jianshu.com/p/41de8689615d)
+[Android:你好,androidX！再见,android.support(公众号：郭霖)](https://www.jianshu.com/p/41de8689615d)  
+[@androidx.annotation.Nullable报错问题](https://blog.csdn.net/m0_37692318/article/details/89710765)  
