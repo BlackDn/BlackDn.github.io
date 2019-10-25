@@ -28,7 +28,8 @@ tags:
 You can think of a fragment as a modular section of an activity, which has its own lifecycle, 
 receives its own input events, and which you can add or remove while the activity is running
 ——————————————
-你可以将Fragment视为一个模块化的活动，它拥有自己的生命周期，可以接受输入事件，同是可以在正在运行的Activity中添加/移除Fragment。
+你可以将Fragment视为一个模块化的活动，它拥有自己的生命周期，可以接受输入事件，同是可以在正在
+运行的Activity中添加/移除Fragment。
 
 You can combine multiple fragments in a single activity to build a multi-pane UI and 
 reuse a fragment in multiple activities.
