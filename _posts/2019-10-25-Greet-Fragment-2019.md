@@ -4,7 +4,7 @@ title:        初认识碎片（Fragment）
 subtitle:     认识Fragment并实现静态动态加载
 date:         2019-10-25
 auther:       BlackDn
-header-img:   img/
+header-img:   img/X148_023.jpg
 catalog:      true
 tags:
     - Android
