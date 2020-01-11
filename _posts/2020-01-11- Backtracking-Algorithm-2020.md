@@ -2,7 +2,7 @@
 layout:       post
 title:        浅入深出回溯法
 subtitle:     因为当初学的时候没找到好资料所以自己写了一份！
-date:         2020-1-11
+date:         2020-01-11
 auther:       BlackDn
 header-img:   img/acg.gy_01.jpg
 catalog:      true
