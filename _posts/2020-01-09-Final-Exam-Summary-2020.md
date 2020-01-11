@@ -2,7 +2,7 @@
 layout:       post
 title:        期末复习（2019-2020）
 subtitle:     我只写了计算机系统组成和网络空间安全导论
-date:         2020-1-9
+date:         2020-01-09
 auther:       BlackDn
 header-img:   img/X148_011.jpg
 catalog:      true
