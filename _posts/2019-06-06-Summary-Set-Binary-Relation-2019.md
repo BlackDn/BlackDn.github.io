@@ -7,7 +7,7 @@ auther:    BlackDn
 header-img:     img/acg.gy_02.jpg 
 catalog:      true
 tags:   
-      - DiscreteMathematics
+      - DiscreteMath
       - Summary
 ---
 # 前言
