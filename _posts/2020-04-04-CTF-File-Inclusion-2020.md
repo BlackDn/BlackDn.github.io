@@ -42,9 +42,7 @@ include($file);
 ### 一、php伪协议
 利用伪协议上传或读取文件是文件包含漏洞里比较基础和常用的方式  
 PHP 提供了一些输入/输出（IO）流，允许访问 PHP 的输入输出流、标准输入输出等  
-#### 1. file://
-访问本地文件系统
-#### 2. php://input
+#### 1. php://input
 php://input 是个可以访问请求的原始数据的只读流，将post请求的数据当作php代码执行  
 需要allow_url_include=On  
 **遇到file_get_contents()要想到用php://input绕过**  
@@ -59,7 +57,7 @@ php://input 是个可以访问请求的原始数据的只读流，将post请求�
 3. 根据显示的文件目录直接进行访问（某txt或php文件），得到flag
 ```
 
-#### 3. php://filter
+#### 2. php://filter
 php://filter/是一种访问本地文件的协议  
 当它与包含函数（常为include()）结合时，php://filter流会被当作php文件执行。所以我们一般对其进行编码，让其不执行，从而实现任意文件读取。  
 
@@ -73,7 +71,7 @@ php://filter/是一种访问本地文件的协议
 
 执行后可得到index.php的base64加密的源码  
 
-#### 4. data://
+#### 3. data://
 类似php://input，可以让用户来控制输入流，用户输入的data://流会被当作php文件执行，从而执行我们想要执行的代码  
 要求allow_url_fopen=On，allow_url_include=On  
 
@@ -85,7 +83,7 @@ php://filter/是一种访问本地文件的协议
 4. ?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=
 ```
 
-#### 5. zip://
+#### 4. zip://
 zip:// 可以访问压缩包里面的文件。  
 zip://中只能传入**绝对路径**；要用\#分隔压缩包和压缩包里的内容，且\#要用url编码**%23**代替  
 
@@ -98,7 +96,7 @@ zip://中只能传入**绝对路径**；要用\#分隔压缩包和压缩包里�
 2. 后跟%23分割压缩包和压缩包中要访问的文件名
 
 
-#### 6. phar://
+#### 5. phar://
 类似zip://，相对路径和绝对路径都可以使用，不管后缀名是什么都会将文件当作压缩包解压  
 
 ```
