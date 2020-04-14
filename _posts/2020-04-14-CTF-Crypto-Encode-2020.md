@@ -85,7 +85,7 @@ ASCII编码：73    76    85
 Base64编码：SUxV
 ```
 #### base32
-对二进制数据以5个位(bit)为一组进行切分，由于传输数据的单位是字节（即8个位），所以分割之前的二进制位数是40的倍数（40是5和8的最小公倍数）。如果不足40位，则在编码后数据补充"="，一个"="相当于一个组（5个位）
+对二进制数据以5个位(bit)为一组进行切分，由于传输数据的单位是字节（即8个位），所以分割之前的二进制位数是40的倍数（40是5和8的最小公倍数）。如果不足40位，则在编码后数据补充"="，一个"="相当于一个组（5个位）  
 **特征：密文由32个字符（A-Z,2-7)组成，末尾可能会有‘=’，但最多有6个**  
 
 | 数值 | 字符 | 数值 | 字符 | 数值 | 字符 | 数值 | 字符 |
@@ -187,11 +187,12 @@ MD5编码具有单向性，即由明文变密文简单，由密文变明文困�
 ### 7. SHA
 安全散列算法（Secure Hash Algorithm），是一个密码散列函数家族。能计算出一个数字消息所对应到的，长度固定的字符串（又称消息摘要）的算法  
 SHA-0 -> SHA-1 -> SHA -2：包括SHA-224、SHA-256、SHA-384 和 SHA-512等  
-SHA1的原始报文长度不能超过2的64次方，SHA1生成160位的报文摘要  
-SHA得到摘要的方法和MD5思想类似，将数据分组后后面的组利用前面的组进行计算处理，最后一个组得到结果摘要
+SHA-3：采用另一种方法进行编码，用于替代SHA-2  
+SHA得到摘要的方法和MD5思想类似，将数据分组后后面的组利用前面的组进行计算处理，最后一个组得到结果摘要  
 
 ```
 SHA-1算法
+生成160报文摘要
 1. 对源数据以512bit为一组进行分组，以abc为例  
 （a-97, b-98, c-99）得到源数据：01100001 01100010 01100011
 2. 不足则补位，使长度对512求余为448，填充的最高位补1，其余补0。随后转为十六进制  
@@ -220,7 +221,7 @@ SHA-256算法
 2. 附加长度值
 和SHA-1基本一致，将填充前的报文位长度填充在低位，共64位，至此数据达到512位  
 3. 初始化缓存
-4. 处理分组计算输出，对所有512位分组处理完毕后，最后一个分组产生的便是25 位报文摘要
+4. 处理分组计算输出，对所有512位分组处理完毕后，最后一个分组产生的便是256位报文摘要
 ```
 
 ## 文本加密
@@ -335,6 +336,21 @@ M  --    Z  --..  =  -...-
 位置：2,1    3,4    5,3
 敲击码：..  .    ...  ....    ......  ...
 ```
+
+## 在线工具
+1. Unicode，UTF-8，URL编码：[站长工具](http://tool.chinaz.com/tools/urlencode.aspx)  
+2. Base系列：[千千秀字](https://www.qqxiuzi.cn/bianma/base64.htm)  
+3. 摩尔斯编码：[世纪算命网](https://www.halove.net/ming/morse.php)  
+4. 条形码/二维码：[online-barcode-reader](https://online-barcode-reader.inliteresearch.com/)  
+5. MD5，Escape/Unescape：[站长工具](https://tool.chinaz.com/tools/escape.aspx)
+6. UUencode编码：[在线工具](http://ctf.ssleye.com/uu.html)
+7. XXencode编码：[在线工具](http://ctf.ssleye.com/xxencode.html)
+8. 恺撒密码：[千千秀字](https://www.qqxiuzi.cn/bianma/kaisamima.php)
+9. 栅栏密码：[千千秀字（包含空格）](https://www.qqxiuzi.cn/bianma/zhalanmima.php)，[Rail-fence Cipher（自动去空格）](http://www.practicalcryptography.com/ciphers/classical-era/rail-fence/)
+10. Brainfuck/Ook！：[Brainfuck/Ook！](https://www.splitbrain.org/services/ook)（这好像是外网，可能会慢些）
+11. JSFuck：[JSF*ck demo](http://utf-8.jp/public/jsfuck.html)
+
+
 ## 参考
 [ctf常见的编码](https://blog.csdn.net/weixin_44255856/article/details/89792997)  
 [CTF中常见的编码，代码混淆及加、解密 ](https://www.freebuf.com/column/202057.html)  
