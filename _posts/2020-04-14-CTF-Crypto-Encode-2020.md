@@ -278,7 +278,7 @@ jsfuck源于brainfuck，只用 6 个字符来编写 JavaScript 程序
 字符集：
 [ ]( ) ! + 
 ```
-#### 4. Jother
+### 4. Jother
 运用于JS语言，利用少量字符构造精简匿名函数方法对字符串进行编码操作，即javascript中使用少量特定字符对匿名函数进行编码加密  
 通常可用浏览器的console运行  
 
