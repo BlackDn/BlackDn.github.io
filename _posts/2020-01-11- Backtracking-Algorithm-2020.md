@@ -4,7 +4,7 @@ title:        浅入深出回溯法
 subtitle:     因为当初学的时候没找到好资料所以自己写了一份！
 date:         2020-01-11
 auther:       BlackDn
-header-img:   img/acg.gy_05.jpg
+header-img:   img/acg.gy_28.jpg
 catalog:      true
 tags:
     - Summary
