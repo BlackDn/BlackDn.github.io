@@ -127,6 +127,10 @@ ASCII编码：73    76    85
 十进制：4|9    4|12    5|5
 Base16编码：4 9 4 C 5 5
 ```
+#### base91
+base91是一种将二进制数据编码为ASCII字符的方法，它的开销取决于输入数据  
+base91需要91个字符来表示用ASCII编码的二进制数据。在94个可打印的ASCII字符（0x21-0x7e）中，省略破折号、反斜杠、撇号来组成91个编码表  
+其编码表和bash安装（Linux/Unix，MacOS）安装可见：[basE91 encoding](http://base91.sourceforge.net/)  
 ### 5. UUencode编码
 将二进制文件转换为文本文件  
 
@@ -349,6 +353,8 @@ M  --    Z  --..  =  -...-
 9. 栅栏密码：[千千秀字（包含空格）](https://www.qqxiuzi.cn/bianma/zhalanmima.php)，[Rail-fence Cipher（自动去空格）](http://www.practicalcryptography.com/ciphers/classical-era/rail-fence/)
 10. Brainfuck/Ook！：[Brainfuck/Ook！](https://www.splitbrain.org/services/ook)（这好像是外网，可能会慢些）
 11. JSFuck：[JSF*ck demo](http://utf-8.jp/public/jsfuck.html)
+12. ASCII转换：[ASCII在线转换器-十六进制，十进制、 二进制](http://www.ab126.com/goju/1711.html)
+13. Base91：[Base91 Cipher](https://www.dcode.fr/base-91-encoding)
 
 
 ## 参考
