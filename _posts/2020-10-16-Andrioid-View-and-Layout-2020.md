@@ -16,7 +16,7 @@ tags:
 # 安卓第一课：用户界面
 # 布局和控件
 ## 用户界面UI
-UI即Uer Interface。手机屏幕上看到的所有东西都属于UI，而UI由**控件（View）**和**布局（Layout）**组成。  
+UI即User Interface。手机屏幕上看到的所有东西都属于UI，而UI由**控件（View）**和**布局（Layout）**组成。  
 但是呢，布局只在敲代码的时候用到，而用户看到的全都是控件  
 因此先来学习控件  
 ### 视图（控件）View
@@ -122,7 +122,6 @@ android:layout_margin="10dp"
 以**android:orientation="vertical"** 为例，我们可以看到，即使每个TextView后面还有位置，LinearLayout也会把接下来的TextView放到下面  
 
 ```
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -158,6 +157,9 @@ android:layout_margin="10dp"
 
 </LinearLayout>
 ```
+
+![LinearLayout](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass5.png?raw=true)  
+
 （尝试将TextView的width和height改成match_parent，看看会发生什么）  
 #### 相对布局RelativeLayout
 还记得我们的LinearLayout，即使控件后面有空位，他也不会把下面的控件放到空的地方，而是下一行  
@@ -192,7 +194,6 @@ android:layout_margin="10dp"
 然后，根据id来决定，当前控件应该贴着哪个控件  
 
 ```
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -235,6 +236,9 @@ android:layout_margin="10dp"
 
 </RelativeLayout>
 ```
+
+![RelativeLayout](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass6.jpg?raw=true)  
+
 上面的text2中，**android:layout_toRightOf="@id/text1"** 表示它在text1的右边；  
 而text3中，**android:layout_below="@id/text1"** 和 **android:layout_toRightOf="@id/text1"** 表示他同时在text1右边和下面（右下方）  
 值得注意的是，在RelativeLayout中，所有控件是默认在左上方的。所以如果不同时设置上下和左右的属性，可能会出现一些bug  
@@ -354,6 +358,9 @@ android:layout_margin="10dp"
 </LinearLayout>
 ```
 
+
+![GroupView](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass7.jpg?raw=true)  
+
 #### weight属性
 有了视图组之后，有了一个新的问题，我要如何让几个视图平分屏幕、或者等间距分布在屏幕上呢？  
 当然可以给每个视图设置宽高，但这种方法只能在屏幕大小相同的设备上起作用。能不能让视图自己识别屏幕大小然后平分呢？  
@@ -404,6 +411,9 @@ android:layout_margin="10dp"
 
 </LinearLayout>
 ```
+
+![weight](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass8.jpg?raw=true)  
+
 这时候会发现，三个LinearLayout可以平分我们的屏幕  
 如果调大某一个LinearLayout的weight，他就会占据更大的空间  
 
