@@ -4,7 +4,7 @@ title:        安卓第一课：用户界面
 subtitle:     介绍控件View和布局Layout噢~
 date:         2020-10-16  
 auther:       BlackDn  
-header-img:   acg.ggy_29.jpg
+header-img:   img/acg.ggy_29.jpg
 catalog:      true  
 tags:  
     - Quanta
