@@ -30,7 +30,7 @@ UI即Uer Interface。手机屏幕上看到的所有东西都属于UI，而UI由*
 2. ImageView：图片
 3. Button：按钮
 
-![三种控件](https://imgchr.com/i/0bqLcQ)  
+![三种控件](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass2.png?raw=true)  
 
 这里可以看到他们的名字有大写有小写，这就是**驼峰命名法**，请见**附录1**  
 #### 动手敲敲TextView
@@ -81,7 +81,7 @@ ImageView是图片，那我的图片要放哪呢？ImageView要怎么找到我�
 在左边的项目结构中，我们可以在**res**中找到**drawable**这个目录，res（resource）表示资源目录，图片、布局等文件都放在这里，而**drawable**就是负责放文件的。  
 第一步，我们把图片拖进来，注意，图片文件名一定要**字母开头**  
 
-![资源文件夹](https://imgchr.com/i/0bqq1g)  
+![资源文件夹](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass3.png?raw=true)  
 
 第二步，我们在ImageView中，用他的src直接拿到这个图片（目录属性可以直接拿到**drawable**和**mipmap**下的图片，具体区别见**附录3**）  
 如果你的图片太大或太小，可以加一条“android:scaleType="centerCrop"”的属性，他会使图片放大或缩小至正好贴到屏幕  
@@ -110,7 +110,7 @@ android:layout_margin="10dp"
 
 效果是这样的，能分出哪个是padding，哪个是margin不？  
 
-![padding和margin](https://imgchr.com/i/0bqb9S)  
+![padding和margin](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass4.png?raw=true)  
 
 ### 布局Layout
 用户是看不到布局的，但是开发者要根据控件的排列方式来决定使用哪个布局  
