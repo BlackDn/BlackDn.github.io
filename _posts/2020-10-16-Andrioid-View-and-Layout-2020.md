@@ -34,7 +34,7 @@ UI即Uer Interface。手机屏幕上看到的所有东西都属于UI，而UI由*
 
 这里可以看到他们的名字有大写有小写，这就是**驼峰命名法**，请见**附录1**  
 #### 动手敲敲TextView
-每个控件，在代码中都是由**标签**来控制，这就是**xml语法**（所以控件的东西都在**.xml**文件中实现）
+每个控件，在代码中都是由**标签**来控制，这就是**xml语法**（所以控件的东西都在 **.xml** 文件中实现）
 
 ```
     <TextView
@@ -54,7 +54,7 @@ android:layout_height="75dp"
 ```
 
 这两个属性规定了控件的宽高，很多控件都有这两个属性（废话，大家都要设定宽高）  
-**android:layout_width**和**android:layout_height**是**属性名**，而**150dp**和**75dp**是属性值  
+**android:layout_width** 和 **android:layout_height** 是 **属性名**，而 **150dp** 和 **75dp** 是属性值  
 （dp是单位，表示**独立密度像素**；就好比px表示像素，具体区别见**附录2**）  
 他们有三种属性值：  
 
@@ -119,7 +119,7 @@ android:layout_margin="10dp"
 线性布局是最基础的布局，它将其中的控件横着或竖着排列  
 其由“android:orientation”决定排列方向，"vertical"表示竖直，"horizontal"表示水平，不设置的话默认水平排列  
 （上面一大堆我也看不懂的代码是新建时自动生成的，别理他）  
-以**android:orientation="vertical"**为例，我们可以看到，即使每个TextView后面还有位置，LinearLayout也会把接下来的TextView放到下面  
+以**android:orientation="vertical"** 为例，我们可以看到，即使每个TextView后面还有位置，LinearLayout也会把接下来的TextView放到下面  
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -165,7 +165,7 @@ android:layout_margin="10dp"
 **他的核心思想是：当前控件相对另外一个控件的位置（上下左右）**
 
 当我们仅仅把布局改为RelativeLayout，我们发现三个TextView只剩下一个了  
-（这个时候可以把**android:orientation="vertical"**也删了，这个属性在RelativeLayout中不起作用）  
+（这个时候可以把**android:orientation="vertical"** 也删了，这个属性在RelativeLayout中不起作用）  
 
 ```
 <RelativeLayout
@@ -235,10 +235,23 @@ android:layout_margin="10dp"
 
 </RelativeLayout>
 ```
-上面的text2中，**android:layout_toRightOf="@id/text1"**表示它在text1的右边；  
-而text3中，**android:layout_below="@id/text1"**和**android:layout_toRightOf="@id/text1"**表示他同时在text1右边和下面（右下方）  
+上面的text2中，**android:layout_toRightOf="@id/text1"** 表示它在text1的右边；  
+而text3中，**android:layout_below="@id/text1"** 和 **android:layout_toRightOf="@id/text1"** 表示他同时在text1右边和下面（右下方）  
 值得注意的是，在RelativeLayout中，所有控件是默认在左上方的。所以如果不同时设置上下和左右的属性，可能会出现一些bug  
-比如我想让text3在text2的下面，仅仅设置**android:layout_below="@id/text2"**是不行的，因为没有设置左右的属性，因此text3仍然是默认地贴着左边  
+比如我想让text3在text2的下面，仅仅设置**android:layout_below="@id/text2"** 是不行的，因为没有设置左右的属性，因此text3仍然是默认地贴着左边  
+常用到的属性有这几种：  
+
+```
+        在某控件左边：android:layout_toLeftOf="@id/id_name"
+        在某控件右边：android:layout_toRightOf="true"
+        在某控件上面：android:layout_above="@id/id_name"
+        在某控件下面：android:layout_below="@id/id_name"
+        
+        在父布局竖直方向居中：android:layout_centerVertical="true"
+        在父布局水平方向居中：android:layout_centerHorizontal="true"
+        在父布局正中间：android:layout_centerInParent="true"
+```
+  
   
 除了相对于兄弟控件的位置，我们还可以让一个控件相对于父布局进行调整，比如在左下角，在右边中间，在正中间等  
 具体属性如下，大家可以自己尝试  
@@ -254,8 +267,8 @@ android:layout_margin="10dp"
         在父布局正中间：android:layout_centerInParent="true"
 ```
 
-尝试同时在一个控件中设置**android:layout_alignParentRight="true"**和**android:layout_alignParentLeft="true"**，或0同时设置**android:layout_alignParentTop="true"**和**android:layout_alignParentBottom="true"**，看看会发生什么  
-尝试同时在一个控件中设置**android:layout_centerVertical="true"**和**android:layout_centerHorizontal="true"**，看看又会发生什么  
+尝试同时在一个控件中设置**android:layout_alignParentRight="true"** 和 **android:layout_alignParentLeft="true"** ，或0同时设置**android:layout_alignParentTop="true"** 和**android:layout_alignParentBottom="true"** ，看看会发生什么  
+尝试同时在一个控件中设置**android:layout_centerVertical="true"** 和 **android:layout_centerHorizontal="true"** ，看看又会发生什么  
 
 ### 视图组ViewGroup
 有了控件和布局的概念，就可以很简单理解视图组了  
@@ -412,7 +425,7 @@ px（pixel 像素）：屏幕上的点，一般HVGA代表320x480像素。
 in（inch 英寸）：长度单位  
 mm（毫米）：长度单位  
 pt（磅）：1pt＝1/72英寸，用于印刷业，非常简单易用  
-**以上单位和设备分辨率有关，因此屏幕分辨率（屏幕大小）不同的设备可能会导致布局的错误（错位）**  
+**以上单位和设备分辨率有关，因此屏幕分辨率（屏幕大小）不同的设备可能会导致布局的错误/错位**  
 #### 与分辨率无关的度量单位
 dp（即独立密度像素dip : device independent pixels）：一种基于屏幕密度抽象长度单位  
 sp（与刻度无关的像素）：与dp类似，但是可以根据用户的字体大小首选项进行缩放
