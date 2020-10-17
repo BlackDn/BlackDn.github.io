@@ -158,7 +158,7 @@ android:layout_margin="10dp"
 </LinearLayout>
 ```
 
-![LinearLayout](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass5.png?raw=true)  
+![LinearLayout](https://s1.ax1x.com/2020/10/17/0qfN0U.png)  
 
 （尝试将TextView的width和height改成match_parent，看看会发生什么）  
 #### 相对布局RelativeLayout
@@ -237,7 +237,7 @@ android:layout_margin="10dp"
 </RelativeLayout>
 ```
 
-![RelativeLayout](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass6.jpg?raw=true)  
+![RelativeLayout](https://s1.ax1x.com/2020/10/17/0qftmT.png)  
 
 上面的text2中，**android:layout_toRightOf="@id/text1"** 表示它在text1的右边；  
 而text3中，**android:layout_below="@id/text1"** 和 **android:layout_toRightOf="@id/text1"** 表示他同时在text1右边和下面（右下方）  
@@ -359,7 +359,7 @@ android:layout_margin="10dp"
 ```
 
 
-![GroupView](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass7.jpg?raw=true)  
+![GroupView](https://s1.ax1x.com/2020/10/17/0qfU7F.png)  
 
 #### weight属性
 有了视图组之后，有了一个新的问题，我要如何让几个视图平分屏幕、或者等间距分布在屏幕上呢？  
@@ -412,7 +412,7 @@ android:layout_margin="10dp"
 </LinearLayout>
 ```
 
-![weight](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass8.jpg?raw=true)  
+![weight](https://s1.ax1x.com/2020/10/17/0qfdk4.png)  
 
 这时候会发现，三个LinearLayout可以平分我们的屏幕  
 如果调大某一个LinearLayout的weight，他就会占据更大的空间  
