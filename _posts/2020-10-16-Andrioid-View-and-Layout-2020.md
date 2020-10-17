@@ -23,14 +23,14 @@ UI即User Interface。手机屏幕上看到的所有东西都属于UI，而UI由
 屏幕上的UI界面全由控件拼接而成，拼接的方式由布局决定（竖着拼横着拼等）  
 就像ppt的文本框一样，我们看不见他们的边框，但是它就是有边框（当然可以通过设置背景等方法看到）  
 
-![分割后的控件](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass1.png?raw=true)  
+![分割后的控件](https://s1.ax1x.com/2020/10/16/0bqOXj.png)  
 
 以下是一些标签的示例  
 1. TextView：文本框  
 2. ImageView：图片
 3. Button：按钮
 
-![三种控件](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass2.png?raw=true)  
+![三种控件](https://s1.ax1x.com/2020/10/16/0bqLcQ.png)  
 
 这里可以看到他们的名字中既有大写字母又有小写字母，这就是**驼峰命名法**，详见**附录1**  
 #### 动手敲敲TextView
