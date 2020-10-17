@@ -81,7 +81,7 @@ ImageView是图片，那我的图片要放哪呢？ImageView要怎么找到我�
 在左边的项目结构中，我们可以在**res**中找到**drawable**这个目录，res（resource）表示资源目录，图片、布局等文件都放在这里，而**drawable**就是负责放文件的。  
 第一步，我们把图片拖进来，注意，图片文件名一定要**字母开头**  
 
-![资源文件夹](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass3.png?raw=true)  
+![资源文件夹](https://s1.ax1x.com/2020/10/16/0bqq1g.png)  
 
 第二步，我们在ImageView中，用他的src直接拿到这个图片（目录属性可以直接拿到**drawable**和**mipmap**下的图片，具体区别见**附录3**）  
 如果你的图片太大或太小，可以加一条“android:scaleType="centerCrop"”的属性，他会使图片放大或缩小至正好贴到屏幕  
@@ -110,7 +110,7 @@ android:layout_margin="10dp"
 
 效果是这样的，能分出哪个是padding，哪个是margin不？  
 
-![padding和margin](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Blog/FirstClass4.png?raw=true)  
+![padding和margin](https://s1.ax1x.com/2020/10/16/0bqb9S.png)  
 
 ### 布局Layout
 用户是看不到布局的，但是开发者要根据控件的排列方式来决定使用哪个布局  
