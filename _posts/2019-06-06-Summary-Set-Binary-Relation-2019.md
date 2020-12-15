@@ -8,7 +8,7 @@ header-img:     img/acg.gy_02.jpg
 catalog:      true
 tags:   
       - DiscreteMath
-      - Summary
+      - SchoolClass
 ---
 # 前言
 我好像找到了一种能正常现实图片的方法...虽然还是比较麻烦...不过我的Microsoft Edge不会图裂了，感动  
