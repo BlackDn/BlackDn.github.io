@@ -10,6 +10,7 @@ tags:
       - DiscreteMath
       - SchoolClass
 ---
+> "志之所趋，穷山距海，不可阻挡。"  
 # 前言
 我好像找到了一种能正常现实图片的方法...虽然还是比较麻烦...不过我的Microsoft Edge不会图裂了，感动  
 其实还是上传的GitHub，用开发人员工具扣出图片的utl，在前面加上"https://github.com/...."  
