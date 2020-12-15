@@ -8,7 +8,7 @@ header-img:   img/acg.gy_44.jpg
 catalog:  true
 tags:
       - DataStructure
-      - Summary
+      - SchoolClass
 ---
 > 2019-06-24 更新，增加散列表比较关键字的三个要素
 
