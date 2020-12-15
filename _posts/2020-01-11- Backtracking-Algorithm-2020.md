@@ -7,11 +7,11 @@ auther:       BlackDn
 header-img:   img/acg.gy_28.jpg
 catalog:      true
 tags:
-    - Summary
+    - SchoolClass
     - Algorithm
 ---
 
->"等风来，不如追风去"
+>"等风来，不如追风去。"
 
 # 前言
 也是一篇拖了好久的博客...感激在今天之内踩线发QwQ    
