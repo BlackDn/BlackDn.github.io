@@ -7,7 +7,7 @@ auther:   BlackDn
 header-img:   img/acg.gy_01.jpg 
 catalog:    true
 tags:
-      - Summary
+      - SchoolClass
       - DiscreteMath
 ---
 
@@ -16,7 +16,7 @@ tags:
 
 # 前言
 继二元关系后，果然图论还是来了...概念是真的无敌多，好在各自关联性比较强，方便记忆（也更方便混淆）  
-明天是最后的离散数学了，学完就能和小蝶去玩啦~QwQ
+明天是最后的离散数学了，学完就能出去玩啦~QwQ  
 # 图
 ### 概念
 1. ψ(e)=<v1，v2>：e是连接v1，v2的边。无向图中v1，v2均既是起点也是终点；有向图中v1为起点，v2为终点
