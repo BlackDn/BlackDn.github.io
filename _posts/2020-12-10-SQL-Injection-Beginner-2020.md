@@ -1,6 +1,6 @@
 ---
 layout:       post  
-title:        SQL Injection 从入门到理解  
+title:        SQL Injection 从入门到不精通  
 subtitle:     详细分析SQL注入，从DVWA和自己写的页面入手，还有防御方法噢  
 date:         2020-12-10  
 auther:       BlackDn  
