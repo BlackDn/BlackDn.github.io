@@ -19,7 +19,7 @@ tags:
 然后周末想去看罗小黑，等了好久，点映的时候没上到这边的电影院，好遗憾哦  
 # AndroidX是什么？
 之前敲码的时候总是报错，几乎是我新建的所有工程都有这个问题，这可把我苦恼坏了  
-![Migrate](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_AndroidX/Bug.png?raw=true)  
+![Bug](https://s3.ax1x.com/2020/12/20/rasrfx.png)  
 主要是Nullable和NonNull的声明总是出错  
 万能方法ALT+ENTER也只是指标不治本，新建出空的Nullable和NonNull。  
 一筹莫展的时候，我发现我导入的库是  
@@ -87,7 +87,7 @@ all new development will be included in only AndroidX versions 1.0.0 and higher.
 ## 进行迁移
 当然，需要我们对之前的项目进行迁移。回到一开始的问题，我对于我这个报错的地方要怎么办呢？  
 最方便快捷的方法是用Android Studio的一键迁移，项目名右击 -> Refactor -> Migrate to AndroidX  
-![Migrate](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_AndroidX/Migrate.jpg?raw=true)  
+![Migrate](https://s3.ax1x.com/2020/12/20/rasDt1.png)  
 当然，可能出现一些错误需要我们手动去调试，基本上是一些命名问题或者重名问题等小问题。  
 另外，Android Studio还会将你原来的项目备份成一个zip文件，这样即使迁移之后的代码出现了问题你还可以随时还原回之前的代码。 
 ## 解决我的bug
