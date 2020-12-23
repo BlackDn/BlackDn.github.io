@@ -4,11 +4,13 @@ title:        软件工程期末复习
 subtitle:     看书没空，不如这份大纲（雾）
 date:         2020-12-23  
 auther:       BlackDn  
-header-img:   img/acg.ggy_13.jpg
+header-img:   img/acg.ggy_10.jpg
 catalog:      true  
 tags:  
     - SchoolClass
 ---
+
+> "凋零的是那花，不是春天。"
 
 # 前言
 本来是期末复习用的，但是写到一半发现只用看那些mark的章节，而我全看了...  
