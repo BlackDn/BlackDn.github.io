@@ -1,7 +1,7 @@
 ---
 layout:       post  
 title:        软件工程期末复习
-subtitle:     看书没空，不如这份大纲（雾）
+subtitle:     看书没用，不如这份大纲（雾）
 date:         2020-12-23  
 auther:       BlackDn  
 header-img:   img/acg.ggy_10.jpg
