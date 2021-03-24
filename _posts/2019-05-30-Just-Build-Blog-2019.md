@@ -4,7 +4,7 @@ title:    个人博客的初步建成
 subtitle:   上传图片的坑踩得我自闭！
 date:     2019-05-30
 auther:   BlackDn
-header-img:     img/acg.gy_23.jpg
+header-img:     img/X148_015.jpg  
 catalog:    true
 tags:
         - Blog
