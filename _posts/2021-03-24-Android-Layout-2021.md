@@ -4,7 +4,7 @@ title:        LinearLayout，RelativeLayout和ConstraintLayout
 subtitle:     主要是ConstraintLayout，顺手对比一下  
 date:         2021-03-24  
 auther:       BlackDn  
-header-img:   img/acg.ggy_10.jpg
+header-img:   img/acg.ggy_04.jpg  
 catalog:      true  
 tags:  
     - Android
