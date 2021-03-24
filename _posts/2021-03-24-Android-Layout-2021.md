@@ -1,7 +1,7 @@
 ---
 layout:       post  
-title:        LinearLayout，RelativeLayout和ConstraintLayout  
-subtitle:     主要是ConstraintLayout，顺手对比一下  
+title:        Android三个常用布局  
+subtitle:     主要是ConstraintLayout，顺手对比一下LinearLayout和RelativeLayout  
 date:         2021-03-24  
 auther:       BlackDn  
 header-img:   img/acg.ggy_04.jpg  
