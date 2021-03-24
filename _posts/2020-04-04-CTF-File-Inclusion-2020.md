@@ -4,7 +4,7 @@ title:        CTF-文件包含漏洞
 subtitle:     CTF-Web-php文件包含漏洞的小结
 date:         2020-04-04
 auther:       BlackDn
-header-img:   img/acg.gy_25.jpg
+header-img:   img/acg.ggy_17.jpg  
 catalog:      true
 tags:
     - CTF
