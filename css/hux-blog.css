@@ -105,10 +105,16 @@
   font-weight: bold;
 }
 
-.side-catalog .catalog-body .h2_nav,
+.side-catalog .catalog-body .h2_nav{
+  margin-left: 0;
+  font-size: 15px;
+  font-weight: bold;
+  padding-left:10px;
+}
 .side-catalog .catalog-body .h3_nav {
   margin-left: 0;
   font-size: 13px;
+  padding-left:15px;
   font-weight: bold;
 }
 .side-catalog .catalog-body .h4_nav {
