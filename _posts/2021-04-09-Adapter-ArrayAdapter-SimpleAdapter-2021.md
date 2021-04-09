@@ -21,7 +21,7 @@ tags:
 能理顺的话我加把劲整理一下搞定自定义Adapter   
 ## Adapter：ArrayAdapter和SimpleAdapter适配ListView
 先简单接收下Adapter的概念和ListView
-### Adapter
+#### Adapter
 Adapter其实就是一个桥梁，他连接了数据和布局，让数据能够显示在特定布局上  
 为什么需要连接数据和布局呢？  
 因为如ListView，GridView等AdapterView，他们含有很多个小的item项，每个item项的内容都不相同，而我们难以直接在布局文件中直接对其进行设置。  
@@ -34,7 +34,7 @@ Adapter其实就是一个桥梁，他连接了数据和布局，让数据能够�
 | SimpleAdapter       | 简单适配器（名字简单用起来不简单），相比ArrayAdapter，可以通过Map映射多个不同类型数据，实现比较复杂的布局 |
 | SimpleCursorAdapter | Cursor是Android的一个接口，接受来自数据库的数据并进行操作。因此如果数据源来自数据库则常用这个Adapter     |
 
-### ListView
+#### ListView
 ListView作为贯穿全场的龙套，这里介绍下  
 相比RecyclerView，ListView更加简单，但功能也比较受限。  
 ListView能简单地实现纵向列表，而RecyclerView能相对简单地实现横向列表、瀑布流等布局  
@@ -139,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
 即便是其他的构造方法，也都规定了**\<String\>的泛型**  
 所以很遗憾不能传入图片了QAQ， 不过虽然ArrayAdapter不行，还有其他Adapter可以呢  
 
-![1](https://z3.ax1x.com/2021/04/09/cUZWCj.jpg)  
+![1](https://z3.ax1x.com/2021/04/09/cUmWXq.jpg)  
 
 最后的效果是这样，每个item只有一行文字  
 
-![2](https://z3.ax1x.com/2021/04/09/cUZ25Q.png)  
+![2](https://z3.ax1x.com/2021/04/09/cUm21s.png)  
 
 #### 小结
 用ArrayAdapter适配ListView可以分为以下几个步骤：  
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 最后的效果是这样  
-![3](https://z3.ax1x.com/2021/04/09/cUZgUg.png)    
+![3](https://z3.ax1x.com/2021/04/09/cUmRcn.png)    
 
 
 #### 小结
