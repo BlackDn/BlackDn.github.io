@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
 最后的效果是这样，每个item只有一行文字  
 
-![2](https://z3.ax1x.com/2021/04/09/cUm21s.png)  
+![2](https://z3.ax1x.com/2021/04/09/cU0HeK.png)  
 
 #### 小结
 用ArrayAdapter适配ListView可以分为以下几个步骤：  
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 最后的效果是这样  
-![3](https://z3.ax1x.com/2021/04/09/cUmRcn.png)    
+![3](https://z3.ax1x.com/2021/04/09/cU0bdO.png)    
 
 
 #### 小结
