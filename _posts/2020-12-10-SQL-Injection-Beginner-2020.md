@@ -333,7 +333,7 @@ ID为（上面输入的一大串）的用户名为admin
 
 ID为（上面输入的一大串）的用户名为id,account,password
 ```
-（这一点卡了我好久，结果发现DVWA的Medium级别的SQL注入有这点，哭了）
+（这一点卡了我好久，结果发现DVWA的Medium级别的SQL注入有这点，哭了）  
 发现表中有三个字段，**id，account，password**
 
 #### 7. 获取字段内容
