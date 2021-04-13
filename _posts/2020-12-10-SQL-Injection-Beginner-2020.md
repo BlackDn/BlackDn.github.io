@@ -35,7 +35,7 @@ SQL注入的分类多种多样，有根据**注入位置**分为GET注入、POST
 [**参考2**](https://blog.csdn.net/weixin_45116657/article/details/100010420)给出了DVWA所有难度的SQL注入过程，很详细的，可以看看。  
   
 先输入个1，可以正常查询  
-![输入1查询](https://s3.ax1x.com/2020/12/10/riVA9f.png)  
+![1](https://z3.ax1x.com/2021/04/13/cyVlz8.png)  
 
 #### 1. 判断注入点是否存在及其类型
 第一步是检测是否存在注入点，具体判断注入点的方法见[**参考3**](https://blog.csdn.net/slip_666/article/details/79039506)，在此我们进行如下输入  
@@ -46,7 +46,7 @@ check the manual that corresponds to your MySQL server version for the right syn
 输入“1' or '1' = '1”，显示全部记录  
 输入“1' or '1' = '2”，正常显示查询，结果只有id=1（上面那张图）  
 ```
-![显示全部信息](https://s3.ax1x.com/2020/12/10/riVVgS.png)    
+![all](https://z3.ax1x.com/2021/04/13/cyV3QS.png)    
 
 由此可以判断，这里**存在注入点**，而且是**字符型注入点**，即后台处我们输入的数据（看下面源码，即'$id'）被引号引起来了  
 
@@ -148,7 +148,7 @@ Surname: dvwa
 对于数据库5.0以上的版本，存在information_schema数据库，这个库保存了Mysql服务器所有数据库的信息，如数据库名，数据库的表等信息  
 这是我数据库里这个表的信息（不要吐槽字体！）  
 
-![information_schema数据库](https://s3.ax1x.com/2020/12/10/riVZjg.png)  
+![information_schema](https://z3.ax1x.com/2021/04/13/cyVYZj.png)  
 
 事实上，其中的**TABLES表**存着所有表的信息，**COLUMNS表**存着所有字段的信息  
 通过这个数据库，我们能够可以获取现在使用的数据库的表名和字段名（理论上还可以获得所有数据库、表、字段名）  
@@ -229,14 +229,14 @@ Surname: 5f4dcc3b5aa765d61d8327deb882cf99
 根据之前确定的位置，我们可以知道，**First name**位置显示的是**user**信息，**Surname**位置显示的是**password**信息  
 
 我们拿最后一个去解密看看，忙猜md5加密，要是猜不中就猜hash加密等，然后一个个去尝试碰撞解密  
-![进行md5解密](https://s3.ax1x.com/2020/12/10/riVE38.png)  
+![md5](https://z3.ax1x.com/2021/04/13/cyVGLQ.png)  
 从而得到明文密码password  
 
 ## 做个小练习
 然后自己写一个简单的页面进行尝试，这也是网络攻防课程的报告内容（虽然课上不会做课后恶补才做出来）  
 源码和数据库内容放后面  
 
-![自己的页面](https://s3.ax1x.com/2020/12/10/riVF4P.png)  
+![self](https://z3.ax1x.com/2021/04/13/cyV8sg.png)  
 
 #### 1. 判断注入点是否存在及其类型
 先确定注入点  
