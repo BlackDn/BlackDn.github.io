@@ -37,7 +37,7 @@ SQL注入的分类多种多样，有根据**注入位置**分为GET注入、POST
 先输入个1，可以正常查询  
 ![1](https://z3.ax1x.com/2021/04/13/cyVlz8.png)  
 
-#### 1. 判断注入点是否存在及其类型
+###### 1. 判断注入点是否存在及其类型
 第一步是检测是否存在注入点，具体判断注入点的方法见[**参考3**](https://blog.csdn.net/slip_666/article/details/79039506)，在此我们进行如下输入  
 
 ```
@@ -72,7 +72,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '$id';
 所以只有user_id = '1'成立才成功查询
 ```
 
-#### 2. 检测字段数
+###### 2. 检测字段数
 我们假装不知道源码，看看这条查询语句查找了多少字段（看了源码我们知道答案是两个，first_name和last_name）  
 
 ```
@@ -96,7 +96,7 @@ order by 可以将查询结果根据某字段排序，order by 1就说明根据�
 而输入order by 3，因为一共只有两个字段，所以报错。
 由此分析出共查询到2个字段
 ```
-#### 3. 确定显示位置
+###### 3. 确定显示位置
 其实就是确定我们之后注入的查询结果分别在页面的哪个地方被显示  
 如果上一步发现只查询了一个字段，那么其实这一步就可以不做了，只有一个位置，还能在哪显示？  
 
@@ -125,7 +125,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '1' union select 1,2#';
 因为union select没有查询的表名，所以输入即结果，1和2，然后根据1和2的显示位置确定其和查询语句的对应关系
 ```
 
-#### 4. 获取数据库名、版本等信息
+###### 4. 获取数据库名、版本等信息
 然后可以显示数据库版本、数据库名等信息  
 
 ```
@@ -144,7 +144,7 @@ Surname: dvwa
   
 这里就比较简单了，**version()**和**database()**是mysql的内置函数，可以显示当前数据库的版本和当前的数据库名。再结合union select进行显示即可  
 
-#### 5. 获取表名
+###### 5. 获取表名
 对于数据库5.0以上的版本，存在information_schema数据库，这个库保存了Mysql服务器所有数据库的信息，如数据库名，数据库的表等信息  
 这是我数据库里这个表的信息（不要吐槽字体！）  
 
@@ -173,7 +173,7 @@ Surname: guestbook,users
 **information_schema.tables**表示我们对**information_schema数据库**中的**tables表**进行查询，这个表中的**table_schema字段**说明该记录的表对应哪个数据库，我们用**table_schema=database()**获取所有数据库为**database()**的表  
 从而得到结果：guestbook和user  
 
-#### 6. 获取字段名
+###### 6. 获取字段名
 有了表名，我们就可以查看表中有哪些字段  
 
 ```
@@ -194,7 +194,7 @@ Surname: avatar,failed_login,first_name,last_login,last_name,password,user,user_
 
 结果发现user表中有很多字段但最让我们眼睛一亮的是**user和password字段**  
 
-#### 7. 获取字段内容
+###### 7. 获取字段内容
 有了表名，有了字段名，我们就可以获取其中的内容了  
 
 ```
@@ -238,7 +238,7 @@ Surname: 5f4dcc3b5aa765d61d8327deb882cf99
 
 ![self](https://z3.ax1x.com/2021/04/13/cyV8sg.png)  
 
-#### 1. 判断注入点是否存在及其类型
+###### 1. 判断注入点是否存在及其类型
 先确定注入点  
 
 ```
@@ -263,14 +263,14 @@ $sql = "SELECT account FROM user WHERE id=$id AND password=$password";
 输入“1'”：$sql = "SELECT account FROM user WHERE id=1' AND password=$password";
 这样就会因为括号不匹配而报错了
 ```
-#### 2. 判断查询字段数
+###### 2. 判断查询字段数
 ```
 输入“1 order by 1#”，显示“ID为1 order by 1#的用户名为admin”
 输入“1 order by 2#”，显示“没有ID为1 order by 2#的用户”
 ```
 **得知只查询了一个字段（从源码看出只查询一个account）**  
 
-#### 3. 确定显示位置
+###### 3. 确定显示位置
 然后判断显示位置（其实不用判断，都只有一个位置，还能在哪显示）
 
 ```
@@ -280,7 +280,7 @@ ID为1 union select 1的用户名为admin
 ID为1 union select 1的用户名为1
 ```
 
-#### 4. 显示版本、数据库名等信息
+###### 4. 显示版本、数据库名等信息
 
 ```
 输入“1 union select version()#”，显示如下
@@ -295,7 +295,7 @@ ID为1 union select database()#的用户名为blog
 ```
 **得知数据库软件版本为5.1.28，使用的数据库名为blog**  
 
-#### 5. 获取表名
+###### 5. 获取表名
 然后开始爆表
 
 ```
@@ -309,7 +309,7 @@ ID为（上面输入的一大串）的用户名为user
 ```
 **得到表名为user**  
 
-#### 6. 获取字段名
+###### 6. 获取字段名
 继续爆字段  
 爆字段的时候要注意一点，因为我们在查询的时候要写入表名，根据上面的经验，我们很自然会输入  
 
@@ -336,7 +336,7 @@ ID为（上面输入的一大串）的用户名为id,account,password
 （这一点卡了我好久，结果发现DVWA的Medium级别的SQL注入有这点，哭了）  
 发现表中有三个字段，**id，account，password**
 
-#### 7. 获取字段内容
+###### 7. 获取字段内容
 肯定选择查看**password字段**的内容
 
 ```
