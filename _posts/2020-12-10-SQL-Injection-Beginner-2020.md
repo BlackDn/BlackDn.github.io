@@ -35,7 +35,7 @@ SQL注入的分类多种多样，有根据**注入位置**分为GET注入、POST
 [**参考2**](https://blog.csdn.net/weixin_45116657/article/details/100010420)给出了DVWA所有难度的SQL注入过程，很详细的，可以看看。  
   
 先输入个1，可以正常查询  
-![1](https://z3.ax1x.com/2021/04/13/cyVlz8.png)  
+![1](https://z3.ax1x.com/2021/04/13/cyV3QS.png)  
 
 ###### 1. 判断注入点是否存在及其类型
 第一步是检测是否存在注入点，具体判断注入点的方法见[**参考3**](https://blog.csdn.net/slip_666/article/details/79039506)，在此我们进行如下输入  
@@ -44,9 +44,9 @@ SQL注入的分类多种多样，有根据**注入位置**分为GET注入、POST
 输入“1'”，报错“You have an error in your SQL syntax; 
 check the manual that corresponds to your MySQL server version for the right syntax to use near ''1''' at line 1”  
 输入“1' or '1' = '1”，显示全部记录  
-输入“1' or '1' = '2”，正常显示查询，结果只有id=1（上面那张图）  
+输入“1' or '1' = '2”，正常显示查询，结果只有id=1  
 ```
-![all](https://z3.ax1x.com/2021/04/13/cyV3QS.png)    
+![all](https://z3.ax1x.com/2021/04/13/cyd4L4.png)    
 
 由此可以判断，这里**存在注入点**，而且是**字符型注入点**，即后台处我们输入的数据（看下面源码，即'$id'）被引号引起来了  
 
@@ -236,7 +236,7 @@ Surname: 5f4dcc3b5aa765d61d8327deb882cf99
 然后自己写一个简单的页面进行尝试，这也是网络攻防课程的报告内容（虽然课上不会做课后恶补才做出来）  
 源码和数据库内容放后面  
 
-![self](https://z3.ax1x.com/2021/04/13/cyV8sg.png)  
+![self](https://z3.ax1x.com/2021/04/13/cyVlz8.png)  
 
 ###### 1. 判断注入点是否存在及其类型
 先确定注入点  
@@ -502,7 +502,7 @@ INSERT INTO `user` (`id`, `account`, `password`) VALUES
 ```
 
 最后测试一下  
-![防止注入](https://s3.ax1x.com/2020/12/10/riVnBj.png)  
+![fail](https://z3.ax1x.com/2021/04/13/cyV8sg.png)  
 可以看到成功防止注入  
   
 PDO的本质思想是将查询语句和输入数据划分明显的界限  
