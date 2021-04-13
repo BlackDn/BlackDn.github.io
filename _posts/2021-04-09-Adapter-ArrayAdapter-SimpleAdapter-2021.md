@@ -1,7 +1,7 @@
 ---
 layout:       post  
 title:        Adapter：ArrayAdapter和SimpleAdapter适配ListView
-subtitle:     一脚跨进Adapter的大门（初步理解，为自定义Adapter铺垫！）  
+subtitle:     一脚跨进Adapter的大门  
 date:         2021-04-09  
 auther:       BlackDn  
 header-img:   img/acg.ggy_35.jpg 
@@ -13,7 +13,8 @@ tags:
 > "各人下雪，各有各的隐晦与皎洁。"  
 
 # 前言
-一脚跨入adapter的大门  
+本来想折腾自定义Adapter的，结果发现自己连系统自带的Adapter都不会用... 
+  
 在Android入门的时候，Adapter是一个比较大的坎  
 从这里开始Android变得抽象而又有些复杂，于是打算试试能不能把Adapter这块给整理一下  
 今天就邀请ListView作为嘉宾，用一用ArrayAdapter和SimpleAdapter  
