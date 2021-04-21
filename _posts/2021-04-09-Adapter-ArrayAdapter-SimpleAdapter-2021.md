@@ -21,7 +21,7 @@ tags:
 不过他们都是官方定义好的Adapter，用法已经固定  
 能理顺的话我加把劲整理一下搞定自定义Adapter   
 ## Adapter：ArrayAdapter和SimpleAdapter适配ListView
-先简单接收下Adapter的概念和ListView
+先简单介绍下Adapter的概念和ListView
 #### Adapter
 Adapter其实就是一个桥梁，他连接了数据和布局，让数据能够显示在特定布局上  
 为什么需要连接数据和布局呢？  
@@ -30,7 +30,7 @@ Adapter其实就是一个桥梁，他连接了数据和布局，让数据能够�
 
 |        适配器        |                                               简介                                                |
 | ------------------- | ------------------------------------------------------------------------------------------------- |
-| BaseAdapter         | 基础适配器，是一个抽象类，ArrayAdapter大多时候自定义适配器也是继承他                                   |
+| BaseAdapter         | 基础适配器，是一个抽象类，大多自定义适配器的时候也是继承他                                   |
 | ArrayAdapter        | 比较简单，只能显示一行文本，不过可以使用泛型结构（\<String\>泛型）                                     |
 | SimpleAdapter       | 简单适配器（名字简单用起来不简单），相比ArrayAdapter，可以通过Map映射多个不同类型数据，实现比较复杂的布局 |
 | SimpleCursorAdapter | Cursor是Android的一个接口，接受来自数据库的数据并进行操作。因此如果数据源来自数据库则常用这个Adapter     |
