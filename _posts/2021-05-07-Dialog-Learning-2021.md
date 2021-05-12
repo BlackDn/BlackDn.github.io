@@ -22,8 +22,8 @@ tags:
 代码已经上传了，有兴趣的小伙伴可以自己看看敲敲：[GIthub：DialogLearningDemo](https://github.com/BlackDn/DialogLearningDemo)  
 
 # 对话框
-AlertDialog.Builder和PopupWindow身为两大最常用的对话框，也是有点区别的  
-AlertDialog.Builder是很强硬的对话框，会在屏幕中间弹出，**并且会阻断主线程、抢夺焦点**，我们平时看到的后面变灰的弹窗基本都是这种，只有处理完弹窗才能回到主界面。也是由于这个特性我们选哟慎用AlertDialog.Builder  
+**AlertDialog.Builder** 和 **PopupWindow** 身为两大最常用的对话框，也是有点区别的  
+AlertDialog.Builder是很强硬的对话框，会在屏幕中间弹出，**并且会阻断主线程、抢夺焦点**，我们平时看到的后面变灰的弹窗基本都是这种，只有处理完弹窗才能回到主界面。也是由于这个特性我们要慎用AlertDialog.Builder  
 PopupWindow相对柔和些，他不会阻断主线程，一般会在按钮下面或者角落出现小框框，**不会阻断主线程，不会抢夺焦点**，你可以边看视频边点他  
 (为了加快图片加载所以压缩了画质)  
 ![123](https://z3.ax1x.com/2021/05/07/g1c2RS.jpg)  
