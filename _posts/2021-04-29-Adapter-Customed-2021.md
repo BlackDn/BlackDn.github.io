@@ -30,7 +30,7 @@ tags:
 因为BaseAdapter是一个抽象类，因此还要进一步实现抽象方法  
 刚新建完是这样，有四个需要重写的方法  
 
-```
+```java
 public class MyAdapter extends BaseAdapter {
     
     @Override
@@ -65,7 +65,7 @@ public class MyAdapter extends BaseAdapter {
 为了解决这个问题，我们还需要用到**LayoutInflater**，有的人叫它**布局反射器**，有的人叫它**布局服务**，我们就叫Inflater吧。  
 这里就先实例化一个Inflater，具体用法后面再说。  
 
-```
+```java
     //存放数据的变量
     List<Map<String, Object>> list;
     //Inflater
@@ -73,7 +73,7 @@ public class MyAdapter extends BaseAdapter {
 ```
 既然有了数据集，那么外面的数据总要导入到Adapter对象的List中吧，因此要给一个List的Setter方法  
 
-```
+```java
     //setter
     public void setList(List<Map<String, Object>> list) {
         this.list = list;
@@ -83,7 +83,7 @@ public class MyAdapter extends BaseAdapter {
 然后是**构造方法**，构造方法里是对**Inflater对象**的初始化。  
 因为之后需要拿到item的布局文件，这些资源文件需要通过**上下文Context**拿到，所以做一个含参的构造方法  
 
-```
+```java
     //构造方法
     public MyAdapter(Context context) {
         this.inflater = LayoutInflater.from(context);
@@ -98,7 +98,7 @@ public class MyAdapter extends BaseAdapter {
 所以List中有多少Map，就有多少个item。所以返回**List的size**  
 虽然这个方法我们自己不怎么用到，但是系统会去自动调用  
 
-```
+```java
     @Override
     public int getCount() {
         return list.size();
@@ -108,7 +108,7 @@ public class MyAdapter extends BaseAdapter {
 方法**getItem()** 也比较好理解，就像是一个getter方法。这里的i表示第i个item（以前是position），所以直接拿到第i个list返回出来就行了  
 不过这个方法用到得比较少  
 
-```
+```java
     @Override
     public Object getItem(int i) {
         return list.get(i);
@@ -118,7 +118,7 @@ public class MyAdapter extends BaseAdapter {
 方法**getItemId()** 似乎更简单，ItemId就表示这是第几个item，所以把 i 返回出去就行了  
 这个用的也少，奇怪简单的方法都不怎么用的  
 
-```
+```java
     @Override
     public long getItemId(int i) {
         return i;
@@ -134,7 +134,7 @@ public class MyAdapter extends BaseAdapter {
 因为我们的View需要和item布局绑定，这个时候就需要Inflater来载入布局了  
 这里第一个参数就是我们的item布局，第二参数ViewGroup用不到，所以填个null  
 
-```
+```java
 View my_view = inflater.inflate(R.layout.item, null);
 ```
 
@@ -146,7 +146,7 @@ View my_view = inflater.inflate(R.layout.item, null);
 不管是TextView还是ImageView，这些控件对象都是View的子类，所以调用**findViewById()** 后返回的View对象会自动转型成对应类型，因此在Activity中我们可以肆无忌惮地将实例化的对象用这个方法进行绑定  
 而此时此刻，我们在MyAdapter这个类中，他继承BaseAdapter，他们都没有**findViewById()** 这个方法，所以这里直接调用是不行的。Adapter没有，但是View有呀，这就是为什么我们要在前面加个view对象， 声明这是View类中**findViewById()** 的方法  
 
-```
+```java
     ImageView logo = my_view.findViewById(R.id.item_logo);
     TextView name = my_view.findViewById(R.id.item_name);
     TextView sex = my_view.findViewById(R.id.item_sex);
@@ -158,7 +158,7 @@ View my_view = inflater.inflate(R.layout.item, null);
 所以是这样（外部Map数据和之前SimpleAdapter的一样，就不重复了，完整代码会在最后，可以对着看）  
 最后把我们这个View对象也给返回出来，MyAdapter就算完工了  
 
-```
+```java
     Map map = list.get(i);
     
     logo.setImageResource((Integer) map.get("logo"));
@@ -169,7 +169,7 @@ View my_view = inflater.inflate(R.layout.item, null);
 ```
 
 #### MyAdapter完整代码  
-```
+```java
 public class MyAdapter extends BaseAdapter {
     //存放数据的变量
     List<Map<String, Object>> list;
@@ -225,7 +225,7 @@ public class MyAdapter extends BaseAdapter {
 在MainActivity中代码相对简单，Map中的数据可以看后面的完整代码，这里省略  
 我们先实例化一个MyAdapter对象，然后把含有数据的List给放进来  
 
-```
+```java
     MyAdapter myAdapter = new MyAdapter(this);
     myAdapter.setList(list);
     //关联
@@ -233,7 +233,7 @@ public class MyAdapter extends BaseAdapter {
 ```
 
 #### MainActivity代码
-```
+```java
 public class MainActivity extends AppCompatActivity {
     ListView listView;
 
@@ -321,7 +321,7 @@ ConvertView实际上就是**getView方法的第二个参数**，在以前的AS�
 如果没有，那么只能老老实实给ConvertView整一个新的view对象（用inflate方法），如果有那么系统会自动调用，我们就不用new了  
 当然，这里绑定布局我们还是用findViewById，这部分我们在后面进一步进行优化  
 
-```
+```java
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
@@ -354,7 +354,7 @@ ViewHolder其实是我们自己定义的一个类，他的使用思路其实和C
 简单的ViewHolder是我们自定义的一个类，里面甚至不需要任何方法，只用几个属性分别代表保存的控件对象即可  
 当然如果对某些控件需要实现一些点击、长按等逻辑也可以在这里实现  
 
-```
+```java
     public class ViewHolder{
         ImageView logo;
         TextView name;
@@ -368,7 +368,7 @@ ViewHolder其实是我们自己定义的一个类，他的使用思路其实和C
 如果ConvertView不为空，说明里面已经存了一个View对象可以用，而且这个View对象已经绑定了item布局，以及一个ViewHolder。所以我们让当前的ViewHolder等于这个View所绑定的ViewHolder就好了。  
 代码就像这样：  
 
-```
+```java
     if (view == null) {
         view = inflater.inflate(R.layout.item,null);
         holder = new ViewHolder();
@@ -384,7 +384,7 @@ ViewHolder其实是我们自己定义的一个类，他的使用思路其实和C
 
 经过上面的操作，不管一开始ConvertView里有没有东西，现在我们都有了一个绑定好布局和ViewHolder的View对象，所以接下来的操作就是让ViewHolder中的控件对象获取数据了  
 
-```
+```java
     Map map = list.get(i);
     holder.logo.setImageResource((Integer) map.get("logo"));
     holder.name.setText((String) map.get("name"));
@@ -397,7 +397,7 @@ ViewHolder其实是我们自己定义的一个类，他的使用思路其实和C
 
 #### 完整代码
 
-```
+```java
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder = null;
