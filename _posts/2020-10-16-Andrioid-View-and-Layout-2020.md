@@ -41,7 +41,7 @@ UI即User Interface。手机屏幕上看到的所有东西都属于UI，而UI由
 #### 动手敲敲TextView
 每个控件，在代码中都是由**标签**来控制，这就是**xml语法**（所以控件和布局都在 **.xml** 文件中实现）  
 
-```
+```xml
     <TextView
         android:text="Happy Birthday"
         android:layout_width="150dp"
@@ -70,7 +70,8 @@ android:layout_height="75dp"
 
 当然还有背景框、字体大小、字体颜色，可以自己玩玩  
 注意涉及到颜色，除了统给我们定义好的（比如"@android:color/darker_gray"），我们多用RBG模式，比如"#aa00ff"，aa表示R（红色深度），00表示G（绿色深度），ff表示B（蓝色深度）。RGB实际上就是把三种颜色混在一起调和成新颜色。
-```
+
+```xml
     <TextView
         android:text="Happy Birthday"
         android:layout_width="wrap_content"
@@ -80,6 +81,7 @@ android:layout_height="75dp"
         android:textColor="#aa00ff"
         />
 ```
+
 #### 动手敲敲ImageView
 ImageView和TextView非常非常非常相似，但有一点相信大家都能想到  
 ImageView是图片，那我的图片要放哪呢？ImageView要怎么找到我的图片呢？  
@@ -91,7 +93,7 @@ ImageView是图片，那我的图片要放哪呢？ImageView要怎么找到我�
 第二步，我们在ImageView中，用他的src直接拿到这个图片（目录属性可以直接拿到**drawable**和**mipmap**下的图片，具体区别见**附录3**）  
 如果你的图片太大或太小，可以加一条“android:scaleType="centerCrop"”的属性，他会使图片放大或缩小至正好贴到屏幕  
 
-```
+```xml
     <ImageView
         android:src="@drawable/mememe"
         android:layout_width="wrap_content"
@@ -126,7 +128,7 @@ android:layout_margin="10dp"
 （上面一大堆我也看不懂的代码是新建时自动生成的，别理他）  
 以**android:orientation="vertical"** 为例，我们可以看到，即使每个TextView后面还有位置，LinearLayout也会把接下来的TextView放到下面  
 
-```
+```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -174,7 +176,7 @@ android:layout_margin="10dp"
 当我们仅仅把布局改为RelativeLayout，我们发现三个TextView只剩下一个了  
 （这个时候可以把**android:orientation="vertical"** 也删了，这个属性在RelativeLayout中不起作用）  
 
-```
+```xml
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -198,7 +200,7 @@ android:layout_margin="10dp"
 而这个唯一标识控件的属性，就是**android:id**  
 然后，根据id来决定，当前控件应该贴着哪个控件  
 
-```
+```xml
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -286,7 +288,7 @@ android:layout_margin="10dp"
 比如，单纯一个LinearLayout是很不方便的，但是我们可以用竖直排版（vertical）的LinearLayout嵌套水平排版（horizontal）的LinearLayout  
 我们来做三个视图组，每个都是横向排列的LinearLayout  ，然后最外面包一个竖直排列的LinearLayout  
 
-```
+```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -372,7 +374,7 @@ android:layout_margin="10dp"
 这就需要我们的**android:layout_weight**属性，weight表示权重，所以权重越大的控件，在屏幕上的占比就要越大  
 我们给每个水平排列的LinearLayout 加个weight  
 
-```
+```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
