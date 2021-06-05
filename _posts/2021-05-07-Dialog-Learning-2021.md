@@ -57,7 +57,7 @@ Builder是AlertDialog的一个**静态内部类**，我们以此来构造并创�
 我们就从这种对话框入手，简单介绍一下AlertDialog.Builder的基础使用方法  
 布局从简，我们放个按钮，点击方法里显示对话框就行。不会有人不会放按钮不会写点击事件吧，不会吧不会吧？  
   
-```
+```java
     public void clickCommonBtn(View view) {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_launcher_foreground)
@@ -95,7 +95,7 @@ Calling this method does not display the dialog. If no additional processing is 
 除此之外，我们把所有方法进行连点，构造出这个对话框。这种方法常在**匿名对象**中使用，因为不能以**对象名.方法名**来调用方法。这本质上是一行代码。  
 要注意的是，只有当方法的返回值为其本身时能使用方法的连点。比如我们看看setIcon()的源码：  
 
-```
+```java
         public Builder setIcon(@DrawableRes int iconId) {
             P.mIconId = iconId;
             return this;
@@ -112,7 +112,7 @@ Calling this method does not display the dialog. If no additional processing is 
 在创建对话框前我们需要创建一个数组常量（final），用来存放列表显示的文字  
 然后用**setItems()** 方法处理每个项的点击事件  
 
-```
+```java
     public void clickListBtn(View view) {
         final String[] list = {"第一项", "第二项", "第三项", "第四项"};
         new AlertDialog.Builder(this)
@@ -146,7 +146,7 @@ Calling this method does not display the dialog. If no additional processing is 
 所以，为了获取用户最终选择的分数，我们就需要设置一个变量来存储用户的选择，在每次点击后进行修改，最后在确定按钮中根据这个分数进行逻辑处理  
 综上所述，代码是这样的：  
 
-```
+```java
     int score = 0;
     public void clickSingleChoiceBtn(View view) {
         final String[] list = {"一星太差了", "两星不太行", "三星一般般", "四星还不错", "五星炒鸡棒"};
@@ -193,7 +193,7 @@ Calling this method does not display the dialog. If no additional processing is 
 主要方法是**setMultiChoiceItems()**   
 当然我们可以先进行选择，最后遍历列表查看所有项是被选中还是没被选中，但这样似乎有点耗时、显得冗杂。于是我们可以动态地操作数组，点击某一项地时候，如果该项被勾选（返回true），则add进数组；如果被取消勾选（返回false），则从数组中remove出去  
 
-```
+```java
     ArrayList<Integer> choices = new ArrayList<Integer>();
     public void clickMultiChoicesBtn(View view) {
         final String[] list = {"选项1", "选项2", "选项3", "选项4", "选项5"};
@@ -236,7 +236,7 @@ Calling this method does not display the dialog. If no additional processing is 
 ##### 自定义布局
 先来个自定义布局，我命名为**layout_customized_dialog.xml**  
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -284,7 +284,7 @@ Calling this method does not display the dialog. If no additional processing is 
 ##### 构造自定义对话框
 在DialogActivity的按钮点击事件中，我们进行对话框的构建  
 
-```
+```java
     public void clickCustomizedCtn(View view) {
         //绑定布局的View
         View myView = LayoutInflater.from(this).inflate(R.layout.layout_customized_dialog, null);
@@ -325,7 +325,7 @@ Builder的**create()** 方法返回的是一个AlertDialog对象，因此我们�
 #### 1.2.1 日期选择对话框
 日期选择对话框用的是DatePickerDialog类，不过在使用前需要先实例化一个Calendar对象，用于获取当前时间，在设置默认值的时候用到  
 
-```
+```java
     public void clickDatePickerDialogBtn(View view) {
         Calendar calendar = Calendar.getInstance();
         new DatePickerDialog(this,
@@ -352,7 +352,7 @@ Builder的**create()** 方法返回的是一个AlertDialog对象，因此我们�
 #### 1.2.2 时间选择对话框
 时间选择对话框和日期选择对话框十分类似，开局一个Calendar用于获取当前时间  
 
-```
+```java
     public void clickTimePickerDialogBtn(View view) {
         Calendar calendar = Calendar.getInstance();
         new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
@@ -385,7 +385,7 @@ Handler是非常常用的工具类，特别是在子线程和主线程通信时�
   
 大致结构如下：
 
-```
+```java
     ProgressDialog progressDialog;    //声明ProgressDialog对象
     Handler handler = new Handler() {
         @Override
@@ -418,7 +418,7 @@ Handler是非常常用的工具类，特别是在子线程和主线程通信时�
 ##### 1.2.3(1) 环形进度对话框
 先来看环形进度对话框，我们在**showSpinnerProgress()** 中构建对话框。因为ProgressDialog已经在外面声明了，这里直接实例化就好了  
 
-```
+```java
     public void showSpinnerProgress() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("转圈圈加载");
@@ -439,7 +439,7 @@ Handler是非常常用的工具类，特别是在子线程和主线程通信时�
   
 构建完了后我们到点击事件里调用对话框的构建方法，再编写子线程，模拟耗时事件  
 
-```
+```java
     public void clickProgressSpinnerBtn(View view) {
         showSpinnerProgress();    //构建对话框
         //子线程
@@ -466,7 +466,7 @@ Handler是非常常用的工具类，特别是在子线程和主线程通信时�
 对话框构建好了，点击按钮后会构建对话框并启动子线程，最后就是Handler对返回消息的处理了  
 我们在子线程结束前给主线程的Handler发送了一个消息，希望主线程收到后关闭对话框，于是在Handler的**handleMessage()** 方法中调用ProgressDialog的**dismiss()** 方法即可  
 
-```
+```java
     Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -480,7 +480,7 @@ Handler是非常常用的工具类，特别是在子线程和主线程通信时�
 ###### 整体代码
 总的代码应该是这样：  
 
-```
+```java
     ProgressDialog progressDialog;
     Handler handler = new Handler() {
         @Override
@@ -520,7 +520,7 @@ Handler是非常常用的工具类，特别是在子线程和主线程通信时�
 这里以十秒为例，每过一秒就增加十分之一的进度，总量是十。  
 新写一个**showHorizontalProgress()** 方法作为水平进度对话框的构建方法  
 
-```
+```java
     public void showHorizontalProgress() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("水平进度条加载");
@@ -538,7 +538,7 @@ Handler是非常常用的工具类，特别是在子线程和主线程通信时�
   
 因为总量是10嘛，每过一秒就加一，所以改成十次循环就好。但是我们想要动态更新进度，每次循环结束后还要额外往主线程传值  
 
-```
+```java
     public void clickProgressHorizontalBtn(View view){
         showHorizontalProgress();
         new Thread() {
@@ -566,7 +566,7 @@ Message对象有许多属性，我们这里用一个**arg1**，传入**i** ，�
   
 最后来到Handler的处理方法**handleMessage()** 中，我们根据传来的Message的what值判断消息来自哪个线程  
 
-```
+```java
     Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -592,7 +592,7 @@ Message对象有许多属性，我们这里用一个**arg1**，传入**i** ，�
 注意水平进度条和环形进度条是共用ProgressDialog和Handler的，所以Handler里的代码是基于环形进度条进行修改的  
 而**showHorizontalProgress()** 和 **clickProgressHorizontalBtn()** 则是重新写的  
 
-```
+```java
     ProgressDialog progressDialog;
 
     Handler handler = new Handler() {
@@ -658,7 +658,7 @@ Message对象有许多属性，我们这里用一个**arg1**，传入**i** ，�
 AlertDialog的对话框都是显示在屏幕中间，非要你点完对话框才给你做其他事  
 而PopupWindow的下拉式对话框则，是以我们点击的按钮为**锚点**，在按钮下面显示一个小窗口对话框，即使不点这个小窗口，我们也可以做其他事，比如继续观看视频、点击其他按钮等  
 
-```
+```java
     public void clickPopupDownBtn(View view) {
         View myView = LayoutInflater.from(this).inflate(R.layout.layout_customized_dialog, null);
         PopupWindow popupWindow = new PopupWindow(myView, 600, 500);
@@ -682,7 +682,7 @@ AlertDialog的对话框都是显示在屏幕中间，非要你点完对话框才
 #### 2.2 定点式对话框
 定点式就是可以自己选择位置，所以和下拉式做一个区分，实际上也就最后的显示方法不同  
 
-```
+```java
     public void clickPopupLocationBtn(View view) {
         View myView = LayoutInflater.from(this).inflate(R.layout.layout_customized_dialog, null);
         PopupWindow popupWindow = new PopupWindow(myView, 600, 500);
@@ -706,7 +706,7 @@ view参数不多说；布局方式这里采用**Gravity.CENTER**，说明当前�
 新建一个Activity，我们等会让他以对话框的形式弹出  
 我新建了**DialogWindowActivity.java**，代码如下：  
 
-```
+```java
 public class DialogWindowActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -730,7 +730,7 @@ public class DialogWindowActivity extends Activity {
   
 别忘了在**Manifest**中注册这个Activity，同时在其中改变他的theme属性，改为系统自带的Dialog  
 
-```
+```xml
         <activity android:name=".DialogWindowActivity"
             android:theme="@android:style/Theme.Dialog"/>
 ```
@@ -738,7 +738,7 @@ public class DialogWindowActivity extends Activity {
 回到DialogActivity，也就是我们的主界面，在按钮的点击事件中我们启动这个对话框  
 因为是Activity，所以用到Intent进行跳转  
 
-```
+```java
     public void clickActivityAsDialogBtn(View view) {
         Intent intent = new Intent(this, DialogWindowActivity.class);
         startActivity(intent);
