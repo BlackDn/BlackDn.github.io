@@ -56,7 +56,7 @@ ListView常用属性有下（其实也不怎么常用）：
 #### 布局有个ListView
 在xml布局文件中咱创一个ListView
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -77,7 +77,7 @@ ListView常用属性有下（其实也不怎么常用）：
 #### 在Activity中创建Adapter并适配
 我们实例化ListView并让他和布局的ListView绑定  
 
-```
+```java
 public class MainActivity extends AppCompatActivity {
     ListView listView;
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
   
 我们来创建一个String数组来作为ListView每个item的显示内容，随便写点啥  
 
-```
+```java
     String[] data = {"我是1", "我是2", "我是3","我是4", "我是5"};
 ```
   
@@ -101,20 +101,20 @@ public class MainActivity extends AppCompatActivity {
 他本身有很多构造方法，常用的是传入三个参数，分别为：**上下文context，item的布局文件，每个item对应的数据（String数组）**  
 这里为了偷懒所以用了系统自带的布局**R.layout.simple_list_item_1**  
 
-```
+```java
     String[] data = {"我是1", "我是2", "我是3","我是4", "我是5"};
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data);
 ```
   
 最后调用listView的**setAdapter()**方法将ListView和ArrayAdapter相关联  
 
-```
+```java
     listView.setAdapter(adapter);
 ```
 
 ###### 完整的代码是这样
 
-```
+```java
 public class MainActivity extends AppCompatActivity {
     ListView listView;
 
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 #### 布局有个ListView
 在activity_main.xml主布局文件中咱创一个ListView  
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 因为item中如果含有按钮的话，按钮会抢夺焦点，导致点击按钮之外的地方没有反应（有反应的话整行是会变色的）  
 而这个属性则可以解决这个bug  
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
 然后是搞个数据源  
 这里利用Map存储所需数据的键值对，一个item的多个数据作为一个map，然后把这些map全部放进List中  
 
-```
+```java
         //数据源
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = new HashMap<String, Object>();
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
 键值对保存数据时采用**“关键字——值”**的形式，而在simpleAdapter中绑定时采用**“关键字——布局”**的形式  
 系统在运行时会根据关键字，找到对应的值，放到绑定的布局中  
 
-```
+```java
         //适配器
         String[] from = new String[] {"logo", "name", "sex", "age"};
         int[] to = new int[] {R.id.item_logo, R.id.item_name, R.id.item_sex, R.id.item_age};
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
   
 最后关联一下即可，这里略过  
 ###### 完整的代码是这样
-```
+```java
 public class MainActivity extends AppCompatActivity {
     ListView listView;
 
