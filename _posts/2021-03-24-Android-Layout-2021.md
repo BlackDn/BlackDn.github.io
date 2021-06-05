@@ -36,7 +36,7 @@ android:layout_weight="1"
 ![LinearLayout](https://z3.ax1x.com/2021/03/24/6bRQRP.jpg)  
 
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -154,7 +154,7 @@ android：layout_alignRight     //本控件的右边和某控件的有边对齐
 
 ![RelativeLayout](https://z3.ax1x.com/2021/03/24/6bRKPI.jpg)  
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -308,7 +308,7 @@ ConstrainLayout还有许多其他功能，比如给控件设置隐藏、目标�
 来做个简单的登录界面吧！  
 ![6](https://z3.ax1x.com/2021/03/24/6bRMGt.jpg)  
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
