@@ -216,7 +216,11 @@ public void btnClick(View view) {
 最后修改按钮的点击事件
 
 ```java
-    public void btnClick(View view) {        imageView.clearAnimation(); //清除动画        Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha_anim);        imageView.startAnimation(animation);    }
+    public void btnClick(View view) {        
+	imageView.clearAnimation(); //清除动画
+	Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha_anim);
+	imageView.startAnimation(animation);   
+    }
 ```
 
 一开始先用`clearAnimation()`清除一下ImageView正在进行的动画。如果用户点击太快，我们的动画还没执行完，会导致动画的一个叠加，往往效果会在我们的意料之外，所以每次点击时最好都清除一下动画效果。  
@@ -228,7 +232,13 @@ public void btnClick(View view) {
 代码实现其实也很简单，就是不需要创建XML动画资源文件了，我们可以直接修改按钮点击事件
 
 ```java
-    public void btnClick(View view) {        imageView.clearAnimation(); //清除动画        Animation animation = new AlphaAnimation(0.1f, 1.0f);        animation.setDuration(2000);        animation.setRepeatCount(2);        imageView.startAnimation(animation);    }
+    public void btnClick(View view) {
+	imageView.clearAnimation(); //清除动画   
+	Animation animation = new AlphaAnimation(0.1f, 1.0f);   
+	animation.setDuration(2000);      
+	animation.setRepeatCount(2);    
+	imageView.startAnimation(animation);  
+    }
 ```
 
 同样是启用 `Animation` 对象，不过这次我们不再调用工具类载入动画资源，而是实例化一个新的 `AlphaAnimation` 对象，参数分别是**起始透明度**和结束透明度，注意要是float类型  
@@ -245,7 +255,17 @@ public void btnClick(View view) {
 新建 res -> anim -> scale_anim.xml
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?><set xmlns:android="http://schemas.android.com/apk/res/android">    <scale        android:fromXScale="0"        android:fromYScale="0"        android:toXScale="2.0"        android:toYScale="2.0"        android:pivotX="50%"        android:pivotY="50%"        android:duration="2000"/></set>
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">   
+	<scale   
+	       android:fromXScale="0"      
+	       android:fromYScale="0"    
+	       android:toXScale="2.0"  
+	       android:toYScale="2.0"   
+	       android:pivotX="50%"       
+	       android:pivotY="50%"      
+	       android:duration="2000"/>
+</set>
 ```
 
 `fromX/YScale` 是初始状态的宽高大小，这里设置为0表示一开始的宽高是0，就是从一个点开始放大。  
@@ -258,7 +278,14 @@ public void btnClick(View view) {
 同样，不需要XML，我们只用修改点击事件里的代码
 
 ```java
-    public void btnClick(View view) {        imageView.clearAnimation(); //清除动画                Animation animation = new ScaleAnimation(0.0f, 2.0f, 0.0f, 2.0f,                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);        animation.setDuration(2000);        animation.setRepeatCount(2);        imageView.startAnimation(animation);    }
+    public void btnClick(View view) {     
+	imageView.clearAnimation(); //清除动画     
+	Animation animation = new ScaleAnimation(0.0f, 2.0f, 0.0f, 2.0f,
+		Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);   
+	animation.setDuration(2000);       
+	animation.setRepeatCount(2);      
+	imageView.startAnimation(animation);   
+    }
 ```
 
 这里用的子类是 `ScaleAnimation` ，他的前四个参数分别表示 `fromXScale`，`toXScale`，`fromYScale`，`toYScale` ，都是float类型  
@@ -274,7 +301,15 @@ public void btnClick(View view) {
 新建 res -> anim -> trans_anim.xml
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?><set xmlns:android="http://schemas.android.com/apk/res/android">    <translate        android:fromXDelta="100%"        android:fromYDelta="0"        android:toXDelta="0"        android:toYDelta="0"        android:duration="2000"/></set>
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"> 
+	<translate  
+		android:fromXDelta="100%"  
+		android:fromYDelta="0"     
+		android:toXDelta="0"       
+		android:toYDelta="0"   
+		android:duration="2000"/>
+</set>
 ```
 
 平移动画里，X/Y的起始位置和结束位置的参数比较讲究，对于一个控件来说，X/Y坐标原点就是其**左下角**。  
@@ -286,13 +321,23 @@ public void btnClick(View view) {
 然后在点击事件中修改传入的资源文件
 
 ```java
-    public void btnClick(View view) {        imageView.clearAnimation(); //清除动画        Animation animation = AnimationUtils.loadAnimation(this, R.anim.trans_anim);        imageView.startAnimation(animation);    }
+    public void btnClick(View view) {    
+	imageView.clearAnimation(); //清除动画
+	Animation animation = AnimationUtils.loadAnimation(this, R.anim.trans_anim);    
+	imageView.startAnimation(animation);  
+    }
 ```
 
 #### 代码实现
 
 ```java
-public void btnClick(View view) {    imageView.clearAnimation(); //清除动画    Animation animation = new TranslateAnimation(1080, 0,0,0);    animation.setDuration(2000);    animation.setRepeatCount(2);    imageView.startAnimation(animation);}
+public void btnClick(View view) {   
+	imageView.clearAnimation(); //清除动画  
+	Animation animation = new TranslateAnimation(1080, 0,0,0);  
+	animation.setDuration(2000); 
+	animation.setRepeatCount(2); 
+	imageView.startAnimation(animation);
+}
 ```
 
 子类`TranslateAnimation` 的构造方法中，四个参数分别代表 `fromXDelta`，`toXDelta`，`fromYDelta`，`toYDelta` 
@@ -307,7 +352,15 @@ public void btnClick(View view) {    imageView.clearAnimation(); //清除动画 
 新建 res -> anim -> rotate_anim.xml
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?><set xmlns:android="http://schemas.android.com/apk/res/android">    <rotate        android:fromDegrees="0"        android:toDegrees="360"        android:pivotX="50%"        android:pivotY="50%"        android:duration="2000"/></set>
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">  
+	<rotate   
+		android:fromDegrees="0"     
+		android:toDegrees="360"  
+		android:pivotX="50%"    
+		android:pivotY="50%"      
+		android:duration="2000"/>
+</set>
 ```
 
 这几个属性都比较好理解，`fromDegrees`和`toDegrees`分别代表起始和结束位置的角度，一般是0~360，表示转一圈。  
@@ -316,13 +369,24 @@ public void btnClick(View view) {    imageView.clearAnimation(); //清除动画 
 修改按钮点击事件，换个资源文件
 
 ```java
-    public void btnClick(View view) {        imageView.clearAnimation(); //清除动画        Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);        imageView.startAnimation(animation);    }
+    public void btnClick(View view) {  
+	imageView.clearAnimation(); //清除动画
+	Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);     
+	imageView.startAnimation(animation);    
+    }
 ```
 
 #### 代码实现
 
 ```java
-public void btnClick(View view) {    imageView.clearAnimation(); //清除动画    Animation animation = new RotateAnimation(0f, 360f,     		Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);    animation.setDuration(2000);    animation.setRepeatCount(2);    imageView.startAnimation(animation);}
+public void btnClick(View view) { 
+	imageView.clearAnimation(); //清除动画  
+	Animation animation = new RotateAnimation(0f, 360f,   
+		Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+	animation.setDuration(2000);    
+	animation.setRepeatCount(2);   
+	imageView.startAnimation(animation);
+}
 ```
 
 同理，用的是`RotateAnimation`，参数分别表示`fromDegrees`，`toDegrees`，`pivotX`，`pivotY`
@@ -338,7 +402,16 @@ public void btnClick(View view) {    imageView.clearAnimation(); //清除动画 
 先设置**进入动画**效果，新建 res -> anim -> trans_in.xml
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?><set xmlns:android="http://schemas.android.com/apk/res/android"    android:interpolator="@android:anim/accelerate_interpolator">    <translate        android:fromXDelta="100%"        android:fromYDelta="0"        android:toXDelta="0"        android:toYDelta="0"        android:duration="2000"/></set>
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"  
+     android:interpolator="@android:anim/accelerate_interpolator"> 
+	<translate      
+		android:fromXDelta="100%"    
+		android:fromYDelta="0"    
+		android:toXDelta="0"  
+		android:toYDelta="0"   
+		android:duration="2000"/>
+</set>
 ```
 
 因为这里动画的作用对象是Activity，所以用`100%` 正好是整个屏幕的宽度  
@@ -348,7 +421,16 @@ public void btnClick(View view) {    imageView.clearAnimation(); //清除动画 
 注意退出动画的对象是旧的Activity，我们要让他往左移动直到整体移出屏幕，所以终点X坐标设置为`-100%`
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?><set xmlns:android="http://schemas.android.com/apk/res/android"    android:interpolator="@android:anim/accelerate_interpolator">    <translate        android:fromXDelta="0"        android:fromYDelta="0"        android:toXDelta="-100%"        android:toYDelta="0"        android:duration="2000"/></set>
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+     android:interpolator="@android:anim/accelerate_interpolator">   
+	<translate    
+		android:fromXDelta="0"   
+		android:fromYDelta="0"      
+		android:toXDelta="-100%"     
+		android:toYDelta="0"      
+		android:duration="2000"/>
+</set>
 ```
 
 上面都用到了 `android:interpolator` 这个属性，即插值器，用来控制动画的执行速率。买一送一，在下面会介绍一下这玩意。
@@ -359,7 +441,11 @@ public void btnClick(View view) {    imageView.clearAnimation(); //清除动画 
 我们还是修改按钮的点击事件，反正用`Intent`搞个跳转Activity，能看到动画就行了
 
 ```java
-    public void btnClick(View view) {        Intent intent = new Intent(this, MainActivity.class);        startActivity(intent);        overridePendingTransition(R.anim.trans_in, R.anim.trans_out);    }
+    public void btnClick(View view) {  
+	Intent intent = new Intent(this, MainActivity.class);    
+	startActivity(intent);    
+	overridePendingTransition(R.anim.trans_in, R.anim.trans_out);
+    }
 ```
 
 注意`overridePendingTransition`一定要在`startActivity`之后调用，不然是没有效果的。
@@ -403,7 +489,8 @@ animation.setInterpolator(new AccelerateInterpolator());
 属性动画的核心类是 `ValueAnimator`，比如下面的代码实现了将一个值从0到3到1的平滑改变：
 
 ```java
-        ValueAnimator animator = ValueAnimator.ofFloat(0f, 3f, 1f);        animator.start();
+        ValueAnimator animator = ValueAnimator.ofFloat(0f, 3f, 1f);    
+	animator.start();
 ```
 
 实际上`ofFloat`后面可以传入任意多个参数，这个值会按顺序进行平滑变化，比如`ofFloat(0f, 3f, 1f, 2f, 5f...)`  
@@ -412,7 +499,11 @@ animation.setInterpolator(new AccelerateInterpolator());
 那么如何用`ObjectAnimator`来修改对象的属性值呢？还记得上面我们有个ImageView吧，我们来修改他的透明度吧
 
 ```java
-    public void btnClick(View view) {        		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imageView, "alpha", 1f, 0f, 1f);        objectAnimator.setDuration(2000);        objectAnimator.start();    }
+    public void btnClick(View view) {       
+	ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imageView, "alpha", 1f, 0f, 1f); 
+	objectAnimator.setDuration(2000); 
+	objectAnimator.start();  
+    }
 ```
 
 虽然是`ObjectAnimator`，不过还是`ofFloat`方法，传入的参数分别**对象、属性、变化值（任意多个）**。然后我们设置了动画的持续时间（`ValueAnimator`也可以设置事件），并启动动画。这里就体现了属性动画和之前的动画不同的地方：我们在补间动画中实现淡入淡出效果的时候是修改其颜色（RGBA），在这里则是直接修改透明度（alpha）  
@@ -439,7 +530,14 @@ animation.setInterpolator(new AccelerateInterpolator());
 比如我们让我们的`ImageView`边淡入淡出边旋转
 
 ```java
-    public void btnClick(View view) {                ObjectAnimator fadeInOutAnim = ObjectAnimator.ofFloat(imageView, "alpha", 1f, 0f, 1f);        ObjectAnimator rotateAnim = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);        AnimatorSet animatorSet = new AnimatorSet();        animatorSet.play(rotateAnim).with(fadeInOutAnim);        animatorSet.setDuration(2000);        animatorSet.start();    }
+    public void btnClick(View view) {         
+	ObjectAnimator fadeInOutAnim = ObjectAnimator.ofFloat(imageView, "alpha", 1f, 0f, 1f);     
+	ObjectAnimator rotateAnim = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f);    
+	AnimatorSet animatorSet = new AnimatorSet();     
+	animatorSet.play(rotateAnim).with(fadeInOutAnim);  
+	animatorSet.setDuration(2000);        
+	animatorSet.start();  
+    }
 ```
 
 #### XML文件事件使用
@@ -449,7 +547,30 @@ animation.setInterpolator(new AccelerateInterpolator());
 新建`res -> animator -> anim_property.xml`
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?><set xmlns:android="http://schemas.android.com/apk/res/android"    android:ordering="together">    <objectAnimator        android:duration="2000"        android:propertyName="rotation"        android:valueFrom="0"        android:valueTo="360"        android:valueType="floatType"/>    <set android:ordering="sequentially">        <objectAnimator            android:duration="1000"            android:propertyName="alpha"            android:valueFrom="1"            android:valueTo="0"            android:valueType="floatType"/>        <objectAnimator            android:duration="1000"            android:propertyName="alpha"            android:valueFrom="0"            android:valueTo="1"            android:valueType="floatType"/>    </set></set>
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"  
+     android:ordering="together">   
+	<objectAnimator  
+		android:duration="2000"    
+		android:propertyName="rotation"    
+		android:valueFrom="0"    
+		android:valueTo="360"     
+		android:valueType="floatType"/>  
+	<set android:ordering="sequentially">    
+		<objectAnimator       
+			android:duration="1000"    
+			android:propertyName="alpha"   
+			android:valueFrom="1"       
+			android:valueTo="0"         
+			android:valueType="floatType"/>  
+		<objectAnimator        
+			android:duration="1000"  
+			android:propertyName="alpha"     
+			android:valueFrom="0"         
+			android:valueTo="1"      
+			android:valueType="floatType"/>  
+	</set>
+</set>
 ```
 
 可以看到，XML中的标签实际上就对应了各个类，`<objectAnimator>`对应了`ObjectAnimator`，`<set>`对应了`AnimatorSet`（还有`<animator>`对应了`ValueAnimator`，不过用的比较少）  
@@ -457,7 +578,11 @@ animation.setInterpolator(new AccelerateInterpolator());
 最后在代码中载入这个XML文件，修改点击事件：
 
 ```java
-    public void btnClick(View view) {                Animator animator = AnimatorInflater.loadAnimator(this, R.animator.anim_property);        animator.setTarget(imageView);        animator.start();    }
+    public void btnClick(View view) {      
+	Animator animator = AnimatorInflater.loadAnimator(this, R.animator.anim_property);    
+	animator.setTarget(imageView);     
+	animator.start();  
+    }
 ```
 
 这里就比较简单了，用`AnimatorInflater`传入上下文Context和XML文件，设置目标对象，最后启用动画。
@@ -468,7 +593,22 @@ animation.setInterpolator(new AccelerateInterpolator());
 首先我们写一个Point类，有x和y两个变量用于记录坐标的位置
 
 ```java
-public class Point {    private float x;    private float y;	//constructor    public Point(float x, float y) {        this.x = x;        this.y = y;    }	//getter     public float getX() {        return x;        public float getY() {        return y;    }}
+public class Point {
+	private float x;    
+	private float y;
+	//constructor   
+	public Point(float x, float y) { 
+		this.x = x;        
+		this.y = y;
+	}	
+	//getter 
+	public float getX() { 
+		return x;   
+	}
+	public float getY() {   
+		return y;   
+	}
+}
 ```
 
 #### 动画过程：TypeEvaluator
@@ -477,7 +617,12 @@ public class Point {    private float x;    private float y;	//constructor    pu
 之前，我们使用的是`ofFloat()`方法，他会自动调用系统的`FloatEvaluator`，我们来看看源码
 
 ```java
-public class FloatEvaluator implements TypeEvaluator<Number> {    public Float evaluate(float fraction, Number startValue, Number endValue) {        float startFloat = startValue.floatValue();        return startFloat + fraction * (endValue.floatValue() - startFloat);    }}
+public class FloatEvaluator implements TypeEvaluator<Number> {  
+	public Float evaluate(float fraction, Number startValue, Number endValue) { 
+		float startFloat = startValue.floatValue(); 
+		return startFloat + fraction * (endValue.floatValue() - startFloat);  
+	}
+}
 ```
 
 实际上`FloatEvaluator`实现了`TypeEvaluator`接口，重写`evaluate()`方法，传入三个参数，分别是表示动画的完成度的`fraction`，初始值，结束值。  
@@ -487,14 +632,29 @@ public class FloatEvaluator implements TypeEvaluator<Number> {    public Float e
 于是乎我们定义`PointEvaluator`来对Point类进行动画过程的计算。
 
 ```java
-public class PointEvaluator implements TypeEvaluator {    @Override    public Object evaluate(float fraction, Object startValue, Object endValue) {        Point startPoint = (Point) startValue;        Point endPoint = (Point) endValue;        float x = startPoint.getX() + fraction * (endPoint.getX() - startPoint.getX());        float y = startPoint.getY() + fraction * (endPoint.getY() - startPoint.getY());        Point point = new Point(x, y);        return point;    }}
+public class PointEvaluator implements TypeEvaluator {
+	@Override   
+	public Object evaluate(float fraction, Object startValue, Object endValue) {   
+		Point startPoint = (Point) startValue;    
+		Point endPoint = (Point) endValue;     
+		float x = startPoint.getX() + fraction * (endPoint.getX() - startPoint.getX()); 
+		float y = startPoint.getY() + fraction * (endPoint.getY() - startPoint.getY());     
+		Point point = new Point(x, y);        return point;   
+	}
+}
 ```
 
 逻辑大同小异，我们用更改后新的Point替换旧的Point，实现这个Point对象x，y坐标的修改。  
 在代码中新建两个Point作为起始值和结束值，调用`ofObject()`方法即可实现Point对象的属性动画效果。不过这个方法要把我们之前定义的`PointEvaluator`对象作为参数传入。
 
 ```java
-    public void btnClick(View view) {        Point startPoint = new Point(0,0);        Point endPoint = new Point(300, 300);        ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), startPoint,endPoint);        anim.setDuration(2000);        anim.start();    }
+    public void btnClick(View view) {     
+	Point startPoint = new Point(0,0);     
+	Point endPoint = new Point(300, 300);     
+	ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), startPoint,endPoint);   
+	anim.setDuration(2000);      
+	anim.start();  
+    }
 ```
 
 #### 将Point应用于自定义View：ValueAnimator的高级用法
@@ -504,7 +664,45 @@ public class PointEvaluator implements TypeEvaluator {    @Override    public Ob
 （在布局中应用这个自定义View即可，这里就不放代码了，具体可见原博客）
 
 ```java
-public class MyAnimView extends View {    public static final float RADIUS = 50f;    private Point currentPoint;    private Paint mPaint;    public MyAnimView(Context context, @Nullable AttributeSet attrs) {        super(context, attrs);        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);        mPaint.setColor(Color.BLUE);    }    @Override    protected void onDraw(Canvas canvas) {        if (currentPoint == null) {            currentPoint = new Point(RADIUS, RADIUS);            drawCircle(canvas);            startAnimation();        } else {            drawCircle(canvas);        }    }    public void drawCircle(Canvas canvas) {        float x = currentPoint.getX();        float y = currentPoint.getY();        canvas.drawCircle(x, y ,RADIUS, mPaint);    }    public void startAnimation() {        Point startPoint = new Point(RADIUS, RADIUS);        Point endPoint = new Point(getWidth() - RADIUS, getHeight() - RADIUS);        ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), startPoint,endPoint);        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {            @Override            public void onAnimationUpdate(ValueAnimator animation) {                currentPoint = (Point) animation.getAnimatedValue();                invalidate();            }        });        anim.setDuration(2000);        anim.start();    }}		
+public class MyAnimView extends View {   
+	public static final float RADIUS = 50f;  
+	private Point currentPoint;   
+	private Paint mPaint;   
+	public MyAnimView(Context context, @Nullable AttributeSet attrs) {  
+		super(context, attrs);     
+		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);   
+		mPaint.setColor(Color.BLUE);    
+	}   
+	@Override    
+	protected void onDraw(Canvas canvas) {      
+		if (currentPoint == null) {        
+			currentPoint = new Point(RADIUS, RADIUS);  
+			drawCircle(canvas);        
+			startAnimation();        
+		} else {        
+			drawCircle(canvas); 
+		}   
+	}   
+	public void drawCircle(Canvas canvas) {   
+		float x = currentPoint.getX();  
+		float y = currentPoint.getY();      
+		canvas.drawCircle(x, y ,RADIUS, mPaint);  
+	}    
+	public void startAnimation() {   
+		Point startPoint = new Point(RADIUS, RADIUS); 
+		Point endPoint = new Point(getWidth() - RADIUS, getHeight() - RADIUS);  
+		ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), startPoint,endPoint);  
+		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {  
+			@Override   
+			public void onAnimationUpdate(ValueAnimator animation) {      
+				currentPoint = (Point) animation.getAnimatedValue();       
+				invalidate();    
+			} 
+		});    
+		anim.setDuration(2000);  
+		anim.start();  
+	}
+}		
 ```
 
 我们用一个Point作为圆心（currentPoint），用一个Paint画笔来画圆。  
@@ -519,14 +717,96 @@ public class MyAnimView extends View {    public static final float RADIUS = 50f
 于是我们在`MyAnimView`中定义一个Color属性，这里用字符串形式来表达RGB颜色。注意setter里，改变颜色后用`invalidate()`重新绘制。
 
 ```java
-public class MyAnimView extends View {	······    private String color;    public String getColor() {        return color;    }    public void setColor(String color) {        this.color = color;        mPaint.setColor(Color.parseColor(color));        invalidate();    }    ······}
+public class MyAnimView extends View {
+	······  
+	private String color;  
+		public String getColor() {      
+		return color;   
+	}    
+	public void setColor(String color) {   
+		this.color = color;   
+		mPaint.setColor(Color.parseColor(color));    
+		invalidate(); 
+	}   
+	······
+}
 ```
 
 然后我们想用`ObjectAnimator`来修改color这个属性，但是别忘了，我们需要编写一个`TypeEvaluator`来说明两种颜色是如何变化的。  
 新建`ColorEvaluator`，他的代码虽然很多，但是还是比较好理解的，别怕别怕，不想看可以不看的，不影响咱理解属性动画。
 
 ```java
-public class ColorEvaluator implements TypeEvaluator {    private int mCurrentRed = -1;    private int mCurrentGreen = -1;    private int mCurrentBlue = -1;    @Override    public Object evaluate(float fraction, Object startValue, Object endValue) {        //颜色初值和终值        String startColor = (String) startValue;        String endColor = (String) endValue;        int startRed = Integer.parseInt(startColor.substring(1, 3), 16);        int startGreen = Integer.parseInt(startColor.substring(3, 5), 16);        int startBlue = Integer.parseInt(startColor.substring(5, 7), 16);        int endRed = Integer.parseInt(endColor.substring(1, 3), 16);        int endGreen = Integer.parseInt(endColor.substring(3, 5), 16);        int endBlue = Integer.parseInt(endColor.substring(5, 7), 16);        // 初始化颜色的值        if (mCurrentRed == -1) {            mCurrentRed = startRed;        }        if (mCurrentGreen == -1) {            mCurrentGreen = startGreen;        }        if (mCurrentBlue == -1) {            mCurrentBlue = startBlue;        }        // 计算初始颜色和结束颜色之间的差值        int redDiff = Math.abs(startRed - endRed);        int greenDiff = Math.abs(startGreen - endGreen);        int blueDiff = Math.abs(startBlue - endBlue);        int colorDiff = redDiff + greenDiff + blueDiff;        if (mCurrentRed != endRed) {            mCurrentRed = getCurrentColor(startRed, endRed, colorDiff, 0,                    fraction);        } else if (mCurrentGreen != endGreen) {            mCurrentGreen = getCurrentColor(startGreen, endGreen, colorDiff,                    redDiff, fraction);        } else if (mCurrentBlue != endBlue) {            mCurrentBlue = getCurrentColor(startBlue, endBlue, colorDiff,                    redDiff + greenDiff, fraction);        }        // 将计算出的当前颜色的值组装返回        String currentColor = "#" + getHexString(mCurrentRed)                + getHexString(mCurrentGreen) + getHexString(mCurrentBlue);        return currentColor;    }    /**     * 根据fraction值来计算当前的颜色。     */    private int getCurrentColor(int startColor, int endColor, int colorDiff,                                int offset, float fraction) {        int currentColor;        if (startColor > endColor) {            currentColor = (int) (startColor - (fraction * colorDiff - offset));            if (currentColor < endColor) {                currentColor = endColor;            }        } else {            currentColor = (int) (startColor + (fraction * colorDiff - offset));            if (currentColor > endColor) {                currentColor = endColor;            }        }        return currentColor;    }    /**     * 将10进制颜色值转换成16进制。     */    private String getHexString(int value) {        String hexString = Integer.toHexString(value);        if (hexString.length() == 1) {            hexString = "0" + hexString;        }        return hexString;    }}
+public class ColorEvaluator implements TypeEvaluator { 
+	private int mCurrentRed = -1; 
+	private int mCurrentGreen = -1;   
+	private int mCurrentBlue = -1;  
+	@Override  
+	public Object evaluate(float fraction, Object startValue, Object endValue) { 
+		//颜色初值和终值   
+		String startColor = (String) startValue;   
+		String endColor = (String) endValue; 
+		int startRed = Integer.parseInt(startColor.substring(1, 3), 16);   
+		int startGreen = Integer.parseInt(startColor.substring(3, 5), 16);  
+		int startBlue = Integer.parseInt(startColor.substring(5, 7), 16); 
+		int endRed = Integer.parseInt(endColor.substring(1, 3), 16);     
+		int endGreen = Integer.parseInt(endColor.substring(3, 5), 16);      
+		int endBlue = Integer.parseInt(endColor.substring(5, 7), 16);      
+		// 初始化颜色的值      
+		if (mCurrentRed == -1) {    
+			mCurrentRed = startRed;     
+		}    
+		if (mCurrentGreen == -1) {    
+			mCurrentGreen = startGreen; 
+		} 
+		if (mCurrentBlue == -1) {  
+			mCurrentBlue = startBlue; 
+		}    
+		// 计算初始颜色和结束颜色之间的差值 
+		int redDiff = Math.abs(startRed - endRed);   
+		int greenDiff = Math.abs(startGreen - endGreen);    
+		int blueDiff = Math.abs(startBlue - endBlue);   
+		int colorDiff = redDiff + greenDiff + blueDiff;   
+		if (mCurrentRed != endRed) {         
+			mCurrentRed = getCurrentColor(startRed, endRed, colorDiff, 0, fraction);    
+		} else if (mCurrentGreen != endGreen) {   
+			mCurrentGreen = getCurrentColor(startGreen, endGreen, colorDiff, redDiff, fraction);     
+		} else if (mCurrentBlue != endBlue) {  
+			mCurrentBlue = getCurrentColor(startBlue, endBlue, colorDiff, redDiff + greenDiff, fraction);  
+		}     
+		// 将计算出的当前颜色的值组装返回     
+		String currentColor = "#" + getHexString(mCurrentRed)           
+			+ getHexString(mCurrentGreen) + getHexString(mCurrentBlue);   
+		return currentColor; 
+	}   
+	/**  
+	* 根据fraction值来计算当前的颜色。    
+	*/  
+	private int getCurrentColor(int startColor, int endColor, int colorDiff, int offset, float fraction) {  
+		int currentColor;   
+		if (startColor > endColor) {  
+			currentColor = (int) (startColor - (fraction * colorDiff - offset));        
+			if (currentColor < endColor) { 
+				currentColor = endColor;        
+			}     
+		} else {    
+			currentColor = (int) (startColor + (fraction * colorDiff - offset));  
+			if (currentColor > endColor) {       
+				currentColor = endColor;        
+			}     
+		}   
+		return currentColor; 
+	} 
+	/**  
+	* 将10进制颜色值转换成16进制。
+	*/  
+	private String getHexString(int value) { 
+		String hexString = Integer.toHexString(value);  
+		if (hexString.length() == 1) {    
+			hexString = "0" + hexString;      
+		}  
+		return hexString;   
+	}
+}
 ```
 
 首先在我们得到颜色的初始值和结束值，对其进行字符串截取将颜色分为RGB三个部分，并转换成十进制，即每个颜色的取值范围是0-255。  
@@ -535,7 +815,9 @@ public class ColorEvaluator implements TypeEvaluator {    private int mCurrentRe
 最后调用就用之前`ObjectAnimator`的`ofObject()`方法，记得根据Id绑定控件`myAnimView`，传入属性参数“color”，传入`ColorEvaluator`对象，起始颜色（蓝色#0000FF）和结束颜色（红色#FF0000）
 
 ```java
-        ObjectAnimator anim = ObjectAnimator.ofObject(myAnimView, "color", new ColorEvaluator(), "#0000FF", "#FF0000");        anim.setDuration(2000);        anim.start();
+        ObjectAnimator anim = ObjectAnimator.ofObject(myAnimView, "color", new ColorEvaluator(), "#0000FF", "#FF0000");     
+	anim.setDuration(2000);   
+	anim.start();
 ```
 
 好像有哪里不对······  
@@ -544,7 +826,26 @@ public class ColorEvaluator implements TypeEvaluator {    private int mCurrentRe
 来到`MyAnimView`的`startAnimation()`方法
 
 ```java
-public void startAnimation() {    //改变Point坐标动画（ValueAnimator）    Point startPoint = new Point(RADIUS, RADIUS);    Point endPoint = new Point(getWidth() - RADIUS, getHeight() - RADIUS);    ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), startPoint,endPoint);    anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {        @Override        public void onAnimationUpdate(ValueAnimator animation) {            currentPoint = (Point) animation.getAnimatedValue();            invalidate();        }    });    //改变颜色动画（ObjectAnimator）    ObjectAnimator colorAnim = ObjectAnimator.ofObject(this, "color", new ColorEvaluator(), "#0000FF", "#FF0000");	//组合动画（AnimatorSet）    AnimatorSet animatorSet = new AnimatorSet();    animatorSet.play(anim).with(colorAnim);    animatorSet.setDuration(2000);    animatorSet.start();}
+public void startAnimation() { 
+	//改变Point坐标动画（ValueAnimator）   
+	Point startPoint = new Point(RADIUS, RADIUS);    
+	Point endPoint = new Point(getWidth() - RADIUS, getHeight() - RADIUS); 
+	ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), startPoint,endPoint);   
+	anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {   
+		@Override   
+		public void onAnimationUpdate(ValueAnimator animation) {
+			currentPoint = (Point) animation.getAnimatedValue();         
+			invalidate();    
+		}    
+	});  
+	//改变颜色动画（ObjectAnimator） 
+	ObjectAnimator colorAnim = ObjectAnimator.ofObject(this, "color", new ColorEvaluator(), "#0000FF", "#FF0000");	
+	//组合动画（AnimatorSet）  
+	AnimatorSet animatorSet = new AnimatorSet(); 
+	animatorSet.play(anim).with(colorAnim);
+	animatorSet.setDuration(2000);  
+	animatorSet.start();
+}
 ```
 
 现在我们有两个动画，分别是改变Point坐标的`anim`和改变颜色的`colorAnim`，然后用`AnimatorSet`让两个动画一起进行
@@ -557,7 +858,16 @@ public void startAnimation() {    //改变Point坐标动画（ValueAnimator）  
 我们修改之前的代码，换一个`Interpolator`，模拟小球竖直落下然后弹起的效果。
 
 ```java
-public void startAnimation() {    //改变Point坐标动画（ValueAnimator）    Point startPoint = new Point(getWidth() / 2, RADIUS);    Point endPoint = new Point(getWidth() / 2, getHeight() - RADIUS);    ······	//两个动画设置不变    //在start()方法前，修改Interpolator    anim.setInterpolator(new BounceInterpolator());	    ······}
+public void startAnimation() {  
+	//改变Point坐标动画（ValueAnimator）
+	Point startPoint = new Point(getWidth() / 2, RADIUS);  
+	Point endPoint = new Point(getWidth() / 2, getHeight() - RADIUS);   
+	······	
+	//两个动画设置不变 
+	//在start()方法前，修改Interpolator   
+	anim.setInterpolator(new BounceInterpolator());	 
+	······
+}
 ```
 
 如果想继续学习`Interpolator`，然后自定义`Interpolator`，可以看[郭霖的博客](https://blog.csdn.net/guolin_blog/article/details/44171115)，这里就不深入了。
@@ -574,7 +884,9 @@ public void startAnimation() {    //改变Point坐标动画（ValueAnimator）  
 怎么轻松高效，简洁易读呢？我们来试试，回到之前的`ImageView`页面，我想让他透明度变为0，可以使用如下的一句代码：
 
 ```java
-    public void btnClick(View view) {       imageView.animate().alpha(0f).setDuration(2000).setInterpolator(new AccelerateInterpolator()).start();     }
+    public void btnClick(View view) {     
+    	imageView.animate().alpha(0f).setDuration(2000).setInterpolator(new AccelerateInterpolator()).start();  
+    }
 ```
 
 很显然，`ViewPropertyAnimator`使用了连缀语法来进行代码上的简化，每个方法的返回值都是它自身的实例，也是典型的**建造者模式**。  
