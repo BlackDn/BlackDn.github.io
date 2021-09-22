@@ -157,7 +157,7 @@ void recycleCachedViewAt(int cachedViewIndex) {
 因为**mCachedViews**采用的是**队列**的逻辑结构，也就是**先进先出（FIFO）策略**，因为RecyclerView默认缓存中**新的ViewHolder比旧的更容易被复用**。就好比我们向下滑动屏幕，头两个Item（Item1和Item2）被滑到屏幕外了，于是按照顺序，Item1和Item2依次被缓存入**mCachedViews**。如果我们这时候重新往上滑，则先进入屏幕的是Item2，也就是Item2需要从缓存中取出被复用。  
 再加上**mCachedViews**是一个`ArrayList`的结构，其`remove()`操作会将被删除数据后面的数据左移。因此就能保证**mCachedViews**中`index=0`的位置是最先进入缓存的ViewHolder。
 
-###　5. 将View加入四级缓存RecycledViewPool：putRecycledView()
+### 5. 将View加入四级缓存RecycledViewPool：putRecycledView()
 
 **Recycler**的`addViewHolderToRecycledViewPool()`方法用来把ViewHolder放入**四级缓存RecycledViewPool**，关键代码其实就一行：
 
@@ -183,7 +183,7 @@ HashMap采用数组+链表的结构，而SparseArray则是纯数组结构。其�
 
 ![PoolStruc](https://z3.ax1x.com/2021/09/22/4akd6e.png)
 
-###　6. RecycledViewPool的存储细节
+### 6. RecycledViewPool的存储细节
 
 这下事情似乎变得明朗了，基于SparseArray的结构，**RecycledViewPool**拿到一个ViewHolder，把他存到其对应`viewType`后的**mScrapHeap**中  
 讲道理，**RecycledViewPool**的大小应该由Item的种类决定。因为有几种Item就有几个`viewType`，`viewType`作为**Key**，决定了**RecycledViewPool**这个数组的大小。那我们之前说的默认缓存大小`DEFAULT_MAX_SCRAP = 5`又是什么呢？自然是每个viewType之后，作为**Value**的**mScrapHeap**的大小，即对于一个viewType，能装其五个对应的ViewHolder。
