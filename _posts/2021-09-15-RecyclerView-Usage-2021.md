@@ -354,7 +354,7 @@ public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup pa
 ```
 
 既然要根据不同的`viewType`创建不同的ViewHolder，而不同的ViewHolder所绑定的数据自然也不一样，因此在`onBindViewHolder()`方法也应该根据`viewType`来绑定不同Item的数据。可是仔细一看`onBindViewHolder()`没有`viewType`参数，这可怎么办？不怕，这个方法有一个`holder`参数，他的`holder.getItemViewType()`方法可以返回当前Item的`viewType`，用这个方法就可以实现根据`viewType`来绑定不同Item的数据。  
-不过因为之前我们只有一个Item，一个ViewHolder，所以我可以保证拿到的`ViewHolder`就是我自定义的`ViewHolderOne`，因此参数中的`holder`就是`ViewHolderOne`。而现在我们有两个Item，两个ViewHolder，我们不能去顶拿到的ViewHolder是哪个（可能是`ViewHolderOne`，也可能是`ViewHolderTwo`），因此，这个方法里的ViewHolder应该是他们的父类`RecyclerView.ViewHolder`，然后根据`viewType`转型成对应的ViewHolder。
+不过因为之前我们只有一个Item，一个ViewHolder，所以我可以保证拿到的`ViewHolder`就是我自定义的`ViewHolderOne`，因此参数中的`holder`就是`ViewHolderOne`。而现在我们有两个Item，两个ViewHolder，我们不能判断拿到的ViewHolder是哪个（可能是`ViewHolderOne`，也可能是`ViewHolderTwo`），因此，这个方法里的ViewHolder应该是他们的父类`RecyclerView.ViewHolder`，然后根据`viewType`转型成对应的ViewHolder。
 
 ```java
 //一个Item：参数的holder就是自定义的ViewHolder
