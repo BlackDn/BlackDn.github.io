@@ -4,7 +4,7 @@
     subtitle:     JVM内存到GC的算法、回收器等，附带Java四种引用  
     date:         2021-11-04  
     auther:       BlackDn  
-    header-img:   img/19mon5_37.jpg   
+    header-img:   img/19mon5_24.jpg   
     catalog:      true  
     tags:  
        - Android
