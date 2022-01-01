@@ -4,7 +4,7 @@ title:        WSL：Windows自带Linux使用指南
 subtitle:     在Win10中安装Linux及简单WSL的使用  
 date:         2022-01-01
 auther:       BlackDn
-header-img:   img/19mon5_12.jpg  
+header-img:   img/19mon5_34.jpg  
 catalog:      true
 tags:
     - Linux  
