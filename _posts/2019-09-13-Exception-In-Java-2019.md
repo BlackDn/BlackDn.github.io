@@ -1,13 +1,13 @@
 ---
-layout:       post
-title:        Java的异常简介
-subtitle:     顺带final关键字的介绍~
-date:         2019-09-13
-auther:       BlackDn
-header-img:   img/acg.gy_23.jpg
-catalog:      true
-tags: 
-    - Java
+layout:       post  
+title:        Java的异常简介  
+subtitle:     顺带final关键字的介绍~  
+date:         2019-09-13  
+auther:       BlackDn  
+header-img:   img/acg.gy_23.jpg  
+catalog:      true  
+tags:  
+    - Java  
 ---
 
 >"月光还是少年的月光，九州一色还是泛白的霜。"
@@ -18,9 +18,10 @@ tags:
 所以计划把一些原理性的知识补上    
 
 # Java异常简介
-所有的异常继承自Throwable类，这个类主要分为两个大类：Error类和Exception类  
+
+所有的异常继承自Throwable类，这个类主要分为两个大类：`Error`类和`Exception`类  
 ## Error类
-Error类的错误通常是硬伤，包括虚拟机错误（VirtualMachineError），线程死锁（ThreadDeath）等难以通过简单的调整避免的。通常出现的较少。
+Error类的错误通常是硬伤，包括**虚拟机错误（VirtualMachineError）**，**线程死锁（ThreadDeath）**等难以通过简单的调整避免的。通常出现的较少。
 ## Exeption类
 主要是编码、环境、用户操作输入出现问题
 #### 非检查异常——运行时异常（RuntimeException）
@@ -37,8 +38,11 @@ Error类的错误通常是硬伤，包括虚拟机错误（VirtualMachineError�
 主要有：
 1. 文件异常：IOException
 2. SQL异常：SQLException
+
+
+
 ## 异常的捕获和处理
-try-catch，try-catch-finally  
+`try-catch`，`try-catch-finally`  
 主要语法如下  
 
 ```
@@ -58,16 +62,17 @@ try{
 如果在try或者catch中存在return语句，那么在return后、回到调用函数前，会执行finally语句  
 如果在try、catch、finally都没有return语句，在三者外有return语句，那么会先执行finally，再return回到调用函数
 ## 异常抛出
-关键字：throw和throws   
-当一个方法存在throw和throws时，必须在try语句块中进行调用，并用catch捕获可能出现的异常
+关键字：`throw`和`throws`   
+当一个方法存在`throw`和`throws`时，必须在try语句块中进行调用，并用catch捕获可能出现的异常
+
 ### throw
+
 将异常抛出，通常在方法体中
 ### throws
 通常放在函数声明中，声明将要抛出何种类型的异常  
 
 ```
-public void 方法名 (参数列表) 
-            throw 异常列表{
+public void 方法名 (参数列表) throw 异常列表{
         //调用会抛出的异常方法或者一下语句
         throw new Exception();
 }
@@ -143,4 +148,3 @@ Caused by: MyPackage.MyException: 我有异常了！
 ```
 可见，一开始抛出的是RuntimeException，他由MyException引起  
 因为RuntimeException是我们捕获MyException后产生的新异常，他先被抛出，然后找到他产生的原因，是产生了MyException。
-事实上还有一种异常链写法，这里不多赘述，有兴趣的话可以自己额外学习  
