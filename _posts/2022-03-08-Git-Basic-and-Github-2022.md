@@ -1,11 +1,11 @@
 ---
-layout:       post
-title:        Git基本操作及连接Github
-subtitle:     勉强算是搞懂了git基础
-date:         2022-03-08
-auther:       BlackDn
+layout:       post  
+title:        Git基本操作及连接Github  
+subtitle:     勉强算是搞懂了git基础  
+date:         2022-03-08  
+auther:       BlackDn  
 header-img:   img/19mon5_23.jpg  
-catalog:      true
+catalog:      true  
 tags:
     - Git    
     - Tutorial  
