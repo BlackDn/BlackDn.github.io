@@ -22,7 +22,9 @@ tags:
 所有的异常继承自Throwable类，这个类主要分为两个大类：`Error`类和`Exception`类  
 ## Error类
 Error类的错误通常是硬伤，包括**虚拟机错误（VirtualMachineError）**，**线程死锁（ThreadDeath）**等难以通过简单的调整避免的。通常出现的较少。
+
 ## Exeption类
+
 主要是编码、环境、用户操作输入出现问题
 #### 非检查异常——运行时异常（RuntimeException）
 引用空对象、方法，或数组访问越界，错误类型转换等都会引起运行时异常
