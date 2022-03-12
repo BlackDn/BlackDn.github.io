@@ -267,9 +267,8 @@ after gc: null
 
 ### 虚引用（Phantom Reference）
 
-用`java.lang.ref.PhantomReference`来表示弱引用。持有虚引用的对象相当于没有引用，可以随时被垃圾回收，主要用来跟踪对象被垃圾回收的过程。虚引用还必须和**引用队列（Reference Queue）** 一起使用，在从内存上被回收之前，JVM会对它们调用`finalize()`方法，并将他们放到引用队列中。通常一个对象调用`finalize()`后会被释放，但是一个**虚可达（Phantom Reachable）** 对象仍不会释放。（虚可达对象：该对象与GC Roots之间仅存在虚引用）   
-当JVM对一个持有虚引用的对象进行回收时，会先销毁对象，并将虚引用加入引用队列中。在这个对象所关联的虚引用出队前，不会彻底销毁该对象。所以可以通过判断这个虚引用是否在引用队列中，程序可以确定持有这个引用的对象是否应该被回收。  
-因此，虚引用最主要的用处，就在于
+用`java.lang.ref.PhantomReference`来表示虚引用。持有虚引用的对象相当于没有引用，可以随时被垃圾回收，主要用来跟踪对象被垃圾回收的过程。虚引用还必须和**引用队列（Reference Queue）** 一起使用，在从内存上被回收之前，JVM会对它们调用`finalize()`方法，并将他们放到引用队列中。通常一个对象调用`finalize()`后会被释放，但是一个**虚可达（Phantom Reachable）** 对象仍不会释放。（虚可达对象：该对象与GC Roots之间仅存在虚引用）   
+当JVM对一个持有虚引用的对象进行回收时，会先销毁对象，并将虚引用加入引用队列中。在这个对象所关联的虚引用出队前，不会彻底销毁该对象。所以可以通过判断这个虚引用是否在引用队列中，程序可以确定持有这个引用的对象是否应该被回收。由此，可以得知对象的回收过程。  
 
 ```java
     public static void main(String[] args) {
@@ -287,13 +286,14 @@ after gc: null
 null
 ```
 
-事实上，不管JVM有没有进行垃回收，我们永远无法从虚引用中获取对象，因为在源码中，`PhantomReference类`的`get()`方法永远返回`null`
+事实上，在源码中`PhantomReference类`的`get()`方法永远返回`null`。因为一个虚引用对象永远是不可达的。  
+因此，我们应该从**引用队列**中查看，而非尝试获取虚引用对象。
 
 ```java
 	/** -in PhantomReference.java-
      * Returns this reference object's referent.  Because the referent of a
      * phantom reference is always inaccessible, this method always returns
-     * <code>null</code>.
+     * <code>null</code>. 
      * @return  <code>null</code>
      */
     public T get() {
