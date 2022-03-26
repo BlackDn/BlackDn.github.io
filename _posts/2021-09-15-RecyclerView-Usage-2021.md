@@ -308,7 +308,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int VIEW_TYPE_TWO = 2;
 ```
 
-然后是两个**ViewHoler**，我们已经有了个`ViewHolderOne`代表Item1，所以直接添加一个`ViewHolderTwo。因为两个Item都是一个`TextView`，结构一样，所以代码也差不多。
+然后是两个**ViewHoler**，我们已经有了个`ViewHolderOne`代表Item1，所以直接添加一个`ViewHolderTwo`。因为两个Item都是一个`TextView`，结构一样，所以代码也差不多。
 
 ```java
 public static class ViewHolderTwo extends RecyclerView.ViewHolder {
