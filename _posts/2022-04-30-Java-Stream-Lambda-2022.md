@@ -1,6 +1,18 @@
-# Java的Stream API
+---
+layout:       post  
+title:        Java的Lambda表达式和Stream流  
+subtitle:     函数式编程：Stream、Optional等用法一览  
+date:         2022-04-30  
+auther:       BlackDn  
+header-img:   img/X148_007.jpg  
+catalog:      true  
+tags:    
+    - Java    
+---
 
-> "。"
+# Java的Lambda表达式和Stream流
+
+> "书里长安满街灯火，花灯璀璨；窗外小巷阴雨连绵，青藤霉湿。"
 
 ## 前言
 
