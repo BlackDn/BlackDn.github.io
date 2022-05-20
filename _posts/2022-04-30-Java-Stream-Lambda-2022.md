@@ -10,9 +10,9 @@ tags:
     - Java    
 ---
 
-# Java的Lambda表达式和Stream流
-
 > "书里长安满街灯火，花灯璀璨；窗外小巷阴雨连绵，青藤霉湿。"
+
+# Java的Lambda表达式和Stream流
 
 ## 前言
 
