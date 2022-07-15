@@ -2,7 +2,7 @@
 layout:       post  
 title:        Java日期/时间表示  
 subtitle:     旧版java.util和新版java.time包的日期/时间API  
-date:         2022-07-315  
+date:         2022-07-15  
 auther:       BlackDn  
 header-img:   img/19mon6_29.jpg  
 catalog:      true  
