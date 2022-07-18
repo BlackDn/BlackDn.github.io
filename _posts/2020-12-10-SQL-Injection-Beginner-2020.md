@@ -4,20 +4,21 @@ title:        SQL Injection 从入门到不精通
 subtitle:     详细分析SQL注入，从DVWA和自己写的页面入手，还有防御方法噢  
 date:         2020-12-10  
 auther:       BlackDn  
-header-img:   img/acg.ggy_13.jpg
+header-img:   img/acg.ggy_13.jpg  
 catalog:      true  
 tags:  
-    - CTF
-    - Security
+    - Security  
 ---
 
 > "你已春色摇曳，我仍一身旧雪。"
 
 # 前言
+
 咕咕咕  
 前两天网络攻防课做了SQL注入和XSS的实验，然后写了实验报告。  
 挣扎了好久也算是有点理解了，所以顺便再写写整理一下。  
 这次先在DVWA的low难度上过一遍，然后自己写一个页面巩固一下ww  
+
 # SQL Injection 从入门到不精通
 SQL Injection，即SQL注入，指对用户输入数据的合法性没有判断或过滤不严，攻击者在数据传输末尾（通常是在输入框里）添加额外的非法语句从而实现非法操作  
 SQL注入的分类多种多样，有根据**注入位置**分为GET注入、POST注入、Cookie注入等，也有根据**结果反馈**分为基于布尔值注入、基于时间注入等  
@@ -33,7 +34,7 @@ SQL注入的分类多种多样，有根据**注入位置**分为GET注入、POST
 ## DVWA的SQL注入（难度为low）
 我在这给出在DVWA的low难度中进行注入的练习和分析，因为DVWA同时给出了源码所以比较方便  
 [**参考2**](https://blog.csdn.net/weixin_45116657/article/details/100010420)给出了DVWA所有难度的SQL注入过程，很详细的，可以看看。  
-  
+
 先输入个1，可以正常查询  
 ![1](https://z3.ax1x.com/2021/04/13/cyV3QS.png)  
 
@@ -84,7 +85,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '$id';
 ```
 
 **由此可以确定只有2个字段**  
-  
+
 接着分析一波  
 
 ```
@@ -114,7 +115,7 @@ Surname: 2
 ```
 
 **由此可以确定显示位置，1在First name，2在Surname，即前面的查询结果在First name显示，后面的在Surname显示**  
-  
+
 这里用到了**联合查询 union select**  
 union select可以联合多表查询，将不同表的查询结果放在同一个结果集中，所以就要求两个查询的字段数要一样（这里是2个字段），这也是为什么要做第2步的原因。  
 
@@ -141,7 +142,7 @@ Surname: dvwa
 ```
 
 **可以看到数据库版本为8.0.17，数据库名为dvwa**  
-  
+
 这里就比较简单了，**version()**和**database()**是mysql的内置函数，可以显示当前数据库的版本和当前的数据库名。再结合union select进行显示即可  
 
 ###### 5. 获取表名
@@ -166,10 +167,10 @@ Surname: guestbook,users
 ```
 
 **可以看到数据库（dvwa）中有两个表，guestbook和user**  
-  
+
 **group_concat()**是mysql的一个指令，可以将多个结果合并成一个字段。  
 上面我们查询到了**guestbook和users**两个结果，然后用这条指令将其合并，从而满足union select需要相同字段数的条件（这里是两个字段，1和group_concat(table_name)）    
-  
+
 **information_schema.tables**表示我们对**information_schema数据库**中的**tables表**进行查询，这个表中的**table_schema字段**说明该记录的表对应哪个数据库，我们用**table_schema=database()**获取所有数据库为**database()**的表  
 从而得到结果：guestbook和user  
 
@@ -504,7 +505,7 @@ INSERT INTO `user` (`id`, `account`, `password`) VALUES
 最后测试一下  
 ![fail](https://z3.ax1x.com/2021/04/13/cyV8sg.png)  
 可以看到成功防止注入  
-  
+
 PDO的本质思想是将查询语句和输入数据划分明显的界限  
 先用**pepare()**方法固定查询语句的结构，然后用**占位符替换**的方式放入输入的数据，从而不管输入什么，后台始终将其看作数据而非查询语句，以此防御注入语句。  
 ## 总结

@@ -1,13 +1,13 @@
 ---
-layout:       post
-title:        CTF-文件包含漏洞
-subtitle:     CTF-Web-php文件包含漏洞的小结
-date:         2020-04-04
-auther:       BlackDn
+layout:       post  
+title:        CTF-文件包含漏洞  
+subtitle:     CTF-Web-php文件包含漏洞的小结  
+date:         2020-04-04  
+auther:       BlackDn  
 header-img:   img/acg.ggy_17.jpg  
-catalog:      true
-tags:
-    - CTF
+catalog:      true  
+tags:  
+    - Security  
 ---
 
 >"坠欢莫拾，酒痕在衣。苍山负雪，笔墨不离。"
@@ -21,7 +21,7 @@ tags:
 # 文件包含漏洞
 代码传入文件，从而直接执行文件中的代码  
 通常文件包含漏洞产生于**文件包含函数**的使用  
-  
+
 1. LFI：Local File Inclusion，本地文件包含漏洞，大部分情况下遇到的文件包含漏洞都是LFI
 2. RFI：Remote File Inclusion，远程文件包含漏洞，要求**allow_url_fopen=On**(默认为On) ，规定是否允许从远程服务器或者网站检索数据；**allow_url_include=On**(php5.2之后默认为Off) ，规定是否允许include/require远程文件  
 
@@ -46,9 +46,9 @@ PHP 提供了一些输入/输出（IO）流，允许访问 PHP 的输入输出�
 php://input 是个可以访问请求的原始数据的只读流，将post请求的数据当作php代码执行  
 需要allow_url_include=On  
 **遇到file_get_contents()要想到用php://input绕过**  
-  
+
 假设代码审计中遇到file_get_contents()函数，由于该函数的对象是数据流，需要读取文件，我们将file_get_contents()的对象赋值为“php://input”，从而将对象转为读取的数据，此时可以用post将file_get_contents()的对象赋值成需要的值，或执行需要的的php代码  
-  
+
 举个🌰，下面是一道简单的题目：  
 
 ```
@@ -109,9 +109,9 @@ zip://中只能传入**绝对路径**；要用\#分隔压缩包和压缩包里�
 当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。我们把PHP代码插入到日志文件中，再通过包含这个日志文件来执行其中的PHP代码  
 要求：日志文件可读，知道日志文件存储目录  
 一般日志存储目录会被修改，需要读取服务器配置文件（.conf）或者查看phpinfo()信息。通常需要curl 命令行url访问工具或者bp修改浏览器转码字符来**避免转码而导致代码无法执行**  
-  
+
 Apache运行后一般默认会生成两个日志文件，Windos下是access.log（访问日志）和error.log(错误日志)，Linux下是access_log和error_log，访问日志文件记录了客户端的每次请求和服务器响应的相关信息  
-  
+
 参考：  
 [包含日志文件getshell](https://www.cnblogs.com/my1e3/p/5854897.html)  
 #### 例题
@@ -131,7 +131,7 @@ PHP手册中的描述：
 3. 对于文件会话保存管理器，会将会话数据保存到配置项 session.save_path 所指定的位置。
 
 要包含并利用的话，需要能控制部分sesssion文件的内容。暂时没有通用的办法。有些时候，可以先包含进session文件，观察里面的内容，然后根据里面的字段来发现可控的变量，从而利用变量来写入payload，并之后再次包含从而执行php代码  
-  
+
 php的session文件的保存路径可以在phpinfo的**session.save_path**看到，  
 session文件格式： sess_[phpsessid] ，phpsessid在发送的请求的 cookie 字段中可以看到  
 

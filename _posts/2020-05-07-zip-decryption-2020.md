@@ -7,7 +7,7 @@ auther:       BlackDn
 header-img:   img/acg.gy_33.jpg  
 catalog:      true  
 tags:  
-    - CTF  
+    - Security  
 ---
 
 > "错过落日余晖,请记得还有满天星辰."
@@ -59,7 +59,7 @@ A 表示大写字母\[A-Z\]
 4. -u 压缩文件名
 5. -D 表示要使用字典破解
 6. -p 表示要使用那个字典破解
-  
+
 我们来找几个实例进行讲解：
 
 ```
@@ -79,7 +79,7 @@ fcrackzip  -D -p /usr/share/wordlists/rockyou.txt -u test.zip
 通常比较CRC32判断已知文件和压缩包中的文件是否相同  
 可以尝试用**ARCHPR**或者**pkcrack**进行明文攻击，ARCHPR无脑工具就不多说，介绍一下pkcrack  
 官方主页：[PkCrack - Breaking PkZip-encryption](https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html)  
-  
+
 Linux安装如下，以下安装教程来自下方参考“破解Zip加密文件常用的几种方法”  
 
 1. 写一个脚本进行安装，命名为install.sh。简单来说就是从网上下载压缩包然后将各个文件解压出来。也可以直接下载压缩包解压  
@@ -131,7 +131,7 @@ chmod 777 install.sh
 ## CRC32碰撞
 CRC32指32位的CRC循环冗余码。  
 由于源数据块的每一位都参与运算产生CRC32，即使一位改编也会产生不同的CRC32，因此可以爆破加密文件的内容  
-  
+
 举个🌰：  
 已知CRC32为56EA988D，且flag为4位数，那么我们就爆破所有4位数，直到某一个四位数的CRC32为56EA988D  
 写出脚本  
@@ -149,7 +149,7 @@ for content in range(1000,9999):
 print('end')
 ```
 因为**binascii.crc32()**对byte类型的数据求CRC32，因此先用encode()将str转为byte  
-  
+
 运行结果为：  
 
 ```
@@ -206,7 +206,7 @@ F7 46：最后修改文件日期
 
 ## 参考与补充
 [zip在线破解](https://passwordrecovery.io/zip-file-password-removal/)  
-  
+
 [CTF压缩包加密破解总结](https://blog.csdn.net/shenzhang7331/article/details/83417931)  
 [破解Zip加密文件常用的几种方法](https://www.cnblogs.com/ECJTUACM-873284962/p/9387711.html)  
 [Bugku-CTF加密篇之zip伪加密（flag.zip）](https://www.cnblogs.com/0yst3r-2046/p/11890498.html)  
