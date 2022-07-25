@@ -1,0 +1,155 @@
+# JDBC
+
+## JDBC使用
+
+JDBC即Java Database Connectivity，是Java为关系数据库定义的访问接口  
+对于**MySQL**来说，其JDBC的驱动就是一个jar包，它本身是纯Java编写的，因此用户可以引用`java.sql包`下面的相关接口访问**MySQL**
+
+### 数据类型
+
+SQL定义的数据类型和Java本身的有一点区别，常见数据类型对照表如下：
+
+| Java类型      | SQL类型       |
+| ------------- | ------------- |
+| boolean       | BIT, BOOL     |
+| short         | SMALLINT      |
+| int           | INTEGER       |
+| long          | BIGINT        |
+| float         | REAL          |
+| double        | FLOAT, DOUBLE |
+| String        | CHAR, VARCHAR |
+| BigDecimal    | DECIMAL       |
+| java.sql.Date | DATE          |
+| java.sql.Time | TIME          |
+
+### JDBC连接数据库并查询
+
+讲道理连接数据库都要指定什么库名，用户名，密码，端口啥的，太麻烦了就跳过这些配置了=。=  
+总之，我们会通过j`ava.sql包`的`Connection类`来获取一个数据库连接，而`Connection`对象通常由`DriverManager类`来获取，其参数就是数据库的配置信息
+
+```java
+Connection conn = DriverManager.getConnection(<Uri>, <Username>, <Password>);
+```
+
+然后，`Connection`的`createStatement()`方法可以创建一个`Statement`对象，该对象提供的`executeQuery()`方法允许我们通过SQL语句执行查询，最后用`ResultSet`来保存执行得到结果。  
+不过由于`Statement`对象不能阻止**SQL注入**，因此现在多用`PreparedStatement`，其使用`?`作为占位符，并且把数据连同SQL本身传给数据库，而非字符串，因此可以保证不被注入。  
+更多关于SQL注入的内容可见：[SQL Injection 从入门到不精通](https://blackdn.github.io/2020/12/10/SQL-Injection-Beginner-2020/)
+
+```java
+PreparedStatement statement = connection.prepareStatement("SELECT `id`, `name` FROM `users` WHERE `id`=?");
+statement.setLong(1, id);
+ResultSet resultSet = statement.executeQuery();
+```
+
+其中，`statement.setLong(1, id)`表示`PreparedStatement`中第一个占位符`?`的内容是变量`id`的内容（因为其数据类型是`long`，在数据库中是`BIGINT`）  
+假设`long id = 1`，其替换占位符，则SQL语句就变为`"SELECT name FROM users WHERE id=1"`
+
+SQL执行完后，可以用`ResultSet`的`next()`方法来获取查询到的结果。当然结果可能不止一条，因此有多条数据的话就可以用循环来获取，如果没有数据了，`next()`方法会返回`false`  
+此外，`Statment`和`ResultSet`都是需要关闭的资源，因此嵌套使用`try (resource)`确保及时关闭  
+所以最后整个操作会变成这样：
+
+```java
+//use try-statement to close in time
+try (Connection connection = DatabaseConnectionProvider.createConnection(configuration)) {
+    try (PreparedStatement statement = connection.prepareStatement("SELECT `id`, `name` FROM `users` WHERE `id`=?")) {
+        statement.setLong(1, id); //config statement
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            long fitId = resultSet.getLong("id");
+            String fitName = resultSet.getString("name");
+        }
+    }
+}
+```
+
+上面的例子中，在获取数据的时候是根据字段名来的，也可以根据SQL语句中的字段顺序来获取，比如上面是`SELECT id, name`，则`id`为1，`name`为2  
+因此可以分别写成`getLong(1)`和`getString(2)`
+
+### JDBC插入数据
+
+和查询类似，我们还是用`PreparedStatement`执行一条SQL语句，不过最后执行的就不是`executeQuery()`了
+
+```java
+//use try-statement to close in time
+try (Connection connection = DatabaseConnectionProvider.createConnection(configuration)) {
+    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO `users` (`name`) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+        statement.setString(1, name);
+        statement.execute();
+        //get result
+        ResultSet resultSet = statement.getGeneratedKeys();
+        resultSet.next();
+        resultSet.getLong(1);
+    }
+}
+```
+
+在`PrepareStatement`中，除了SQL语句，我们还加了一个`Statement.RETURN_GENERATED_KEYS)`，表示获取插入记录的**自增主键**（这里是`id`），毕竟在数据库不可视的情况下我们是不知道现在自增到哪了。
+
+这里用的是`execute()`，其既可以执行查询语句，返回`true`；又可以执行插入更新删除语句，返回`false`  
+事实上，还可以用`executeUpdate()`方法，该方法返回一个`int`，表示受影响的行数。插入一条数据则返回1，两条数据则返回2。
+
+成功执行后，因为我们还想要获取自增主键的值，所以要用`getGeneratedKeys()`来获取结果`ResultSet`。因为我只插入了一条数据，所以我能肯定只返回一条（就是我插入的这条），而`getLong(1)`就是返回的自增主键的值。  
+如果一次插入多条记录，那么这个`ResultSet`对象就会有多行返回值（就要用循环和`next()`来获取）；如果插入时有多列自增，那么`ResultSet`对象的每一行都会对应多个自增值（就要`getLong(1)`，`getLong(2)`等）
+
+### JDBC更新数据
+
+有了插入数据的例子，更新就很简答了
+
+```java
+//use try-statement to close in time
+try (Connection connection = DatabaseConnectionProvider.createConnection(configuration)) {
+    try (PreparedStatement statement = connection.prepareStatement("UPDATE `users` SET `name`=? WHERE `id`=?")) {
+        statement.setBoolean(1, name);
+        statement.setLong(2, id);
+        if (statement.executeUpdate() == 1) {
+            System.out.println("update successfully");
+        }
+    }
+}
+```
+
+同样使用`PreparedStatement`执行SQL语句，值得注意的是这里出现了多个占位符`?`，因此在为这些占位符设置参数的时候，从1开始从左到右表示对应的占位符。  
+因为我第一个占位符是`name`，第二个占位符是`id`，所以下面分别用1和2来为其设置具体的值。
+
+### JDBC删除
+
+删除也没啥，改一下SQL语句就行了，用`execute()`和`executeUpdate()`都可以，能够根据具体情况选择。
+
+```java
+try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+    try (PreparedStatement ps = conn.prepareStatement("DELETE FROM `users` WHERE `id`=?")) {
+        ps.setObject(1, id); 
+        if (statement.executeUpdate() == 1) {
+            System.out.println("delete successfully");
+        }
+    }
+}
+```
+
+## JDBC事务
+
+事务在之前SQL的内容有所提及，具体可见：  
+而在JDBC中要使用事务，就要用代码的思维来决定一下顺序  
+首先我们要用`setAutoCommit(false)`来关闭**自动提交**，否则JDBC会执行一行提交一行；然后我们执行多条SQL语句，最后提交事务，重新打开自动提交。  
+当然还要抓取异常，如果出现了异常就要回滚，从而保证事务的原子性。  
+于是就有了以下框架：
+
+```java
+try {
+    connection.setAutoCommit(false);	 // 关闭自动提交
+    //insert(); update(); delete();... (执行多条SQL语句)
+    connection.commit();    // 提交事务
+} catch (SQLException e) {
+    connection.rollback();    // 回滚事务
+} finally {
+    connection.setAutoCommit(true);
+    connection.close();
+}
+```
+
+## 参考
+
+1. [廖雪峰：JDBC编程](https://www.liaoxuefeng.com/wiki/1252599548343744/1255943820274272)
+2. [Java中的数据类型和SQL中的数据类型](https://blog.csdn.net/u012880803/article/details/77447687)
+3. [SQL Injection 从入门到不精通](https://blackdn.github.io/2020/12/10/SQL-Injection-Beginner-2020/)
+4. [execute与executeUpdate的区别](https://blog.csdn.net/qq_41998938/article/details/89735940)
