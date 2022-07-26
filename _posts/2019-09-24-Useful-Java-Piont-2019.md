@@ -1,21 +1,25 @@
 ---
-layout:       post
-title:        接触较少的Java知识点
-subtitle:     主要是日期表示和保留位数
-date:         2019-09-24
-auther:       BlackDn
-header-img:   img/acg.gy_04.jpg
-catalog:      true
-tags:
-    - Java
+layout:       post  
+title:        接触较少的Java知识点  
+subtitle:     日期表示、final关键字、Object类等  
+date:         2019-09-24  
+auther:       BlackDn  
+header-img:   img/acg.gy_04.jpg  
+catalog:      true  
+tags:  
+    - Java  
 ---
 
->"请和我门外的花坐一会，它们很温暖，我注视它们很多很多日子了"
+>"请和我门外的花坐一会，它们很温暖，我注视它们很多很多日子了。"
+
+# 接触较少的Java知识点
 
 ## 前言
+
 新学期的Java课，随着作业的推进会发现很多不懂的地方，比如保留小数后几位之类的需求
 所以特地回过头来整理一下，不然每次都要再搜，怪麻烦的...  
 这里按顺序列一下所提及的知识点，比较粗略的认识没什么逻辑，以后有必要就单独列出探讨：
+
 1. 日期时间的表示方法：Date、SimpleDateFormat和Calendar类  
 2. final关键字
 3. Object类  
