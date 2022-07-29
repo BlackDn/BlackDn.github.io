@@ -31,11 +31,30 @@ root# echo $SHELL
 
 ### Shebang：注释
 
-在Linux脚本开头，我们需要先写上`#!/bin/bash` 或 `#!/usr/bin/env bash`，这就是所谓的Shebang，没怎么找到它的中文名，就这么叫着先吧。  
-这一段注释是用来告诉Shell，我这个文件是一个Linux脚本，需要将其中的内容当作Linux命令解释执行。  
-虽然不同Shell的Shebang不同，但都大同小异。这里我们就简单区别一下`#!/bin/bash` 和 `#!/usr/bin/env bash`的区别。
+在Linux脚本开头，我们需要先写上`#!/bin/bash` 或 `#!/usr/bin/env bash`，这就是所谓的**Shebang**，没怎么找到它的中文名，就这么叫着先吧。  
+这一段注释是用来告诉Shell，我这个文件是一个Linux脚本，需要将其中的内容当作Linux命令解释执行。同时声明自己用的是上面解释器。  
+虽然不同Shell的**Shebang**不同，但都大同小异。这里我们就简单区别一下`#!/bin/bash` 和 `#!/usr/bin/env bash`的区别。
 
+我们知道`/bin`目录下都是放的一些应用程序，而解释器就在其中，包括`bash`。因此，当我们声明了`#!/bin/bash`，就是为了让系统知道，要去这个地方找`bash`程序作为解释器来执行当前脚本。
 
+```shell
+root:/bin# ls | grep 'bash'
+bash
+bashbug
+rbash
+```
+
+而`env`也在`/bin`目录下，其除了能显示环境变量外，还可以执行指令。也就是说，可以在`env`后接指令，而系统会在环境变量中找到这个指令并执行。  
+通常，`/bin`目录往往会在环境变量`（$PATH）`中，因此，`#!/usr/bin/env bash`将`bash`作为参数传给`env`执行，而`env`会在`PATH`中查找`bash`执行，碰巧`bash`在`/bin`目录下，而`/bin`也碰巧在`PATH`中，因此就可以成功解释执行脚本。
+
+```shell
+root:/bin# env | grep PATH
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin......
+```
+
+虽然在大部分情况下，`#!/bin/bash` 和 `#!/usr/bin/env bash`的写法没有差别，但是还是推荐使用 `#!/usr/bin/env bash`  
+因为`#!/bin/bash`相当于以静态路径的形式规定了解释器的位置，这会导致在不同的Linux系统下，同一脚本可能无法正常运行（用的解释器不一样），使得脚本**可移植性较差**；而`#!/usr/bin/env bash` 不必在系统的特定位置查找命令解释器，便于在多系统间移植。因此，在不了解主机的环境时，`#!/usr/bin/env bash` 写法可以使开发工作快速地展开。  
+不过，由于`#!/usr/bin/env bash` 会选择使用从 `$PATH` 中匹配到的第一个解释器，因此，如果有人恶意伪造解释器（自己写一个假的bash）并将其写入环境变量中位于靠前位置，系统就会选择这个假的bash来执行脚本，存在安全隐患。
 
 ## 参考
 
