@@ -84,6 +84,8 @@ visibility: hidden;
 
 1. [CSS 基础](https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics)
 2. [CSS Tutorial](https://www.w3schools.com/css/default.asp)
-4. [CSS 布局](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Introduction)
-5. [Flex 布局教程：语法篇](https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+3. [CSS 布局](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Introduction)
+4. [Flex 布局教程：语法篇](https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+5. [菜鸟教程：Sass 教程](https://www.runoob.com/sass/sass-tutorial.html)
+6. [Sass中文文档](https://www.sass.hk/docs/)
 
