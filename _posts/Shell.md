@@ -23,7 +23,7 @@ root# echo $SHELL
 /bin/bash
 ```
 
-## 一些Linux命令
+## 一些Linux知识
 
 因为Linux脚本的本质就是让很多Linux命令一起执行，这里就不从头介绍Linux命令了，假设大家多多少少都会一点  
 一些用到比较多的Linux命令和一些基础都在这：[有用的linux操作](https://blackdn.github.io/2020/03/29/Linux-Command-2020/)  
@@ -55,6 +55,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin......
 虽然在大部分情况下，`#!/bin/bash` 和 `#!/usr/bin/env bash`的写法没有差别，但是还是推荐使用 `#!/usr/bin/env bash`  
 因为`#!/bin/bash`相当于以静态路径的形式规定了解释器的位置，这会导致在不同的Linux系统下，同一脚本可能无法正常运行（用的解释器不一样），使得脚本**可移植性较差**；而`#!/usr/bin/env bash` 不必在系统的特定位置查找命令解释器，便于在多系统间移植。因此，在不了解主机的环境时，`#!/usr/bin/env bash` 写法可以使开发工作快速地展开。  
 不过，由于`#!/usr/bin/env bash` 会选择使用从 `$PATH` 中匹配到的第一个解释器，因此，如果有人恶意伪造解释器（自己写一个假的bash）并将其写入环境变量中位于靠前位置，系统就会选择这个假的bash来执行脚本，存在安全隐患。
+
+
 
 ## 参考
 
