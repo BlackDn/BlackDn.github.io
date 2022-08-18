@@ -2,15 +2,16 @@
 
 ## 前言
 
-
+最后轮到JS了，这篇文章并不能帮你熟练使用JS，但是能帮你理解个大概
 
 ## 一些基础
 
 在前端三剑客HTML，CSS，JavaScript中，JS是唯一的编程语言，因此它更为复杂，但各种功能的背后都离不开它。  
 
 最初，JavaScript在1995年由Netscape公司的Brendan Eich设计实现，由于那时该公司正和Sun公司合作，希望它外观看起来像Java，因此取名为JavaScript。  
-遗憾的是如今我们知道两者相差甚远，Java是典型的强类型语言，而JS则是弱类型语言，定义变量的时候不需要规定其数据类型；毕竟Java是静态语言，需要先编译成class文件再执行，而JS则是动态语言，数据类型可以在运行时确定。  
-当然静态语言的优势在于其严格的代码规范，因此IDE有很强的代码感知能力，一些小错误会即时报错，所以很适合大型或复杂的系统；反之动态语言的代码量更少更简洁，让开发者更注重业务逻辑。
+遗憾的是如今我们知道两者相差甚远，Java是典型的**强类型语言**，而JS则是**弱类型语言**，定义变量的时候不需要规定其数据类型；毕竟Java是**静态语言**，需要先编译成class文件再执行，而JS则是**动态语言**，数据类型可以在运行时确定。  
+当然静态语言的优势在于其严格的代码规范，因此IDE有很强的代码感知能力，一些小错误会即时报错，所以很适合大型或复杂的系统；反之动态语言的代码量更少更简洁，能让开发者更注重业务逻辑。  
+JavaScript的文件后缀为`.js`，所以它也简称为JS。
 
 和css类似，可以在`header`中添加一个`<script>`元素来绑定一个HTML和JS文件：  
 `    <script type="text/javascript" src="./test.js"></script>`
@@ -54,6 +55,55 @@ console.log(obj[symWithPara]);	//输出'Blackdn'
 如果不加参数，比如`sym`，在控制台输出的就是`Symbol()`；如果加了参数，比如`symWithPara`，输出的就是`Symbol('name')`  
 此外，`Symbol()`参数只是表示对当前 `Symbol` 值的描述，因此即便参数相同的两个`Symbol`其值也是不相等的。  
 不过要注意作为属性名的时候需要用**方括号**包裹`Symbol`，否则就只是`symWithPara`的字符串而非这个`Symbol`变量。同样，`obj['symWithPara']`和`obj.symWithPara`得到的都**不是**这个`Symbol`。
+
+### 引号的使用
+
+JS支持三种引号，即单引号`''`，双引号`""`，反引号` `` `   
+通常情况下，都是在用字符串的情况下使用引号，单引号`''`和双引号`""`都可以表示字符串
+
+```js
+const s1 = "hello";
+const s2 = 'hello';
+console.log(s1 === s2);	//输出：true
+```
+
+不过如果想字符串中包含引号，就需要用`\`转义。  
+所以很多时候为了简洁起见，可以混合使用单双引号，这样就不用转义了
+
+```js
+const s1 = "hello \"world\"";
+const s2 = 'hello \'world\'';
+
+const s3 = 'hello "world"';
+const s4 = "hello 'world'";
+
+console.log(s1 === s3);	//输出：true
+console.log(s2 === s4);	//输出：true
+```
+
+至于反引号` `` ` 是比较新的，在ES6引入  
+很多时候我们需要用变量来构造字符串，这样就要用`+`来进行字符串的运算，非常麻烦：
+
+```js
+const user = 'blackdn';
+const s = "hello " + user + " to this world.";
+console.log(s);		//输出：hello blackdn to this world.
+```
+
+于是引入了反引号` `` `，支持在字符串中直接解析变量：
+
+```js
+const user = 'blackdn';
+const str = `hello ${user} to this world.`;
+console.log(str);	//输出：hello blackdn to this world.
+```
+
+当然，反引号的字符串里要用反引号也需要转义。
+
+```js
+const str = `hello \`world\`.`;
+console.log(str);	//输出：hello `world`.
+```
 
 ### 声明变量
 
@@ -291,7 +341,9 @@ JS就是这点不好，你不知道他都有啥函数，除非看到别人用或
 | `startsWith()`  | 判断字符串是否以某子串开头                                   |
 | `endsWith()`    | 判断字符串是否以某子串结尾                                   |
 
-## 对象 和 类 Class
+## 对象Object 和 类Class
+
+### 定义对象
 
 在JS中创建对象比较简单，只需要用括号包括，再用键值对`属性名: 值`的方式创建属性即可  
 下面两种声明和获取属性的方式是一样的：
@@ -318,13 +370,11 @@ console.log(person[propertyName]);   //输出'Blackdn'
 console.log(person['propertyName']);   //输出'undefined'
 ```
 
-| 函数               | 作用                                                         |
-| ------------------ | ------------------------------------------------------------ |
-| `hasOwnProperty()` | 判断某对象是否含有某属性。`person.hasOwnProperty('name')`等同于`'name' in person`，都返回`true` |
-| `Object.keys()`    | 将对象的所有属性名返回为一个数组。`Object.keys(person)`返回`['name']` |
-|                    |                                                              |
+### 定义类
 
-
+和传统一样，JS用关键字`class`标识一个类，不过不同的是我们不需要为其声明属性  
+类中的属性直接在**构造函数**中标识，用`constructor`标识构造函数  
+当然类也可以有自己的函数，不过定义的时候不需要`function`关键字
 
 ```js
 class Person {
@@ -338,8 +388,20 @@ class Person {
 }
 ```
 
+### 继承类
+
+继承同样用的是`extend`关键字：
+
 ```js
-import Person from "./person";
+class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    introduce() {
+        return `My name is ${this.name}. I am ${this.age} years old.`;
+    }
+}
 
 class Student extends Person{
     constructor(name, age, klass) {
@@ -347,20 +409,125 @@ class Student extends Person{
         this.klass = klass;
     }
     introduce() {
-        return `I am a Student. I am at Class ${this.klass}.`;
+      return `${super.introduce()} I am a Student. I am at Class ${this.klass}.`;
     }
 }
-
-export default Student;
 ```
+
+继承的时候，子类中用`super`指代父类，可以用`super()`调用父类的构造方法，也可以用来调用父类的函数  
+比如`Student`的`introduce`方法实际上等同于  
+`My name is ${this.name}. I am ${this.age} years old. I am a Student. I am at Class ${this.klass}.`
+
+### 常用函数
+
+| 函数               | 作用                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| `hasOwnProperty()` | 判断某对象是否含有某属性。`person.hasOwnProperty('name')`等同于`'name' in person`，都返回`true` |
+| `Object.keys()`    | 将对象的所有属性名返回为一个数组。`Object.keys(person)`返回`['name']` |
 
 ## 模块化 Model
 
+就像之前的Sass能够用`@import`导入文件实现模块化，JS肯定不甘落后  
+很多时候我们将一个类进行模块化，然后在子类中导入并继承。我们把上面的`Person`类放在`person.js`文件中  
+不同于Sass，我们不能直接在其他文件导入`person.js`，而是在导入前需要进行导出  
+我们可以在定义类的时候用`export`声明导出：
+
+```js
+// person.js
+export class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    introduce() {
+        return `My name is ${this.name}. I am ${this.age} years old.`;
+    }
+}
+```
+
+当然也可以在代码最后声明导出：  
+我比较喜欢这种方式啦，方便查找修改。
+
+```js
+// person.js
+class Person {
+	//···
+}
+export Person;
+```
+
+既然有了`person.js`，那么我们再搞一个`student.js`用来写子类`Student`  
+我们的父类`Person`已经道出了，那么在`student.js`中就要将其导入：
+
+```js
+// student.js
+import {Person} from "./person";
+
+class Student extends Person{
+    constructor(name, age, klass) {
+        super(name, age);
+        this.klass = klass;
+    }
+    introduce() {
+      return `${super.introduce()} I am a Student. I am at Class ${this.klass}.`;
+    }
+}
+```
+
+可以看到导入的格式为`import {name} from "file";`  
+和Sass一样， 文件名不需要加`.js`后缀
+
+上面的方法称为**命名导出（Named Export）**，还有一种**默认导出（Default Export）**  
+就是多加个`default`关键字：
+
+```js
+// person.js
+class Person {
+	//···
+}
+export default Person;
+```
+
+使用默认导出后，在导入的时候就不需要加中括号了：
+
+```js
+// student.js
+import Person from "./person";
+
+class Student extends Person{
+    //···
+}
+```
+
+当然也可以结合使用：
+
+```js
+// person.js
+class Person {
+	//···
+}
+export function funToExport() {
+    console.log("hello");
+}
+export default Person;
+```
+
+这样`student.js`中的导入语句就可以结合两者，`Person`是默认导入的所以不用中括号，函数`funToExport()`是命名导入所以就要有中括号
+
+```js
+// student.js
+import Person, {funToExport} from "./person";
+
+class Student extends Person{
+    //···
+}
+```
 ## 参考
 
 1. [JavaScript Algorithms and Data Structures](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
 2. [阮一峰：ES6 入门教程](https://wangdoc.com/es6/)
 3. [【YouTube百万粉丝大神 Mosh】JavaScript系列完整教程（中英文字幕）](https://www.bilibili.com/video/BV11B4y1U7aH?p=2&vd_source=e0304398288bd0595d726c9759188da1)
-4. [逻辑运算符](https://zh.javascript.info/logical-operators)
-5. [JavaScript String 对象](https://www.runoob.com/jsref/jsref-obj-string.html)
-6. [JavaScript Array 对象](https://www.runoob.com/jsref/jsref-obj-array.html)
+4. [JS 单引号、双引号与反引号的区别](https://blog.csdn.net/k346k346/article/details/112540252)
+5. [逻辑运算符](https://zh.javascript.info/logical-operators)
+6. [JavaScript String 对象](https://www.runoob.com/jsref/jsref-obj-string.html)
+7. [JavaScript Array 对象](https://www.runoob.com/jsref/jsref-obj-array.html)
