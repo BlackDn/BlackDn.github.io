@@ -12,6 +12,9 @@
 遗憾的是如今我们知道两者相差甚远，Java是典型的强类型语言，而JS则是弱类型语言，定义变量的时候不需要规定其数据类型；毕竟Java是静态语言，需要先编译成class文件再执行，而JS则是动态语言，数据类型可以在运行时确定。  
 当然静态语言的优势在于其严格的代码规范，因此IDE有很强的代码感知能力，一些小错误会即时报错，所以很适合大型或复杂的系统；反之动态语言的代码量更少更简洁，让开发者更注重业务逻辑。
 
+和css类似，可以在`header`中添加一个`<script>`元素来绑定一个HTML和JS文件：  
+`    <script type="text/javascript" src="./test.js"></script>`
+
 ### 数据类型
 
 和大部分语言类似，JS的数据类型大体可分为两种：**基本类型（Value Type / Primitive Types）**和**引用类型（Reference Types）**   
@@ -213,6 +216,10 @@ console.log(firstName ?? lastName ?? nickName ?? "allEmpty"); //输出：BlackDn
 
 ### 循环语句
 
+#### for循环
+
+#### while循环
+
 #### for - in遍历
 
 ## 数组Array
@@ -346,8 +353,6 @@ class Student extends Person{
 
 export default Student;
 ```
-
-
 
 ## 模块化 Model
 
