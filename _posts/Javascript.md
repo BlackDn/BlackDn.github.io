@@ -18,7 +18,8 @@ tags:
 ## 前言
 
 最后轮到JS了，这篇文章并不能帮你熟练使用JS，但是能帮你理解个大概  
-这篇都是一些基础啊语法啥的，之后再整一篇JS结合HTML的文章吧
+这篇都是一些基础啊语法啥的，之后再整一篇JS结合HTML的文章吧   
+这里有个好玩的闯关式学习教程：[free code camp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
 
 ## 一些基础
 
@@ -171,6 +172,10 @@ console.log(person.name)	//输出'White'
 
 ### 逻辑运算
 
+什么`if-else`的判断语句就不展开讲了，简单来说`if`，`if-else`，`if-else if`等语句都可以用的  
+还有`switch`语句也和`java`没差，都是`switch-case-break`的形式，就略过啦  
+这里就简单说一下逻辑运算嗷。
+
 #### 或运算：||
 
 或运算还是老样子，只要有一个为`true`，则全部为`true`，就不举例了。  
@@ -255,6 +260,8 @@ NaN == NaN;		//false NaN和任何数都不相等
 null === undefined;	//false
 ```
 
+同理，`!=`和`!==`也是同样的效果，前者会先进行类型转换，后者的比较内容包括类型。
+
 #### 空值合并运算：??
 
 空值合并运算符（nullish coalescing operator）是ES6引入的，当左侧参数为`null`或`undefined`的时候，则返回右侧参数：
@@ -328,9 +335,9 @@ const reduced = numbers.reduce((accumulator, current) => accumulator + current);
 | ------------ | ------------------------------------------------------------ |
 | `slice()`    | 选取数组的一部分，并返回一个新数组，`slice(4,7)`返回原数组下标`4-6`元素组成的新数组，包含头位置，不包含尾位置 |
 | `join()`     | 连接数组元素为字符串，传入参数为连接符，默认为逗号`,`，`['hello', 'world'].join('->')结果为'hello->world'` |
+| `find()`     | 返回第一个符合要求的元素，都不符合时返回`undefind`。需要传入函数作为参数，以此判断是否符合要求。 |
 | `unshift()`  | 在数组头部增加元素                                           |
 | `push()`     | 在数组尾部增加元素                                           |
-| `find()`     | 返回第一个符合要求的元素，都不符合时返回`undefind`。需要传入函数作为参数，以此判断是否符合要求。 |
 | `pop()`      | 删除并返回数组的最后一个元素                                 |
 | `shift()`    | 删除并返回数组的第一个元素                                   |
 | `splice()`   | 从数组中添加或删除元素，会修改原数组。`splice(index, quantity, item1...n)`，参数分别表示`删除/添加位置`，`删除多少元素`，`添加的新元素` |
