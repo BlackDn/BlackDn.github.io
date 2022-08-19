@@ -1,8 +1,24 @@
-# JS
+---
+layout:       post  
+title:        Web：JavaScript基础  
+subtitle:     数据类型、变量、语法等  
+date:         2022-08-19  
+auther:       BlackDn  
+header-img:   img/19mon7_02.jpg  
+catalog:      true  
+tags:  
+    - Web  
+    - JavaScript  
+---
+
+> "三更梦醒，瞧檐上落下的月，满地银光。"
+
+# Web：JavaScript基础
 
 ## 前言
 
-最后轮到JS了，这篇文章并不能帮你熟练使用JS，但是能帮你理解个大概
+最后轮到JS了，这篇文章并不能帮你熟练使用JS，但是能帮你理解个大概  
+这篇都是一些基础啊语法啥的，之后再整一篇JS结合HTML的文章吧
 
 ## 一些基础
 
@@ -419,6 +435,8 @@ class Student extends Person{
 `My name is ${this.name}. I am ${this.age} years old. I am a Student. I am at Class ${this.klass}.`
 
 ### 常用函数
+
+用到的时候再加吧=。=
 
 | 函数               | 作用                                                         |
 | ------------------ | ------------------------------------------------------------ |
