@@ -2,7 +2,7 @@
 layout:       post  
 title:        Web：JavaScript基础  
 subtitle:     数据类型、变量、语法等  
-date:         2022-08-19  
+date:         2022-08-20  
 auther:       BlackDn  
 header-img:   img/19mon7_02.jpg  
 catalog:      true  
@@ -168,8 +168,6 @@ person.name = 'White';
 console.log(person.name)	//输出'White'
 ```
 
-
-
 ### 逻辑运算
 
 什么`if-else`的判断语句就不展开讲了，简单来说`if`，`if-else`，`if-else if`等语句都可以用的  
@@ -289,11 +287,54 @@ console.log(firstName ?? lastName ?? nickName ?? "allEmpty"); //输出：BlackDn
 
 ### 循环语句
 
-#### for循环
+循环其实也没差啦，`while`循环、`for`循环、`do-while`都和java一样所以就不说啦  
+要说唯一的差别那就是for循环中定义变量的时候要用`let`而不是`int`吧=。=
 
-#### while循环
+这里说一下比较特别的`for-in`和`for-of`循环，他们和java中的`for-each`比较像  
+不过`for-in`循环的内容是下标（数组）或属性（对象）而另一个`for-of`循环则直接输出元素  
+因此对于数组推荐使用`for-of`，对于对象则推荐使用`for-of`（对象不能使用`for-of`）
 
-#### for - in遍历
+对象只能用`for-in`
+
+```js
+const person = {
+  name:"Blackdn", age:22
+}; 
+
+for (let prop in person) {
+    console.log(prop + " " + person[prop]);
+}
+//输出：
+//name Blackdn
+//age 22
+```
+
+数组则两个都可以用：
+
+```js
+const arr = ['a', 'b'];
+
+  for (let index in arr) {
+      console.log(index + " " + arr[index]);
+  }
+//输出：
+//0 a
+//1 b
+  for (let val of arr) {
+    console.log(val);
+  }
+//输出：
+//a
+//b
+```
+
+### 常用函数
+
+| 函数          | 作用                                                         |
+| ------------- | ------------------------------------------------------------ |
+| Math.random() | 生成随机数（`[0,1)`）                                        |
+| Math.floor()  | 去掉小数部分，保留整数                                       |
+| parseInt()    | 将字符串转为整数类型（`parseInt("11", 2)`返回`3`，第二个可选参数表示进制） |
 
 ## 数组Array
 
@@ -343,8 +384,7 @@ const reduced = numbers.reduce((accumulator, current) => accumulator + current);
 | `splice()`   | 从数组中添加或删除元素，会修改原数组。`splice(index, quantity, item1...n)`，参数分别表示`删除/添加位置`，`删除多少元素`，`添加的新元素` |
 | `includes()` | 判断一个数组是否包含一个指定的值。                           |
 | `indexOf()`  | 搜索数组中的元素，并返回它所在的位置。没找到则返回`-1`       |
-
-
+| `forEach()`  | 对每个元素执行某函数（参数为函数）                           |
 
 ##  字符串String
 
