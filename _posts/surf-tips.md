@@ -37,6 +37,7 @@
 | command + M                              | 最小化当前程序                                               |
 | command + T                              | 新建标签页（在桌面打开finder）                               |
 | command + N                              | 新建窗口（在桌面打开finder）                                 |
+| command + R                              | 刷新浏览器当前页面                                           |
 | command + shift + N                      | 新建文件夹                                                   |
 | command + option +M                      | 最小化其他程序                                               |
 | command + H                              | 隐藏当前程序                                                 |
@@ -56,10 +57,11 @@
 | fn + up / down                           | 向上/下翻页（通常以一个滚轮长度为一页）                      |
 | fn + left / right                        | 跳转到开头/结尾                                              |
 | command + left / right                   | 光标移动到行首/行尾                                          |
-| command + up / down                      | 光标移动到文本开头/末尾                                      |
+| command + up / down                      | 光标移动到文本开头/末尾（finder中可以回到上级/下级文件夹）   |
 | option + left / right                    | 光标移动到单词开头/末尾                                      |
 | cap                                      | 中英文切换                                                   |
 | shift + cap                              | 英文输入法：切换大小写<br />中文输入法：切换中文输入/英文小写 |
 | 触控板三指向上                           | 快速预览全部桌面                                             |
 | 触控板三指左/右划                        | 切换桌面                                                     |
+| （更多触控板内容）                       | 系统设置 `->` 触控板 `->` 更多手势                           |
 | fn + ～（数字1旁边那个符号键）           | 中文输出`"·"`，英文输出`` "`" ``（我找这个符号找半天所以写一下） |
