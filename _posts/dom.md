@@ -236,9 +236,9 @@ const div = document.querySelector("div");
 const spanWithClass = document.querySelector(".span-class")
 console.log(spanWithClass.dataset);
 //输出：
-DOMStringMap {
-  test: "i am data test"
-}
+//DOMStringMap {
+//  test: "i am data test"
+//}
 ```
 
 同样，我们可以直接从`spanWithClass.dataset.test`获取`"i am data test"`，还可以用点结构来为其设置新的属性
