@@ -30,8 +30,11 @@ tags:
 当然静态语言的优势在于其严格的代码规范，因此IDE有很强的代码感知能力，一些小错误会即时报错，所以很适合大型或复杂的系统；反之动态语言的代码量更少更简洁，能让开发者更注重业务逻辑。  
 JavaScript的文件后缀为`.js`，所以它也简称为JS。
 
-和css类似，可以在`header`中添加一个`<script>`元素来绑定一个HTML和JS文件：  
+和css类似，可以在`<head>`中添加一个`<script>`元素来绑定一个HTML和JS文件：  
 `    <script type="text/javascript" src="./test.js"></script>`
+
+当然，我们也可以在`<body>`添加：  
+`<script type="module" src="index.js"></script>`
 
 ### 数据类型
 

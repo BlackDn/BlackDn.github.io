@@ -85,7 +85,7 @@ const spanWithClass = document.querySelector(".span-class")
 #### querySelectorAll()
 
 `querySelector()`的一个弊端在于其只会返回第一个检索到的元素，如果有多个元素，则后面的会被忽略。  
-为了解决这种情况，我们可以用`querySelectorAll()`，他可以匹配所有元素并返回一个列表。  
+为了解决这种情况，我们可以用`querySelectorAll()`，他可以匹配所有元素并返回一个**列表**。  
 比如有一个列表：
 
 ```html
@@ -296,7 +296,14 @@ spanWithClass.classList.toggle("new-class", true);	//强制给spanWithClass添�
 
 ## 参考
 
-1. [MDN：DOM 概述](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model/Introduction)
-2. [Learn DOM Manipulation In 18 Minutes](https://www.youtube.com/watch?v=y17RuWkWdn8)
-3. [HTML DOM Document 对象](https://www.runoob.com/jsref/dom-obj-document.html)
-4. [搜索：getElement，querySelector](https://zh.javascript.info/searching-elements-dom)
+1. [MDN：文档对象模型 (DOM)](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model)
+
+2. [MDN：DOM 概述](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model/Introduction)
+
+3. [Learn DOM Manipulation In 18 Minutes](https://www.youtube.com/watch?v=y17RuWkWdn8)
+
+4. [HTML DOM Document 对象](https://www.runoob.com/jsref/dom-obj-document.html)
+
+5. [搜索：getElement，querySelector](https://zh.javascript.info/searching-elements-dom)
+
+   
