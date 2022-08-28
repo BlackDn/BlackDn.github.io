@@ -7,7 +7,6 @@ auther:    BlackDn
 header-img:     img/acg.gy_02.jpg 
 catalog:      true
 tags:   
-      - DiscreteMath
       - SchoolClass
 ---
 > "志之所趋，穷山距海，不可阻挡。"  

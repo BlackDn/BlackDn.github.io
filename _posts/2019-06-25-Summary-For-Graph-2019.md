@@ -8,7 +8,6 @@ header-img:   img/acg.gy_01.jpg
 catalog:    true
 tags:
       - SchoolClass
-      - DiscreteMath
 ---
 
 >"欲买桂花同载酒，终不似，少年游"

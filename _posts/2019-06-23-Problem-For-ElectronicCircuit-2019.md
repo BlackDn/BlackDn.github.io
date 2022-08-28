@@ -8,7 +8,6 @@ header-img:   img/acg.gy_19.jpg
 catalog:    true
 tags:
       - SchoolClass
-      - ElectronicCircuit 
 ---
 > "星河滚烫，你是人间理想"
 
