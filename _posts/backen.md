@@ -61,22 +61,34 @@ JSON，JavaScript Object Notation，是一种轻量级的数据交换格式，�
 }
 ```
 
-可以发现，这种形式和JS中的对象不能说十分相像，可以说是一模一样，基本上就是`{ "attribute" : "value" }`的形式。  
+可以发现，这种形式和JS中的对象不能说十分相像，可以说是一毛一样，基本上就是`{ "attribute" : "value" }`的形式。这也是为啥Web开发中基本都用JSON，甚至都不用类型转换。  
 菜鸟的JSON格式转换挺好用的：[JSON格式化工具](https://c.runoob.com/front-end/53/)，可以将JSON字符串以树的形式展现出来，可以拿上面的栗子🌰试试。  
 
 好不容易出现了XML的平替，JSON自然大受欢迎，雅虎和谷歌开始广泛地使用JSON格式，Twitter也表示其对XML格式的支持到2013年结束。  
 JSON的主流地位至今仍然延续，不过也不是说XML就不用了。比如Android中的 `manifest` 配置文件就是XML格式。
 
-### Java中的JSON：
+JSON作为数据传输的格式，有几个显著的优点：
 
-这里先提前说明一点，我们
+- JSON只支持UTF-8编码，不存在编码问题；
+- JSON只支持双引号，特殊字符用`\`转义，格式简单；
+- 浏览器内置JSON支持，如果把数据用JSON发送给浏览器，可以直接用JavaScript处理。
 
-虽然现在有很多库能直接提供Java对象和JSON
+当然，不止浏览器，Java也有很多库能直接提供方法进行JavaBean（对应JSON对象的Java对象）和JSON的转换，比如Google提供的`Gson`。若是在**Android Studio**中开发，`javax`包中还有`JSONObject`和`JSONArray`类可以直接用。
+
+因为JSON格式简单，它仅支持以下几种数据类型：
+
+- 键值对：`{"key": value}`
+- 数组：`[1, 2, 3]`
+- 字符串：`"abc"`
+- 数值（整数和浮点数）：`12.34`
+- 布尔值：`true`或`false`
+- 空值：`null`
 
 ## 举个例子
 
 ## 参考
 
 1. [MDN: API](https://developer.mozilla.org/zh-CN/docs/Glossary/API)
-1. [JSON 的兴起与崛起](https://zhuanlan.zhihu.com/p/54824115)
-1. [JSON格式化工具](https://c.runoob.com/front-end/53/)
+2. [JSON 的兴起与崛起](https://zhuanlan.zhihu.com/p/54824115)
+3. [使用JSON](https://www.liaoxuefeng.com/wiki/1252599548343744/1320418650619938)
+4. [JSON格式化工具](https://c.runoob.com/front-end/53/)
