@@ -44,6 +44,7 @@
 | command + M                              | 最小化当前程序                                               |
 | command + T                              | 新建标签页（在桌面打开finder）                               |
 | command + N                              | 新建窗口（在桌面打开finder）                                 |
+| command + shift + N                      | 浏览器：新建无痕浏览窗口                                     |
 | command + R                              | 刷新浏览器当前页面                                           |
 | command + shift + N                      | 新建文件夹                                                   |
 | command + option +M                      | 最小化其他程序                                               |
