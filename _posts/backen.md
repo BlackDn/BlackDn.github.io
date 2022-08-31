@@ -92,3 +92,4 @@ JSON作为数据传输的格式，有几个显著的优点：
 2. [JSON 的兴起与崛起](https://zhuanlan.zhihu.com/p/54824115)
 3. [使用JSON](https://www.liaoxuefeng.com/wiki/1252599548343744/1320418650619938)
 4. [JSON格式化工具](https://c.runoob.com/front-end/53/)
+5. [MVN Repository](https://mvnrepository.com/)， [Jackson Databind](https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind)
