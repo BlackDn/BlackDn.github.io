@@ -6,6 +6,8 @@
 2. 网络请求：前端向后端请求API，图片加载等
 3. 事件监听
 
+### 毁掉
+
 ### XMLHttpRequest
 
 `XMLHttpRequest`一开始只是微软浏览器提供的一个接口，后来各浏览器纷纷效仿提供了这个接口，于是W3C对它进行了标准化，提出了[XMLHttpRequest标准](https://www.w3.org/TR/XMLHttpRequest/)。  
@@ -36,7 +38,7 @@ xhr.open(method, URL, [async, user, password]);	//初始化操作
 
 其参数如下（`[]`表示参数可选）：
 
-- `method`：表示请求所采用的方法（GET或POST）
+- `method`：表示请求所采用的方法（GET、POST之类的）
 - `URL`：请求的URL，可以为字符串，也可以为URL对象
 - `async`：可以为`true`或`false`，表示是否为异步请求，默认为`true`
 - `user`、`password`：身份验证所需的账户和密码
