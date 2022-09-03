@@ -31,7 +31,7 @@ tags:
 JavaScript的文件后缀为`.js`，所以它也简称为JS。
 
 和css类似，可以在`<head>`中添加一个`<script>`元素来绑定一个HTML和JS文件：  
-`    <script type="text/javascript" src="./test.js"></script>`
+`<script type="text/javascript" src="./test.js"></script>` 
 
 当然，我们也可以在`<body>`添加：  
 `<script type="module" src="index.js"></script>`
