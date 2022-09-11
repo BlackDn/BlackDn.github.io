@@ -2,21 +2,31 @@
 
 ## 标点英文
 
-| 中文                   | 英文文 |
-| ---------------------- | ------ |
-| 逗号                   | comma  |
-| 句号                   |        |
-| 省略号                 |        |
-| 冒号                   |        |
-| 引号（单引号，双引号） |        |
-| 星号                   |        |
-|                        |        |
-| 下划线                 |        |
-| 括号                   |        |
-| 尖括号                 |        |
-| 方括号                 |        |
-| 小括号                 |        |
-| 加减乘除（运算符）     |        |
+| 中文                     | 英文                                                |
+| ------------------------ | --------------------------------------------------- |
+| 逗号（`,`）              | comma                                               |
+| 句号（`.`）              | period / full stop                                  |
+| 省略号(`...`)            | ellipsis                                            |
+| 冒号(`:`)                | colon                                               |
+| （单/双）引号(`''`/`""`) | (Single / double) quotation marks                   |
+| 星号(`*`)                | asterisk / star key                                 |
+| 井号(`#`)                | hash / well number /pound key                       |
+| 下划线(`_`)              | underline / underscore                              |
+| 斜杠（`/`）              | slash                                               |
+| 反斜杠（`\`）            | backslash                                           |
+| 运算符                   | operator                                            |
+| 加号/减号/乘号/除号      | plus sign / minus sign / times sign / division sign |
+| 加法/减法/乘法/除法      | addition / subtraction / multiplication / division  |
+
+对于括号来说，所有括号都可以统称为`bracket`。但是实际上还有什么圆括号方括号花括号之类的,可以进一步明确：
+
+| 括号                    | 英文                          |
+| ----------------------- | ----------------------------- |
+| 小括号 / 圆括号（`()`） | parenthesis (pl. parentheses) |
+| 中括号 / 方括号（`[]`） | bracket                       |
+| 大括号 / 花括号（`{}`） | brace                         |
+
+如果分左右的话可以叫`open / close bracket`，不过`left / right`也行。
 
 ## 软件推荐
 
@@ -26,6 +36,18 @@
 Fig是一款改善**命令行**的工具，不过目前似乎只支持Mac。  
 它会自动的将所有命令展示在一个下拉框中，并在底部展示简单的描述信息。  
 此外，它还以可视化的方式展现了插件市场，让我们可以一件下载安装。比如修改命令行主题的[Oh My Zsh](https://ohmyz.sh/)，比如自动补全的[Zsh Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

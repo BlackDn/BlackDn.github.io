@@ -1,3 +1,29 @@
+---
+layout:       post  
+title:        Web：异步方法 & 网络请求  
+subtitle:     JS的异步和网络请求（Promise，Fetch，XMLHttpRequest）  
+date:         2022-09-11  
+auther:       BlackDn  
+header-img:   img/19mon7_06.jpg  
+catalog:      true  
+tags:  
+    - Web  
+    - JavaScript  
+---
+
+> "偶尔傻傻孤单，偶尔傻傻浪漫。"
+
+# Web：异步方法和网络请求
+
+## 前言
+
+祝大家昨天中秋快乐嗷  
+这是一些JS中的异步方法和网络请求方法  
+恭喜离全栈又更近了一步=。=
+
+本文用到了[REQRES](https://reqres.in/)提供的接口。这个网站提供假的接口以便我们测试前端的连接。  
+简单来说就是我们访问他的API，然后通过返回值判断连接是否成功（他会告诉你请求内容是什么，他返回给你的东西是什么）。挺好用的，感兴趣的话可以去看看。
+
 ## 异步
 
 大家都知道，我们从上往下写代码，不出意外的话，这些代码也是从上往下按顺序执行的。也就是说，下面的代码要等待上面的代码执行结束再开始执行，这就是**同步（Sync）**。  
@@ -415,17 +441,47 @@ countRabbit();
 //Error: I forget the number
 ```
 
+## 网络请求
 
+### URL
 
+其实很多情况下，我们请求的URL都可以用字符串表示，但是**URL**对象还是提供了很多有用的方法的。
 
+#### URL对象
 
+```js
+new URL(url, [base])
+```
 
+参数url就是我们请求的URL，不过当我们规定了可选参数base之后，可以只在url传入路径，URL对象会根据base和路径自动生成url去请求。
 
+```js
+//访问：https://blackdn.github.io/
+let url1 = new URL('https://blackdn.github.io/');
+//访问：https://blackdn.github.io/about
+let url2 = new URL('/about', 'https://blackdn.github.io/');
+```
 
+此外，**URL**会自动帮我们解析url，因此我们可以直接访问其某个部分：
 
+```js
+let url = new URL('https://blackdn.github.io/about');
+alert(url.protocol); // https:
+alert(url.host);     // blackdn.github.io
+alert(url.pathname); // /about
+```
 
+#### 编码
 
+[RFC3986标准](https://tools.ietf.org/html/rfc3986) 定义了 URL 中允许或不允许的字符，而那些不被允许的字符必须被编码（非拉丁字母和空格，比如中文）。  
+将其变为 UTF-8 代码，前缀为 `%`，例如 `%20`（由于历史原因，空格可以用 `+` 编码，但这是一个例外）  
+不过**URL**会自动帮我们编码，我们不需要自己手动编码再传入
 
+```js
+let url = new URL('https://blackdn.github.io/你好');
+console.log(url.href);
+//输出：https://blackdn.github.io/%E4%BD%A0%E5%A5%BD
+```
 
 ### XMLHttpRequest
 
@@ -459,7 +515,7 @@ xhr.open(method, URL, [async, user, password]);	//初始化操作
 
 - `method`：表示请求所采用的方法（GET、POST之类的）
 - `URL`：请求的URL，可以为字符串，也可以为URL对象
-- `async`：可以为`true`或`false`，表示是否为异步请求，默认为`true`
+- `async`：可以为`true`或`false`。默认为`true`，表示为异步请求
 - `user`、`password`：身份验证所需的账户和密码
 
 注意`open()`仅配置请求信息，不会建立连接，不要被它的名字误导了  最后我们通过`send()`来发送请求
@@ -478,37 +534,22 @@ xhr.send([body]);	//发送请求
 
 ```js
 xhr.onload = function() {	//当接收到响应后，将调用此函数
-  alert(`Loaded: ${xhr.status} ${xhr.response}`);
+  console.log(`Loaded: ${xhr.status} ${xhr.response}`);
 };
 
 xhr.onerror = function() { // 仅在根本无法发出请求时触发
-  alert(`Network Error`);
+  console.log(`Network Error`);
 };
 
 xhr.onprogress = function(event) { // 定期触发
   // event.loaded —— 已经下载了多少字节
   // event.lengthComputable = true，则表示服务器发送了 Content-Length header
   // event.total —— 总字节数（如果 lengthComputable 为 true）
-  alert(`Received ${event.loaded} of ${event.total}`);
+  console.log(`Received ${event.loaded} of ${event.total}`);
 };
 ```
 
-可以看到，我们的响应结果也会交给XMLHttpRequest对象，其中包含很多属性，比如`xhr.status`表示响应的状态码，`xhr.statusText`表示状态码对应的消息（`200` 对应 `OK`，`404`对应`Not Found`），`xhr.response`则表示服务器的`response body`
-
-```js
-const xhr = new XMLHttpRequest();
-xhr.onload = () => {
-    successCallback(xhr.responseText);
-};
-
-xhr.onerror = () => {
-    errorCallback(new Error(xhr.statusText));
-};
-
-xhr.open('get', url, true);
-xhr.send();
-```
-
+可以看到，我们的响应结果也会交给`XMLHttpRequest`对象，其中包含很多属性，比如`xhr.status`表示响应的状态码，`xhr.statusText`表示状态码对应的消息（`200` 对应 `OK`，`404`对应`Not Found`），`xhr.response`则表示服务器的`response body`    
 此外，我们还可以指定超时时间`timeout`，当超出这个时间请求仍没有成功执行，则会取消请求并触发`timeout`事件
 
 ```js
@@ -548,8 +589,6 @@ try {
 ```js
 xhr.setRequestHeader('Content-Type', 'application/json');
 ```
-
-
 
 ##### 响应格式和状态码
 
@@ -663,10 +702,12 @@ xhr.upload.onerror = function() {
 };
 ```
 
+
+
 ### Fetch API
 
 **Fetch API**提供了一系列接口用于网络请求并获取资源（包括跨域请求），其内部是基于**Promise**实现的。之前也提到，比起**XMLHttpRequest**，人们更喜欢用**Fetch**。  
-它提供了一个全局方法`fetch()` ，这个异步方法简单好用，接受一个必须参数——资源的路径`url`和一个可选参数`options`，其包括很多可选内容，如`method`、`header`等。  
+它提供了一个全局方法`fetch()` ，这个异步方法简单好用，接受一个必须参数——资源的路径`url`和一个可选参数`options`，其包括很多可选内容，如`method`、`header`等，具体可见：[Fetch API](https://zh.javascript.info/fetch-api)。  
 
 ```js
 let promise = fetch(url, [options])
@@ -726,6 +767,19 @@ tryFetch();
 //·······
 ```
 
+由于**Fetch**内部是基于**Promise**的，所以也可以直接用`then-catch`的语句来进行进一步的操作，比如：
+
+```js
+async function myFetch(url) {
+  let response = await fetch(url);
+  return response.json();
+};
+//等效于
+function myFetch(url) {
+  return fetch(url).then((response) => response.json());
+};
+```
+
 #### 响应头 Response header
 
 众所周知，根据HTTP协议的报文格式，响应头中有包含了很多信息。他们就保存在Response的 `response.headers` 中，是一个类似于 `Map` 的 **header** 对象。  
@@ -783,89 +837,213 @@ let response = fetch("http://localhost:1234/", {
 那还是JSON比较常用嗷
 
 ```js
-let user = {
-  name: 'Blackdn',
-  age: 18
-};
+async function postFetch() {
+  let user = {
+    name: "morpheus",
+    job: "leader"
+  };
+  let response = await fetch('https://reqres.in/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(user)
+  });
 
-let response = await fetch('', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  },
-  body: JSON.stringify(user)
-});
+  let result = await response.json();
+  console.log(result);
+}
 
-let result = await response.json();
-console.log(result.message);
+postFetch();
+//输出返回值：
+//{
+//    "name": "morpheus",
+//    "job": "zion resident",
+//    "updatedAt": "2022-09-08T14:40:39.455Z"
+//}
 ```
 
-要注意的是，如果请求的 `body` 是字符串，则 `Content-Type` 默认为`text/plain;charset=UTF-8`（这和我们调用`response.text`返回的内容一致）  
+这里请求的是[REQRES](https://reqres.in/)的接口，返回值也符合预期。
+
+这里要注意的是，如果请求的 `body` 是字符串，则 `Content-Type` 默认为`text/plain;charset=UTF-8`（这和我们调用`response.text`返回的内容一致）  
 但是当我们发送 JSON 时，我们需要将其修改为 `application/json`，这样才表示我们的`body`格式是 JSON。
 
+#### FormData
 
+之前在**XMLHttpRequest**中我们也使用了`FormData`快速构建数据，这在**Fetch**中也是可以用的。  
+我们可以通过`let formData = new FormData([form])`来获得一个`FormData`对象
 
+```html
+<form id="myForm">
+  <input type="text" name="name" value="morpheus">
+  <input type="text" name="job" value="leader">
+  <input type="submit">
+</form>
 
+<script>
+  myForm.onsubmit = async (e) => {
+    e.preventDefault();
+    let myFormData = new FormData(myForm);//使用formdata
+    for (const [key, value] of myFormData) {
+      console.log(`key: ${key}, value: ${value}`)
+    }
+    //输出：
+    //key: name, value: morpheus
+		//key: job, value: leader
 
-```js
-function fetchData(url) {
-  // <-- start
-  // TODO: 通过Fetch API实现异步请求
-  return fetch(url).then((Response) => Response.json());
-  // end -->
-}
-const URL = 'http://localhost:3000/api';
-fetchData(URL)
-  .then((result) => {
-    document.writeln(result.name);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+    let response = await fetch('https://reqres.in/api/users', {
+      method: 'POST',
+      body: myFormData,
+    });
+
+    let result = await response.json();
+    console.log(result);
+    //输出：{id: '17', createdAt: '2022-09-08T15:24:15.502Z'}
+  };
+</script>
 ```
 
+这里最后的输出有点不一样是因为实际上这并不是我们期望返回的响应内容。因为**REQRES**接收的请求要是JSON，但是我们这里传的是**FormData**。我们知道用JSON请求时，`Content-Type`应该是 `application/json`。但是FormData自带 `multipart/form-data`的`Content-Type`。所以我们不是JSON，所以返回值有所不同。  
+似乎**FormData**自己没有直接转为JSON对象的方法，所以需要我们自己写。我才不写呢。
 
+我们可以使用以下方法修改 `FormData` 中的字段：
 
+- `formData.append(name, value)`：添加具有给定 `name` 和 `value` 的表单字段，当`name`重复时继续创建。
+- `formData.append(name, blob, fileName)`：添加一个字段（来发送文件），等效于 `<input type="file">`；第三个参数 `fileName` 则用来设置文件名。当`name`重复时继续创建。
+- `formData.set(name, value)`：添加具有给定 `name` 和 `value` 的表单字段，当`name`重复时删除其他字段，保留自己。
+- `formData.set(name, blob, fileName)`：添加一个字段（来发送文件），当`name`重复时删除其他字段，保留自己。
+- `formData.delete(name)`：移除带有给定 `name` 的字段
+- `formData.get(name)`：获取带有给定 `name` 的字段值
+- `formData.has(name)`：如果存在带有给定 `name` 的字段，则返回 `true`，否则返回 `false`
 
+我们也可以使用 `for-of` 循环来迭代遍历`formData`字段：
 
+```js
+let formData = new FormData();
+formData.append('name', 'blackdn');
+formData.append('sex', 'male');
 
+for(let [key, value] of formData) {
+  console.log(`${key} = ${value}`);
+}
+//输出：
+//name = blackdn
+//sex = male
+```
 
+#### 用AbortController中止请求
 
+因为很多异步方法都没有中止的指令，包括**Promise**，更别说基于Promise的**Fetch**了。所以我们就用**AbortController**来完成中止的任务。
 
+`let controller = new AbortController()`
 
+**AbortController对象**（以下简称**Controller**）有一个`abort()`方法和`signal`属性。我们需要在`signal`上设置监听器，当`abort()`方法被调用之后，会停止异步方法并调用`signal`的监听方法，最后将`signal.aborted`属性设为`true`。
 
+```js
+let controller = new AbortController();
+//第一个参数的'abort'表示controller的abort()触发后调用该方法
+controller.signal.addEventListener('abort', () => {
+  console.log('it aborted!');
+});
+controller.abort();
+console.log('aborted: ' + controller.signal.aborted);
+//输出：
+//it aborted!
+//aborted: true
+```
 
+如果想用**Controller**取消**Fetch**，需要讲signal作为参数传递给`fetch()`。**Fetch**会自己监听`signal`，所以我们只要在需要的地方调用`controller.abort()`即可
 
+```js
+let controller = new AbortController();
+fetch(url, {
+  signal: controller.signal
+});
+```
 
+当然，**Fetch**被中止后，它的**Promise**会被`reject`并返回一个`AbortError`，我们可以用`try-catch`进行处理
 
+```js
+let controller = new AbortController();
+controller.signal.addEventListener('abort', () => {
+  console.log('it aborted!')
+});
 
+myForm.onsubmit = async (e) => {
+  e.preventDefault();
+  let myFormData = new FormData(myForm);
+  controller.abort();//中止
+  try {
+    let response = await fetch('https://reqres.in/api/users', {
+      method: 'POST',
+      body: myFormData,
+      signal: controller.signal //绑定signal
+    });      
+  } catch (err) {
+    console.log(err.name);
+  }
+  let result = await response.json();
+  console.log(result);
+};
+//输出：
+//it aborted!（监听器输出）
+//AbortError（catch输出）
+```
 
-| type\status | opened                                                       | finalized                                                    |
-| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| in person   | type：show<br />event link：not show  <br />poll link：show<br />location：show | type：show<br />event link：not show<br />poll link：not show<br />location：show |
-| online      | type：show<br />event link：show  <br />poll link：show<br />location：not show | type：show<br />event link：show<br />poll link：not show<br />location：not show |
+## 一些示例
 
+### XMLHttpRequest的异步GET请求
 
+我们用[REQRES](https://reqres.in/)的接口进行一个异步的`GET`请求。  
+这里用了**回调**的方法来进行请求成功或失败的后续操作：
 
+```js
+function successCallback(xhr) {
+    console.log('request success: ' + xhr.responseText);
+}
+function errorCallback(error) {
+    console.log('error: ' + error.message);
+}
 
+function requestByXHR(url, successCallback, errorCallback) {
+    let xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+        successCallback(xhr);
+    }
+    xhr.onerror = () => {
+        errorCallback(new Error(xhr.statusText));
+    }
+    xhr.open('get', url, true);
+    xhr.send();
+}
 
+const URL = 'https://reqres.in/api/users/2';
+requestByXHR(URL, successCallback, errorCallback);
+```
 
+返回内容也符合预期：
 
+```json
+{
+    "data": {
+        "id": 2,
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "last_name": "Weaver",
+        "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    },
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+```
 
+### Promise的异步GET请求
 
-
-
-
-
-
-
-
-
-
-
-
-
-## 示例：Promise
+和**XMLHttpRequest**用的是同一个`GET`请求接口  
+因为Promise只是用来提供异步方法，其本身并没有进行网络连接的方法，因此在其内部我们还是用到了**XMLHttpRequest**   
+不过好处在于我们不再需要使用回调进行后续操作，而可以使用**Promise**自己的`resolve`和`reject`了。
 
 ```js
 function fetchData(url) {
@@ -881,18 +1059,71 @@ function fetchData(url) {
         xhr.send();
     });
 }
-
 ```
 
+返回内容也一样：
 
+```json
+{
+    "data": {
+        "id": 2,
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "last_name": "Weaver",
+        "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    },
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+```
+
+### Fetch的异步GET请求
+
+**Fetch**感觉上就是升级版的**Promise**，可以进行网络请求，语法什么的都差不多
+
+```js
+function requestByFetch(url) {
+    return fetch(url).then((response) => response.json());
+}
+
+const URL = 'https://reqres.in/api/users/2';
+requestByFetch(URL).then((result) => {
+    console.log(result);
+}).catch((error) => {
+    console.log(error);
+});
+```
+
+因为访问的接口都是一样的，所以返回值也一样，这里就不写了。  
+最后我们不用`then-catch`，而用`async-await`来实现：
+
+```js
+async function requestByFetch(url) {
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const URL = 'https://reqres.in/api/users/2';
+requestByFetch(URL);
+```
+
+结果是一样的嗷
 
 ## 参考
 
 1. [Asynchronous Vs Synchronous Programming](https://www.youtube.com/watch?v=Kpn2ajSa92c&t=63s)
 2. [Promise](https://zh.javascript.info/promise-basics)，[MDN：Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-3. [MDN：FetchAPI](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)，[Fetch](https://zh.javascript.info/fetch)
-4.  [forbidden HTTP headers](https://fetch.spec.whatwg.org/#forbidden-header-name)
-5. [REQRES](https://reqres.in/)
+3. [MDN：FetchAPI](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)，[Fetch](https://zh.javascript.info/fetch)，[Fetch API](https://zh.javascript.info/fetch-api)
+4. [forbidden HTTP headers](https://fetch.spec.whatwg.org/#forbidden-header-name)，[Referrer Policy 规范](https://w3c.github.io/webappsec-referrer-policy/)
+5. [URL对象](https://zh.javascript.info/url)，[RFC3986标准](https://tools.ietf.org/html/rfc3986) 
 6. [XMLHttpRequest](https://zh.javascript.info/xmlhttprequest)
 7. [Sending JavaScript Http Requests with XMLHttpRequest](https://www.youtube.com/watch?v=4K33w-0-p2c&t=407s)
+8. [REQRES](https://reqres.in/)
 
