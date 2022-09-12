@@ -1125,5 +1125,6 @@ requestByFetch(URL);
 5. [URL对象](https://zh.javascript.info/url)，[RFC3986标准](https://tools.ietf.org/html/rfc3986) 
 6. [XMLHttpRequest](https://zh.javascript.info/xmlhttprequest)
 7. [Sending JavaScript Http Requests with XMLHttpRequest](https://www.youtube.com/watch?v=4K33w-0-p2c&t=407s)
-8. [REQRES](https://reqres.in/)
+8. [Axios中文文档](https://www.axios-http.cn/)，[Sending JavaScript Http Requests with Axios](https://www.youtube.com/watch?v=qM4G1Ai2ZpE)
+9. [REQRES](https://reqres.in/)
 
