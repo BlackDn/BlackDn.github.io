@@ -389,6 +389,7 @@ const reduced = numbers.reduce((accumulator, current) => accumulator + current);
 | `includes()` | 判断一个数组是否包含一个指定的值。                           |
 | `indexOf()`  | 搜索数组中的元素，并返回它所在的位置。没找到则返回`-1`       |
 | `forEach()`  | 对每个元素执行某函数（参数为函数）                           |
+| `reverse()`  | 返回逆序的数组                                               |
 
 ##  字符串String
 

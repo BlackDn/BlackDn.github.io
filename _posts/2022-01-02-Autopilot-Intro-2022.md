@@ -4,7 +4,7 @@ title:        自动驾驶简介
 subtitle:     自动驾驶的发展历程、设计技术、未来趋势等  
 date:         2022-01-02  
 auther:       BlackDn
-header-img:   img/19mon5_12.jpg  
+header-img:   img/19mon7_29.jpg  
 catalog:      true
 tags:
     - Writings  
