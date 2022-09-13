@@ -990,6 +990,133 @@ myForm.onsubmit = async (e) => {
 //AbortError（catch输出）
 ```
 
+### Axios
+
+**Axios**是一个基于**Promise**网络请求库，非常简单好用，因此对于网络请求这块，流行度基本上是这样的：  
+`Axios > Fetch > XMLHttpRequest`
+
+**Axios**有很多优点，我们最直观感受到的就是在使用它的时候，我们不必再明确声明请求头中的`Content-Type`，**Axios**会自动帮我们解析，这让我们在传输JSON的时候十分方便；其次，对于返回的结果我们也不必再进一步处理。在用**Fetch**的时候，返回的结果是原原本本的JSON对象，需要我们自己进行转换；而**Axios**会自动将返回值转为JS对象，可以直接调用，非常方便。  
+要在项目中使用Axios有很多方法，具体可见[Axios中文文档](https://www.axios-http.cn/)，我还是喜欢万能的`npm install axios`
+
+用Axios发起请求最基本的方法就是通过参数传递相关配置：
+
+```js
+// 发起一个post请求
+axios({
+  method: 'post',
+  url: 'https://reqres.in/api/users',
+  data: {
+    name: "morpheus",
+    job: "leader"
+  }
+});
+```
+
+但是实际上**Axios**为所有支持的方法提供了别名，如`axios.get`，`axios.post`等，所以上面这种方式用的也比较少，接下来看看其简单使用吧。
+
+#### GET请求
+
+我们再用到[REQRES](https://reqres.in/)进行测试：
+
+```js
+axios.get('https://reqres.in/api/users/2').then((response) => {
+  console.log(response);
+  console.log(response.data);
+  console.log(response.data.support);
+});
+```
+
+其中，`response`包含了很多信息，包括`data`、`headers`、`status`、`statusText`等，而从服务器返回的JSON字串则在`data`中，输出结果和**REQRES**的一致：
+
+```json
+//console.log(response.data);
+{
+    "data": {
+        "id": 2,
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "last_name": "Weaver",
+        "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    },
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+```
+
+得益于**Axios**已经帮我们把结果变成了JS对象，因此我们呢可以直接进一步输出`data`中的信息：
+
+```json
+//console.log(response.data.support);
+{
+  "url": "https://reqres.in/#support-heading",
+  "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+}
+```
+
+如果是带参数的GET请求，除了直接传入构建好的url，还可以额外用一个`params`属性来标识：
+
+```js
+axios.get('https://reqres.in/api/users?delay=3').then((response) => {
+  console.log(response.data);
+});
+//等效于
+axios.get('https://reqres.in/api/users', {
+  params: {
+    delay: 3,
+  }
+}).then((response) => {
+  console.log(response.data);
+});
+```
+
+这个返回结果有点长，就不展示了，可以去**REQRES**查看。  
+`then`之后还可以用`catch`处理`error`，也懒得演示了。
+
+#### POST请求
+
+也差不多，就是多了个构建`body`的过程
+
+```json
+axios.post('https://reqres.in/api/users', {
+  name: "morpheus",
+  job: "leader"
+}).then((response) => {
+  console.log(response.data);
+});
+//输出：
+//{
+//    "name": "morpheus",
+//    "job": "leader",
+//    "id": "284",
+//    "createdAt": "2022-09-13T03:40:44.908Z"
+//}
+```
+
+#### 多个并发请求
+
+没啥差别，就是用`Promise.all()`来并发执行请求
+
+```js
+function getSingleUser() {
+  return axios.get('https://reqres.in/api/users/2');
+}
+
+function getSingleUserAgain() {
+  return axios.get('https://reqres.in/api/users/2');
+}
+
+Promise.all([getSingleUser(), getSingleUserAgain()]).then((results) => {
+  const firstResult = results[0];
+  const secondResult = results[1];
+  console.log('first: ' + firstResult.data.data.id);	//输出：2
+  console.log('second: ' + secondResult);	//是个Object
+});
+```
+
+更多**Axios**操作还是看文档吧嗷，写不动了，这篇文章的篇幅太长了QAQ
+
 ## 一些示例
 
 ### XMLHttpRequest的异步GET请求
