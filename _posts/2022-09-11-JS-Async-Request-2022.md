@@ -1028,7 +1028,7 @@ axios.get('https://reqres.in/api/users/2').then((response) => {
 
 其中，`response`包含了很多信息，包括`data`、`headers`、`status`、`statusText`等，而从服务器返回的JSON字串则在`data`中，输出结果和**REQRES**的一致：
 
-```json
+```
 //console.log(response.data);
 {
     "data": {
@@ -1047,7 +1047,7 @@ axios.get('https://reqres.in/api/users/2').then((response) => {
 
 得益于**Axios**已经帮我们把结果变成了JS对象，因此我们呢可以直接进一步输出`data`中的信息：
 
-```json
+```
 //console.log(response.data.support);
 {
   "url": "https://reqres.in/#support-heading",
@@ -1078,7 +1078,7 @@ axios.get('https://reqres.in/api/users', {
 
 也差不多，就是多了个构建`body`的过程
 
-```json
+```js
 axios.post('https://reqres.in/api/users', {
   name: "morpheus",
   job: "leader"
@@ -1150,7 +1150,7 @@ requestByXHR(URL, successCallback, errorCallback);
 
 返回内容也符合预期：
 
-```json
+```
 {
     "data": {
         "id": 2,
@@ -1190,7 +1190,7 @@ function fetchData(url) {
 
 返回内容也一样：
 
-```json
+```
 {
     "data": {
         "id": 2,
