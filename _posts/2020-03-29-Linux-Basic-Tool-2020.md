@@ -1,24 +1,26 @@
 ---
-layout:       post
-title:        有用的linux操作
-subtitle:     Linux相关知识及命令操作
-date:         2020-03-29
-auther:       BlackDn
-header-img:   img/19mon5_03.jpg  
-catalog:      true
-tags:
-    - Linux
+layout:       post  
+title:        Linux：基础知识和工具操作  
+subtitle:     Linux相关知识及命令操作  
+date:         2020-03-29   
+auther:       BlackDn  
+header-img:   img/19mon5_03.jpg   
+catalog:      true  
+tags:  
+    - Linux  
 ---
 
 > "我与春风皆过客，你携秋水揽星河。"
 
-# 前言
+
+
+# Linux：基础知识和工具操作
+
+## 前言
 
 最近多写写东西，希望能把博客更起来  
 更重要的是感觉没啥游戏好玩了  
-玩啥都是一个人没得小伙伴...  
-
-# 有用的linux操作
+玩啥都是一个人没得小伙伴...
 
 这里主要放一些Linux尝试和用到的Linux命令  
 由于linux命令很多很多很多，所以不会马上全部po上来，遇到新的就更新一点点   
