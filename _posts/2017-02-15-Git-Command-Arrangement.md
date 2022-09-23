@@ -273,8 +273,9 @@ git push -u origin master
     $ git revert [commit]
     
     # 暂时将未提交的变化移除，稍后再移入
-    $ git stash
-    $ git stash pop
+    $ git stash    # 将所有变化保存并加入栈顶，并在当前环境移除
+    $ git stash pop    # 将栈顶的变化取出
+    $ git stash list    # 列出所有的stash变化
 
 #### 其他
 
