@@ -276,6 +276,7 @@ git push -u origin master
     $ git stash    # 将所有变化保存并加入栈顶，并在当前环境移除
     $ git stash pop    # 将栈顶的变化取出
     $ git stash list    # 列出所有的stash变化
+    $ git stash clear    # 清空栈
 
 #### 其他
 
