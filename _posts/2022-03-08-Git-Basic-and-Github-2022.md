@@ -242,7 +242,7 @@ e - （edit），manually edit the current hunk，手动编辑当前片段
 
 ```
 git restore：git add的逆操作
-git restore --staged：git commit的逆从左
+git restore --staged：git commit的逆操作
 ```
 
 之前说的都是对修改的确认和保存操作，当然还得有反悔的操作。    
@@ -587,7 +587,6 @@ root@BlackDn-DESKTOP:/mnt/f/GitTest/git-remote-test#
 由于大多情况需要我们进行团队合作，那么`git commit`时所附带的消息内容就显得比较重要了，毕竟我们希望能看懂别人的消息，自己的消息也能轻易地被小伙伴理解。  
 根据[Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)的定义，建议commit的消息如下：
 
-
 ```
 feat: add hat wobble
 ^--^  ^------------^
@@ -616,7 +615,7 @@ feat: add hat wobble
 2. [Git与Github的连接与使用](https://blackdn.github.io/2019/05/28/Git-Github-Use-2019/)
 3. [使用 git add -p 整理 patch](https://blog.csdn.net/keocce/article/details/106471132)
 4. [Git 三大区域的操作分析](https://blog.csdn.net/a13590394462/article/details/74857360)
-4. [官方文档：生成新 SSH 密钥并添加到 ssh-agent](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-4. [git-config - Get and set repository or global options](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
-4. [Git错误fatal: CRLF would be replaced by LF in xxx](https://www.cnblogs.com/hlooc/p/15309556.html)
-4. [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
+5. [官方文档：生成新 SSH 密钥并添加到 ssh-agent](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+6. [git-config - Get and set repository or global options](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
+7. [Git错误fatal: CRLF would be replaced by LF in xxx](https://www.cnblogs.com/hlooc/p/15309556.html)
+8. [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
