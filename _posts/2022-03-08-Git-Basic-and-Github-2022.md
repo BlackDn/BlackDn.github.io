@@ -189,7 +189,7 @@ Changes to be committed:
 我们有两个文件，`test.txt`和`test_another.txt`，都被修改了。而用`git add .`，我们一次性将两者的修改都进行提交，就不用再写两次了。
 
 此外，有时候我们修改了许多东西，然后想要看看修改内容，再进行提交。这时候先用`git diff`，再用`git add .`，会显得有些麻烦。为此，我们可以使用`git add -p`  
-`git add -p`结合了`git diff`和`git add .`，它将每一个修改的文件看成一个片段（hunk），并对每个片段单独显示修改内容，交给用户来判断是否需要进行提交。  
+`git add -p`结合了`git diff`和`git add .`，它将每一个修改的代码块看成一个片段（hunk），并对每个片段单独显示修改内容，交给用户来判断是否需要进行提交。  
 比如我们又尝试修改`test.txt`和`test_another.txt`：
 
 ```bash
@@ -229,9 +229,9 @@ Changes to be committed:
 ```
 y - （yes），stage this hunk，确认修改当前片段
 n - （no），do not stage this hunk，不确认修改当前片段
-q - （quit），quit; do not stage this hunk or any of the remaining ones，退出分段，当前片段及之后的片段不确认修改
-a - （all），stage this hunk and all later hunks in the file，当前片段及之后的片段确认修改
-d - （do not），do not stage this hunk or any of the later hunks in the file，
+q - （quit），quit; do not stage this hunk or any of the remaining ones，不确认修改当前片段并退出
+a - （all），stage this hunk and all later hunks in the file，确认修改本文件当前及之后的片段
+d - （do not），do not stage this hunk or any of the later hunks in the file，不确认修改本文件当前及之后的片段
 e - （edit），manually edit the current hunk，手动编辑当前片段
 ? - print help，输出帮助
 ```
