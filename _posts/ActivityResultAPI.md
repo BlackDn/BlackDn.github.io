@@ -110,9 +110,11 @@ protected void onActivityResult(int requestCode, int resultCode, @Nullable Inten
   if (requestCode == REQUEST_FROM_MAIN) {  //先判断requestCode从哪发出
     switch (resultCode) {  //再判断结果从哪来
       case RESULT_OK_FROM_SECOND:    
+	    stringBuilder.append("Main -> Second\n");  
         stringBuilder.append("Second -> Main\n");  
         break;  
       case RESULT_OK_FROM_THIRD:  
+        stringBuilder.append("Main -> Third\n");  
         stringBuilder.append("Third -> Main\n");  
         break;  
     }  
