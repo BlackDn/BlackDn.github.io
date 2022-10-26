@@ -293,7 +293,7 @@ root@BlackDn-DESKTOP:~# chmod u-w ../etc/sudoers
 ## 后话
 
 总之，只要能成功安装Linux并且学会在Linux和Windows之间互相访问，就算成功了  
-之后主要就是学习一些Linux命令啦，我曾经也稍稍整理过，传送门：[Linux常用命令](https://blackdn.github.io/2020/03/29/Linux-Command-2020/)  
+之后主要就是学习一些Linux命令啦，我曾经也稍稍整理过，传送门：[Linux：基础知识和工具操作](https://blackdn.github.io/2020/03/29/Linux-Basic-Tool-2020/)  
 关于WSL还有一些其他操作，比如转移Linux所在的硬盘空间等，因为我用不太到所以就不作示范了  
 有需要的可以按照参考的第一篇内容跟着做就行了👇  
 新年快乐，元旦快乐♥
@@ -305,4 +305,4 @@ root@BlackDn-DESKTOP:~# chmod u-w ../etc/sudoers
 3. [Windows文档：基本WSL命令](https://docs.microsoft.com/zh-cn/windows/wsl/basic-commands)
 4. [Linux系统使用添加新用户后，没有用户目录（没有home）解决办法](https://blog.csdn.net/u013053075/article/details/106070566?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&utm_relevant_index=2)
 5. [xxx is not in the sudoers file.This incident will be reported.的解决方法](https://blog.csdn.net/zsw12013/article/details/51243884)
-6. [Linux常用命令](https://blackdn.github.io/2020/03/29/Linux-Command-2020/)
+6. [Linux：基础知识和工具操作](https://blackdn.github.io/2020/03/29/Linux-Basic-Tool-2020/)

@@ -177,10 +177,10 @@ protected void onActivityResult(int requestCode, int resultCode, @Nullable Inten
   if (resultCode == Activity.RESULT_OK) {  
     switch (requestCode) {  
       case REQUEST_FROM_MAIN_TO_SECOND:  
-        appendLogItemFromIntent(data);  
+        appendLogItemFromIntent(data);  //1
         break;  
       case REQUEST_FROM_MAIN_TO_THIRD:  
-        appendLogItemFromIntent(data);  
+        appendLogItemFromIntent(data);  //2
         break;  
     }  
     showPathHistory();  
@@ -192,6 +192,17 @@ private void appendLogItemFromIntent(Intent data) {
   String source = data.getStringExtra(SOURCE_KEY);  
   stringBuilder.append(logItem + '\n');  
   stringBuilder.append(source + " -> Main\n");  
+}
+```
+
+可以看到，数据传递的好处之一就是可以通过传递来的数据用同一个方法进行处理，从而减少代码的重复，比如上面的1行和2行都是一样的，可以直接变为：
+```java
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {  
+  super.onActivityResult(requestCode, resultCode, data);  
+  if (resultCode == Activity.RESULT_OK) {  
+	appendLogItemFromIntent(data);
+    showPathHistory();  
+  }  
 }
 ```
 
