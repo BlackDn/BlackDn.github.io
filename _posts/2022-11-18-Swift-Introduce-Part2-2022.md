@@ -22,7 +22,7 @@ tags:
 ## 结构体和类
 分别用关键字`struct`和`class`定义结构体和类
 ```swift
-。struct SomeStructure {
+struct SomeStructure {
     // 在这里定义结构体
 }
 class SomeClass {
@@ -71,9 +71,7 @@ print("upgrade myVideo: interlaced = \(myVideo.interlaced), frameRate = \(myVide
 //upgrade myVideo: interlaced = true, frameRate = 30.0
 ```
 
-为了判断多个对象是否使用相同的引用，Swift提供了两个恒等运算符：
-- 相同：`===`
-- 不相同：`!==`
+为了判断多个对象是否使用相同的引用，Swift提供了两个恒等运算符：相同（`===`）和不相同（`!==`）
 
 ```swift
 print(myVideo === upgradeVideo) //true
@@ -677,6 +675,7 @@ var myPet: Animal = Dog(name: "black", speak: "woof")
 Swift为不确定的类型或对象提供了`Any`和`AnyObject`两种别名，官方文档翻译来是这样的：
 - `Any`：表示任何类型的实例，包括函数。
 - `AnyObject`：表示任何类的实。
+
 笑死，还是看不懂。  
 于是我们往下深挖一点，先来看`AnyObject`，实际上`AnyObject`是一个**协议**。协议在下一节就介绍了，在这里先提及一下，方便理解`Any`和`AnyObject`。  
 凡是被`class`定义的类型，那么它就会隐式遵循`AnyObject`这个协议。（当然这个协议里没有啥属性或方法需要实现）  ，可以说`AnyObject`代表了所有由`class`定义的类。到那时，除此之外其他的类型怎么办？我们还有基本类型，结构体，枚举啥的呢。  
@@ -742,12 +741,6 @@ class Pet: AnimalProtocol {
 		print("I have \(legs) legs and I can \(speak)")
 	}
 }
-```
-
-#### 协议的可选要求
-我们可以用`optional` 关键字来为协议定义可选要求（属性或方法），是否实现这些要求交由遵循的类型决定。
-
-```swift
 ```
 
 ### 协议中的构造器

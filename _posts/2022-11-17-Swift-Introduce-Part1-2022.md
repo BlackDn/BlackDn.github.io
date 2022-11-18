@@ -18,7 +18,7 @@ tags:
 准备看看IOS开发，所以先来做做热身  
 公司给的带有M1 Pro的MacBook Pro总不能浪费了吧（  
 每天写一点点，结果回头一看有这么多    
-所以就分成两篇文章啦。
+所以就分成两篇文章啦，下一篇：[从0开始的Swift（下）](https://blackdn.github.io/2022/11/18/Swift-Introduce-Part2-2022/)
 
 ## Swift基础
 **Swift** 是一种支持多编程范式和编译式的开源编程语言，苹果于2014年WWDC（苹果开发者大会）发布，用于开发 iOS，OS X 和 watchOS 应用程序。2015年6月8日，苹果于WWDC 2015上宣布将Swift开源。  
@@ -1135,11 +1135,12 @@ print(evalExpression(finalExpression))
 ```
 
 ## 后话
-先试试看放一篇里好不好用，不好用就分两篇。
+下一篇的传送门：[从0开始的Swift（下）](https://blackdn.github.io/2022/11/18/Swift-Introduce-Part2-2022/)  
+因为本来是一片文章的，所以参考不分上下了，两篇都一样
 
 ## 参考
 1. [Swift GG: Swift 初见](https://swiftgg.gitbook.io/swift/huan-ying-shi-yong-swift/03_a_swift_tour)
-2. [菜鸟：Swift 教程](https://www.runoob.com/swift/swift-tutorial.html)
+2. [菜鸟：Swift 。程](https://www.runoob.com/swift/swift-tutorial.html)
 3. [swift之guard关键字](https://www.jianshu.com/p/621dda084c2a)
 4. [Swift便利构造器---convenience](https://www.jianshu.com/p/f3f9e2d531ef)
 5. [Swift - as、as!、as?三种类型转换操作符使用详解（附样例）](https://www.hangge.com/blog/cache/detail_1089.html)
