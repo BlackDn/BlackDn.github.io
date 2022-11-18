@@ -178,17 +178,18 @@ session文件格式： sess_[phpsessid] ，phpsessid在发送的请求的 cookie
 需要magic_quotes_gpc = Off，php版本 < php 5.3.4  
 
 ## 附录1：日志和配置文件默认存放路径
+
 |            文件            |                               路径                                |
 | ------------------------- | ----------------------------------------------------------------- |
 | apache+Linux日志默认路径    | /etc/httpd/logs/access_log或/var/log/httpd/access_log             |
-| apache+win2003日志默认路径  | D:\xampp\apache\logs\access.log以及D:\xampp\apache\logs\error.log |
-| IIS6.0+win2003默认日志文件  | C:\WINDOWS\system32\Logfiles                                      |
-| IIS7.0+win2003 默认日志文件 | %SystemDrive%\inetpub\logs\LogFiles                               |
+| apache+win2003日志默认路径  | D:\\xampp\\apache\\logs\\access.log以及D:\\xampp\\apache\\logs\\error.log |
+| IIS6.0+win2003默认日志文件  | C:\\WINDOWS\\system32\\Logfiles                                      |
+| IIS7.0+win2003 默认日志文件 | %SystemDrive%\\inetpub\\logs\\LogFiles                               |
 | nginx 日志文件              | 用户安装目录logs目录下（/usr/local/nginx/logs）                     |
 | -                          | -                                                                 |
 | apache+linux 默认配置文件   | /etc/httpd/conf/httpd.conf或index.php?page=/etc/init.d/httpd      |
 | IIS6.0+win2003 配置文件     | C:/Windows/system32/inetsrv/metabase.xml                          |
-| IIS7.0+WIN 配置文件         | C:\Windows\System32\inetsrv\config\applicationHost.config         |
+| IIS7.0+WIN 配置文件         | C:\\Windows\\System32\\inetsrv\\config\\applicationHost.config         |
 
 
 ## 附录2：session常见存储路径

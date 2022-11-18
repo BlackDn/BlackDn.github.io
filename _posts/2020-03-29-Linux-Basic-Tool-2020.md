@@ -558,11 +558,12 @@ blackdn ALL=(ALL:ALL) ALL （新增）
 4. Ctrl + C：终止当前命令
 5. Ctrl + U：清空至行首
 6. Ctrl + K：清空至行尾
-7. Ctrl + C：终止正在执行的命令  
-8. Ctrl + L：清除屏幕并将当前行移到页面顶部（相当于`clear`）
-9. Ctrl + A：光标移至行首，不删除命令
-10. Ctrl + E：光标移至行尾，不删除命令
-11. Ctrl + D：关闭Shell会话
+7. Ctrl + W：删除光标之前的一个单词
+8. Ctrl + C：终止正在执行的命令  
+9. Ctrl + L：清除屏幕并将当前行移到页面顶部（相当于`clear`）
+10. Ctrl + A：光标移至行首，不删除命令
+11. Ctrl + E：光标移至行尾，不删除命令
+12. Ctrl + D：关闭Shell会话
 
 ## Linux文本操作（vi/vim）
 
