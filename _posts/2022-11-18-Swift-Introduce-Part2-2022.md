@@ -2,7 +2,7 @@
 layout:       post  
 title:        从0开始的Swift（下）  
 subtitle:     主要和面向对象相关吧，类、结构体、协议等  
-date:         2022-11-19  
+date:         2022-11-18  
 auther:       BlackDn  
 header-img:   img/19mon7_19.jpg  
 catalog:      true  
@@ -14,13 +14,15 @@ tags:
 
 # 从0开始的Swift（下）
 ## 前言
-笑死，没啥好说的
+上一篇在这：[从0开始的Swift（上）](https://blackdn.github.io/2022/11/17/Swift-Introduce-Part1-2022/)  
+这篇主要是关于类、结构体、协议之类的东西，似乎是以面向对象为主。  
+稍微比上一篇少一丢丢  
 
 
 ## 结构体和类
 分别用关键字`struct`和`class`定义结构体和类
 ```swift
-struct SomeStructure {
+。struct SomeStructure {
     // 在这里定义结构体
 }
 class SomeClass {
@@ -942,11 +944,13 @@ func makeASandwich() throws {
 ```
 
 ## 后话
-先试试看放一篇里好不好用，不好用就分两篇。
+也先放一个上一篇的传送门：[从0开始的Swift（上）](https://blackdn.github.io/2022/11/17/Swift-Introduce-Part1-2022/)  
+写完一看，两篇加起来文字超过1万8，总字符超过5万6  
+笑死，下次就出书
 
 ## 参考
 1. [Swift GG: Swift 初见](https://swiftgg.gitbook.io/swift/huan-ying-shi-yong-swift/03_a_swift_tour)
-2. [菜鸟：Swift 教程](https://www.runoob.com/swift/swift-tutorial.html)
+2. [菜鸟：Swift 。程](https://www.runoob.com/swift/swift-tutorial.html)
 3. [swift之guard关键字](https://www.jianshu.com/p/621dda084c2a)
 4. [Swift便利构造器---convenience](https://www.jianshu.com/p/f3f9e2d531ef)
 5. [Swift - as、as!、as?三种类型转换操作符使用详解（附样例）](https://www.hangge.com/blog/cache/detail_1089.html)

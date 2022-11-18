@@ -2,7 +2,7 @@
 layout:       post  
 title:        从0开始的Swift（上）  
 subtitle:     一些基础知识，变量、函数啥的  
-date:         2022-11-18  
+date:         2022-11-17  
 auther:       BlackDn  
 header-img:   img/19mon6_43.jpg  
 catalog:      true  
@@ -11,7 +11,6 @@ tags:
 ---
 
 > "你顺手挽住烟火，散作大雪星罗。"
-
 
 # 从0开始的Swift（上）
 
@@ -55,6 +54,7 @@ for item in arr {
 ### 类型和变量
 #### 基本类型
 按照惯例，我们从基本类型和变量入手。**Swift**和C语言和Objective-C有许多类似，所以其基本类型也都是老朋友了：
+
 | 基本类型       | 类型              |
 | -------------- | ----------------- |
 | Int / UInt     | 整型 / 无符号整型 |
@@ -210,6 +210,7 @@ welcome.removeSubrange(range)
 ```
 
 常用方法：
+
 | 方法 / 属性                     | 作用                                                 |
 | ------------------------------- | ---------------------------------------------------- |
 | myString.startIndex             | 获取myString 的第一个Character索引                   |
@@ -620,7 +621,7 @@ default:
 }
 ```
 
-此外，在使用下划线（\_）匹配任意值的时候，如果想获取这个任意值，可以直接用变量的声明来代替下划线（\_），这称之为值绑定（value binding）：
+此外，在使用下划线（\_）匹配任意值的时候，如果想获取这个任意值，可以直接用变量的声明来代替下划线（\_），这称之为**值绑定（value binding）**：
 ```swift
 let somePoint = (1, 0)
 switch somePoint {
