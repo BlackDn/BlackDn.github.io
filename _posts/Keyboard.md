@@ -55,9 +55,16 @@ editText.setFocusableInTouchMode(true);
 
 
 ### 取消 EditText 的自动 focus
-在某些情况下，我们进入页面，会自动`focus`到`EditText`，甚至还会弹出键盘，影响体验。（我怀疑是Android版本问题，在默认情况下，我的Android 7.0和8.0的测试机进入页面会自动focus到Edittext，但是Android 11的测试机和Android 13的虚拟机就不会。懂的小伙伴可以指教指教） 
+在某些情况下，我们进入页面，会自动`focus`到`EditText`，甚至还会弹出键盘，影响体验。（我怀疑是Android版本问题，在默认情况下，我的Android 7.0和8.0的测试机进入页面会自动focus到Edittext，但是Android 11的测试机和Android 13的虚拟机就不会。有没有懂的小伙伴来指教指教） 
 
-总之，要是真的不小心万一出现了这种自动focus的情况，
+总之，要是真的不小心万一出现了这种自动focus的情况，我先来尝试推断一下自动focus的机制：
+- 进入页面，自动focus到EditText（暂时不理会键盘是否弹起）
+- 如果有两个EditText，会focus第一个EditText
+- 将第一个EditText设为`focusableInTouchMode = false`，自动focus到第二个EditText
+- 在EditText之前添加TextView，并设为`focusableInTouchMode = true`，自动focus到TextView
+
+再结合EditText的两个属性默认为`true`，TextView默认为`false`的条件，我主观有余且客观不足地推断：当进入页面自动focus发生时，会focus当前页面第一个`focusableInTouchMode = true`的控件。
+
 
 
 我们又不想他focus，免不了上网进行一顿搜
