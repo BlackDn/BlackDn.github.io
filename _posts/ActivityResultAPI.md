@@ -206,6 +206,13 @@ protected void onActivityResult(int requestCode, int resultCode, @Nullable Inten
 }
 ```
 
+## Level 2 新API
+
+## 重构demo
+
+## 两者对比
+
+
 ## 参考
 1. [获取 activity 的结果](https://developer.android.com/training/basics/intents/result?hl=zh-cn)
 2. [AndroidX 使用 Activity Result API 替代 startActivityForResult()](https://code-question.com/developer-blog/androidx-activity-result-api-startactivityforresult)
