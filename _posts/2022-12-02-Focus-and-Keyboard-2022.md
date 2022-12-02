@@ -20,7 +20,7 @@ tags:
 但感觉还是一知半解的，下次遇到类似问题肯定还得Google  
 所以还是总结一下吧，哎，好久没写Android相关的文章了。。
 
-## 获取焦点
+## 焦点
 我们先从属性入手，最常见的和焦点相关的属性就是`focusable`和`focusableInTouchMode`（它们都定义在View类中）
 
 ### focusable 和 focusableInTouchMode
