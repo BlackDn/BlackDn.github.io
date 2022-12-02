@@ -4,7 +4,7 @@ title:        Android 焦点Focus和软键盘Keyboard
 subtitle:     焦点相关操作和键盘调出/隐藏  
 date:         2022-12-02  
 auther:       BlackDn  
-header-img:   img/19mon7_30.jpg  
+header-img:   img/19mon7_34.jpg  
 catalog:      true  
 tags:    
     - Android  
