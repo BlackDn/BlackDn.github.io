@@ -10,7 +10,7 @@ tags:
     - Android  
 ---
 
-> 盛夏白瓷梅子汤，碎冰碰壁响叮啷。
+> “盛夏白瓷梅子汤，碎冰碰壁响叮啷。”
 
 # Android 焦点Focus和软键盘Keyboard
 
@@ -78,7 +78,7 @@ editText.setFocusableInTouchMode(true);
 ### 取消 EditText 的自动 focus
 然后来到了我遇到的bug：  
 在某些情况下，进入页面，会自动`focus`到`EditText`，甚至还会弹出键盘，影响体验。  
-不过我怀疑是Android版本问题，我的Android 7.0和8.0的测试机进入页面会自动focus到Edittext，但是Android 11的测试机和Android 13的虚拟机就不会。这些高版本设备进入页面不会发生自动focus的行为。不过也没检测过很多设备，不敢太笃定。
+不过我怀疑是Android版本问题，我的Android 7.0和8.0的测试机进入页面会自动focus到Edittext，但是Android 11的测试机和Android 13的虚拟机就不会。可能是这些设备的版本优化使其进入页面不会发生自动focus的行为。
 
 总之，要是真的不小心万一出现了这种自动focus的情况，我们先来尝试推断一下自动focus的机制：
 - 进入页面，自动focus到EditText（暂时不理会键盘是否弹起）
@@ -130,7 +130,7 @@ if (focusable != getFocusable()) {
 ```
 
 不过这种情况似乎只出现在出现“自动focus”情况的设备中，在一些高Android版本的设备中（比如我的Android 13虚拟机），TextView的`focusable`和`focusableInTouchMode`其中一个为`true`，另一个也会被自动设置为`true`  
-有没有一种可能，就是官方在升级的时候改了代码悄悄修复了这个bug？
+有没有一种可能，就是官方在升级的时候改了代码悄悄进行了优化？
 
 更进一步，TextView还有一个`selectable`属性，决定我们能否选择文本，长按复制啥的。而这个属性决定了TextView能否获得焦点（默认不行，两个focus属性为`false`，`selectable`默认也为false）  
 在TextView的代码中，仅在`setTextIsSelectable()`方法中对`focusableInTouchMode`进行了设置，通过`setFocusableInTouchMode(selectable)`使其和`selectable`保持一致  
@@ -247,6 +247,7 @@ public View findFocus() {
 有一个`addFocusables()`方法，它接受三个参数：
 
 ```java
+//in View.java
 public void addFocusables(ArrayList<View> views, int direction, int focusableMode) {  
     if (views == null) {  
         return;  
@@ -267,6 +268,7 @@ public void addFocusables(ArrayList<View> views, int direction, int focusableMod
 更多时候，我们会省略`focusableMode`参数，这玩意它自己会判断，反正它也只有`FOCUSABLES_TOUCH_MODE`和`FOCUSABLES_ALL`两个值（Touch Mode和其他Mode）：
 
 ```java
+//in View.java
 public void addFocusables(ArrayList<View> views, int direction) {  
     addFocusables(views, direction, isInTouchMode() ? FOCUSABLES_TOUCH_MODE : FOCUSABLES_ALL);  
 }
@@ -284,7 +286,7 @@ public ArrayList<View> getFocusables(int direction) {
 ```
 
 至于这些方法中的`int direction`参数，我们可以看到它其实在代码的执行中并没有被用到，不过也确实没用到，它用于表示焦点之后要如何移动——跳到上一个 / 下一个item？或者单纯往上往下之类的。用的时候就这样用`view.getFocusables(View.FOCUS_FORWARD)`   
-在源码中的写法是这样的：
+在源码中的这个参数的值在这里：
 
 ```java
 //in View.java
