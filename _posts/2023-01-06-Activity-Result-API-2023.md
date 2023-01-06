@@ -1,6 +1,6 @@
 ---
 layout:       post  
-title:        Activity Result API的前世今生  
+title:        Activity Result API 的前世今生  
 subtitle:     startActivityForResult()和onActivityResult()的上位替代  
 date:         2023-01-06  
 auther:       BlackDn  
@@ -12,11 +12,12 @@ tags:
 
 > “小云朵像棉花糖，长颈鹿嫌自己脖子不够长。”
 
-# Activity Result API的前世今生
+# Activity Result API 的前世今生
 
 ## 前言
 
-起因是看到以前的代码中，**ComponentActivity**中的`startActivityForResult()`和`onActivityResult()`被弃用了（但是`startActivity()`没有被弃用），然后点进去一看，发现他们在`androidx`的`activity:1.2.0-alpha02`和`fragment:1.3.0-alpha02`中被弃用（在appcompat库中则是1.3.0被弃用）。并且官方推荐了**Activity Result API**作为替代方法。  
+起因是看到以前的代码中，**ComponentActivity**中的`startActivityForResult()`和`onActivityResult()`被弃用了（但是`startActivity()`没有被弃用），然后点进去一看，发现他们在`androidx`的`activity:1.2.0-alpha02`和`fragment:1.3.0-alpha02`中被弃用（在appcompat库中则是1.3.0被弃用）。并且官方推荐了**Activity Result API**作为替代方法。    
+正好看到社团的小朋友也写了一篇，就顺便拿别人的砖抛自己的砖啦～
 
 ## Old API：startActivityForResult() 和 onActivityResult()
 在探究为什么弃用之前，我们先来回顾一下他们的使用方法吧。  
@@ -492,3 +493,4 @@ mObserver.startLauncher("hello");
 4. [再见！onActivityResult！你好，Activity Results API！](https://segmentfault.com/a/1190000037601888)
 5. [搞懂 Activity Result API （一）](https://juejin.cn/post/7061993155759095845)
 6. [Activity Result API详解，是时候放弃startActivityForResult了](https://blog.csdn.net/guolin_blog/article/details/121063078)
+7. [startActivityForResult() 被弃用，来试试Activity Result API](https://loismeng-qh.github.io/2022/08/29/Android-Activity-Result-API/)
