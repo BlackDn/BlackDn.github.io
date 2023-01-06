@@ -4,7 +4,7 @@ title:        CTF-当你收到加密压缩包
 subtitle:     CTF中对加密压缩包的处理方法  
 date:         2020-05-07  
 auther:       BlackDn  
-header-img:   img/acg.gy_33.jpg  
+header-img:   img/18mon2_06.jpg  
 catalog:      true  
 tags:  
     - Security  

@@ -4,7 +4,7 @@ title:        Linux：基础知识和工具操作
 subtitle:     Linux相关知识及命令操作  
 date:         2020-03-29   
 auther:       BlackDn  
-header-img:   img/19mon5_03.jpg   
+header-img:   img/18mon2_07.jpg   
 catalog:      true  
 tags:  
     - Linux  

@@ -4,7 +4,7 @@ title:    电子电路的一些题解
 subtitle:  电子电路期末复习的产物
 date:   2019-06-23
 auther:   BlackDn
-header-img:   img/acg.gy_19.jpg
+header-img:   img/21mon8_31.jpg
 catalog:    true
 tags:
       - SchoolClass

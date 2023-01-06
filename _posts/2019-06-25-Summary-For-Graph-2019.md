@@ -4,7 +4,7 @@ title:    学习总结——图
 subtitle:   离散数学的图论总结~
 date:   2019-06-25
 auther:   BlackDn
-header-img:   img/acg.gy_01.jpg 
+header-img:   img/21mon8_25.jpg 
 catalog:    true
 tags:
       - SchoolClass
