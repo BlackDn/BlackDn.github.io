@@ -477,12 +477,13 @@ mObserver.startLauncher("hello");
 
 ## 小结 - 两者对比
 有一个很直观的一点就是，使用Result API之后，我们不再需要**Request Code**了。  
-在Old API中，我们需要RequestCode来告诉`onActivityResult()`我们的请求是来自哪里的；而在Result API中，我们采用了`Launcher-Contract-Callback`来进行请求和结果处理。每个Launcher都有自己的Callback，，相当于每个请求都有属于自己的`onActivityResult()`，不再需要统一处理。
+在Old API中，我们需要RequestCode来告诉`onActivityResult()`我们的请求是来自哪里的；而在Result API中，我们采用了`Launcher-Contract-Callback`来进行请求和结果处理。每个Launcher都有自己的Callback，相当于每个请求都有属于自己的`onActivityResult()`，不再需要统一处理。  
+我们看到Registry的代码中有很多key的出现，这个key就是用来生成每个Launcher的唯一识别码的（因此我们能用同一个Registry生成多个Launcher）。相当于**Request Code**被偷偷藏在内部，对外部透明了，我们就不需要考虑它啦。
 
 这也是Result API最为直观的优点，取消了**Request Code**，则就没有了越来越多的常量Flag；没有了`onActivityResult()`，则就没有了越来越多的耦合和嵌套。  （不过我们会有越来越多的Launcher和Callback，所以代码总量还是基本不变的）
 
 此外，相比于Old API，Result API有着更加广泛的功能——至少我们能用它来进行运行时的权限请求了，而这也得益于Contract的引入。  
-不仅如此，支持自定义的Contract也让我们有了更好的扩展性，可以针对自己的需求来自创Contract，让请求的发送和结果的处理更加流程。
+不仅如此，支持自定义的Contract也让我们有了更好的扩展性，可以针对自己的需求来自创Contract，让请求的发送和结果的处理更加流畅。
 
 话虽如此，Result API也有着一定的学习成本，毕竟它有着**Launcher**、**Contract**、**Registry**等组件，是以往不曾接触的。但是简单的使用还是比较简单的，而且掌握后其带来的多功能、高扩展也挺让人受益的
 
