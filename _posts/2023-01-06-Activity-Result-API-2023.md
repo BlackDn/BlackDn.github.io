@@ -1,6 +1,6 @@
 ---
 layout:       post  
-title:        Activity Result API 的前世今生  
+title:        Activity Result API 前世今生  
 subtitle:     startActivityForResult()和onActivityResult()的上位替代  
 date:         2023-01-06  
 auther:       BlackDn  
@@ -12,7 +12,7 @@ tags:
 
 > “小云朵像棉花糖，长颈鹿嫌自己脖子不够长。”
 
-# Activity Result API 的前世今生
+# Activity Result API 前世今生
 
 ## 前言
 
@@ -67,7 +67,7 @@ public void onClick(View view) {
 
 在Fragment和Activity同时实现了`onActivityResult()`的情况下，如果想要从Fragment的`startActivityForResult()`出发的请求回到Fragment的`onActivityResult()`，需要满足以下条件：
 1. Fragment应直接调用`startActivityForResult()`，而不是调用`getActivity().startActivityForResult()`
-2. 
+2. 如果Activity有自己的`onActivityResult()`，那么其中要加上`super.onActivityResult()`（可以在方法最开始，也可以在最后）。
 
 ### 缺点
 和大部分被弃用的方法不同，Old API的方法并没有功能上的问题，它并不是因为有线程安全、内存泄漏等隐患而被弃用的，更多的是因为——随着应用的扩展，`onActivityResult()`**会陷入各种嵌套，耦合严重且难以维护**。    
