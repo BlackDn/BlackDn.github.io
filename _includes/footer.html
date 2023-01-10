@@ -92,13 +92,14 @@
                 </ul>
                 <p class="copyright text-muted">
                     Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
-                    <br>
+                    <!-- link to your github -->
+                    <!-- <br>
                     Theme on <a href="{{ site.github_repo }}">GitHub</a> |
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user={{ site.github_username }}&repo={{ site.github_username }}.github.io&type=star&count=true" >
-                    </iframe>
+                    </iframe> -->
                 </p>
             </div>
         </div>
@@ -314,7 +315,7 @@
                 $body.addClass('no-scroll');
             }, 400);
 
-            if($searchPage.hasCLass('search-active')) {
+            if($searchPage.hasClass('search-active')) {
                 $searchClose.on('click', function (e) {
                     e.preventDefault();
                     $searchPage.removeClass('search-active');
