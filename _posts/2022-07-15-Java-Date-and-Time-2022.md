@@ -216,7 +216,7 @@ java.time包下的这些类和[Joda Time](https://www.joda.org/)的开源工具�
 ```
 
 当然，我们可以将`LocalDateTime`的内容传给`LocalDate`和`LocalTime`，也可以反过来，根据`LocalDate`和`LocalTime`构建一个`LocalDateTime`  
-不仅如此，还可以用`of`方法传入年月日时分秒的数值、或` `方法传入`ISO 8601`标准的字符串来构建`LocalDateTime`
+不仅如此，还可以用`of`方法传入年月日时分秒的数值、或`parse()`方法传入`ISO 8601`标准的字符串来构建`LocalDateTime`
 
 ```java
         //LocalDateTime转为LocalDate和LocalTime
@@ -419,13 +419,13 @@ System.out.println(period);     //输出：P1M6D
 当然`Date`需要手动添加`ZoneId`，而`Calendar`本身带有`TimeZone`时区属性，因此可以通过`toZoneId()`方法转换为`ZoneId`属性
 
 ```java
-        //Date -> Instant
-        Date date = new Date();
-        Instant instantFromDate = date.toInstant();
-        //Calendar -> Instant -> ZonedDateTime
-        Calendar calendar = Calendar.getInstance();
-        Instant instantFromCalendar = calendar.toInstant();
-        ZonedDateTime zonedDateTime = instantFromDate.atZone(calendar.getTimeZone().toZoneId());
+//Date -> Instant
+Date date = new Date();
+Instant instantFromDate = date.toInstant();
+//Calendar -> Instant -> ZonedDateTime
+Calendar calendar = Calendar.getInstance();
+Instant instantFromCalendar = calendar.toInstant();
+ZonedDateTime zonedDateTime = instantFromDate.atZone(calendar.getTimeZone().toZoneId());
 ```
 
 ### 新API转为旧API
@@ -434,17 +434,17 @@ System.out.println(period);     //输出：P1M6D
 由于时间戳多为`long`类型，因此注释中用`long`来表示时间戳
 
 ```java
-        //ZonedDateTime -> long
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        long timeStamp = zonedDateTime.toEpochSecond() * 1000;
-        //long -> Date
-        Date date = new Date(timeStamp);
-        //long -> Calendar
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        String myZone = zonedDateTime.getZone().getId();    //得到String的时区标识：Asia/Shanghai
-        calendar.setTimeZone(TimeZone.getTimeZone(myZone)); //设置ZoneId
-        calendar.setTimeInMillis(timeStamp);    //设置时间
+//ZonedDateTime -> long
+ZonedDateTime zonedDateTime = ZonedDateTime.now();
+long timeStamp = zonedDateTime.toEpochSecond() * 1000;
+//long -> Date
+Date date = new Date(timeStamp);
+//long -> Calendar
+Calendar calendar = Calendar.getInstance();
+calendar.clear();
+String myZone = zonedDateTime.getZone().getId();    //得到String的时区标识：Asia/Shanghai
+calendar.setTimeZone(TimeZone.getTimeZone(myZone)); //设置ZoneId
+calendar.setTimeInMillis(timeStamp);    //设置时间
 ```
 
 对于时区的表示，旧API采用`TimeZone`，而新API采用`ZoneId`，因此需要`ZoneId.getId()`方法获得字符串，再让`TimeZone`根据字符串设定时区。
