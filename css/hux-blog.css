@@ -229,6 +229,9 @@
 .search-icon-close {
   font-size: 16px;
 }
+.no-scroll {
+  overflow-y: hidden;
+}
 /* search page style end */
 
 body {
