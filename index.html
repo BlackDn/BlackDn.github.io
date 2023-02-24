@@ -3,6 +3,13 @@ layout: page
 description: "Welcome to my blog.🌰 Enjoy yourself here."
 ---
 
+<!-- change tab title -->
+<script>
+    if (document.hidden) {
+        document.title = '(づ￣ ³￣)づ人家在这等你哦'
+    }
+</script>
+
 {% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
