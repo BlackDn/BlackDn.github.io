@@ -227,12 +227,12 @@ public abstract class ActivityResultContract<I, O> {
 }
 ```
 
-可以看到，要的方法就是接收输入的`createIntent()`和返回输出的`parseResult()`两个方法。  
+可以看到，主要方法就是接收输入的`createIntent()`和返回输出的`parseResult()`两个方法。  
 再回来看`StartActivityForResult`，当我们调用`launch()`的时候，`createIntent()`会被执行，其生成的**Intent**会被启动从而实现页面的跳转。  
 当页面返回，则会调用`parseResult()`接收来自第二个Activity回传的数据（`setResult(resultCode, intent)`），并将其转变为输出类型O，在这里就是`ActivityResult`。最后我们把这个结果传给回调函数进行最终的处理。
 
-也就是说，从作为`launch()`的参数开始算起，我们的数据流向大致是这样的：
-`[FirstActivity]: launch() -> createIntent() -> [SecondActivity] -> setResult() -> parseResut -> [FirstActivity]: callback()`
+也就是说，从`launch()`的参数开始算起，我们的数据流向大致是这样的：
+`[FirstActivity]: launch() -> createIntent() -> [SecondActivity] -> setResult() -> parseResult() -> [FirstActivity]: callback()`
 
 #### 自定义的Contract
 
@@ -240,7 +240,8 @@ public abstract class ActivityResultContract<I, O> {
 
 ```java
 class CustomContract extends ActivityResultContract<String, String> {  
-  @Override  public Intent createIntent(@NonNull Context context, String s) {  
+  @Override  
+  public Intent createIntent(@NonNull Context context, String s) {  
     Intent intent = new Intent(context, SecondActivity.class);  
     intent.putExtra("createIntentStringKey", s);  
     return intent;  
@@ -295,7 +296,7 @@ D/Callback: world
 
 ### 注册器 ActivityResultRegistry
 
-我们发现，在之前的使用过程中，我们并没有真正了解过注册器**ActivityResultRegistry**，那么它到底是怎么工作的呢？  
+我们发现，在之前的使用过程中，我们并没有接触到注册器**ActivityResultRegistry**，那么它到底是怎么工作的呢？  
 我们第一次提到Registry，是说它作为`registerForActivityResult()`的一个参数，那么我们就从这个方法入手：
 
 ```java
@@ -352,9 +353,7 @@ public final <I, O> ActivityResultLauncher<I> register(
 			mLaunchedKeys.add(key);  
 			try {  
 				onLaunch(innerCode, contract, input, options);  //1
-			} catch (Exception e) {  
-				//throw Exception
-			}  
+			} catch (Exception e) { //throw Exception }  
 		}  
 		@Override
 		public void unregister() {  
@@ -368,7 +367,7 @@ public final <I, O> ActivityResultLauncher<I> register(
 }
 ```
 
-可以看到，这里为**ActivityResultLauncher**实现的`launch()`最终调用的是**ActivityResultRegistry**自己的抽象方法`onlaunch()`（注释1），而`onlaunch()`的实现则是由**ComponentActivity**中的`mActivityResultRegistry`实现（默认情况下）；而`unregister()`实际上也是**ActivityResultRegistry**自己的`unregister()`（注释2）。  
+可以看到，这里为**ActivityResultLauncher**实现的`launch()`最终调用的是**ActivityResultRegistry**自己的抽象方法`onlaunch()`（注释1），而这个抽象的`onlaunch()`的实现则是由**ComponentActivity**中的`mActivityResultRegistry`实现（默认情况下）；而`unregister()`实际上也是**ActivityResultRegistry**自己的`unregister()`（注释2）。  
 也就是说，对于一个**ActivityResultLauncher**来说，它的`unregister()`是在**ActivityResultRegistry**中实现的，而他的`launch()`则是由**Activity**实现的。  
 感觉回调了好多层，我已经开始有些头晕了=x=  
 
