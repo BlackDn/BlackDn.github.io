@@ -670,7 +670,7 @@ pre code {
 .intro-header .post-heading h1 {
   font-size: 30px;
   margin-bottom: 24px;
-  text-shadow: -3px 0 red, 0 3px red, 3px 0 red, 0 -3px red
+  text-shadow: -3px 0 grey, 0 3px grey, 3px 0 grey, 0 -3px grey
 }
 .intro-header .post-heading .subheading,
 .intro-header .post-heading .meta {
