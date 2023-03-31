@@ -112,20 +112,24 @@
   padding-left:10px;
 }
 .side-catalog .catalog-body .h3_nav {
-  margin-left: 0;
+  margin-left: 10px;
   font-size: 13px;
   padding-left:10px;
+  font-weight: bold;
 }
 .side-catalog .catalog-body .h4_nav {
   margin-left: 10px;
+  padding-left:10px;
   font-size: 13px;
 }
 .side-catalog .catalog-body .h5_nav {
   margin-left: 20px;
-  font-size: 12px;
+  padding-left: 10px;
+  font-size: 13px;
 }
 .side-catalog .catalog-body .h6_nav {
-  margin-left: 22px;
+  margin-left: 20px;
+  padding-left: 10px;
   font-size: 12px;
 }
 .side-catalog .catalog-body .h4_nav a,
