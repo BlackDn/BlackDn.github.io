@@ -70,7 +70,7 @@ text-shadow: #000 1px 0 10px;
 这时候可能会有小伙伴要问，“`text-shadow: 5px 0, 0 5px;`和`text-shadow: 5px 5px;`看起来好像都是加个右下角的阴影，两者有啥区别吗？”。
 实际上是有的，区别还挺大。前者是分别向右和向下加个阴影，所以右下角会有一个没阴影缺口，类似像素风的效果（可以用`box-shadow`试一下，效果更明显），更多的是像描边的效果；而后者则是纯纯右下角的一个阴影投影，仿佛左上角有一个光源一样。
 
-![two-ways-shadow](https://s1.ax1x.com/2023/04/02/ppfc3sH.png)
+![two-ways-shadow](https://s1.ax1x.com/2023/04/03/pphPukj.png)
 
 ### 彩蛋：z-index属性
 
@@ -142,7 +142,7 @@ document.addEventListener('visibilitychange', function () {
 }
 ```
 
-![title-result](https://s1.ax1x.com/2023/04/02/ppfc8Ld.png)
+![title-result](https://s1.ax1x.com/2023/04/03/pphPKts.png)
 
 这里要注意一点，咱们项目中的`css`文件有两个，包括普通的`.css`和`.min.css`，但是实际上咱们的**Github Page**识别的只是`.min.css`；有空格和换行的`.css`是给我们人类看的。于是问题来了，你说我只修改 `.min.css`吧，看代码要看半天；你说我修改`.css`吧他又识别不了修改。  
 在之前的文章中我同时修改两个文件来让其保持一致，但是这样也挺麻烦的，于是今天我找了个插件来实现这个转换，在**VSCode**中安装**Minify**插件，然后在写完`.css`后打开内置命令行（Command Palette，默认快捷键`Ctrl/Cmd + Shift + P`），运行`Minify`命令，那么在同目录下就会生成对应的`.min.css`文件（暂时还没找到自动将`.css`变为`.min.css`的插件）。  
@@ -168,12 +168,12 @@ document.addEventListener('visibilitychange', function () {
 ```html
 <!DOCTYPE html>
 <html lang="en">
-	{% include head.html %}
+	{% raw %}{% include head.html %}{% endraw %}
 	<body ontouchstart="">
-	    {% include nav.html %}
-	    {% include search.html %}
-	    {{ content }}
-	    {% include footer.html %}
+	    {% raw %}{% include nav.html %}{% endraw %}
+	    {% raw %}{% include search.html %}{% endraw %}
+	    {% raw %}{{ content }}{% endraw %}
+	    {% raw %}{% include footer.html %}{% endraw %}
 	</body>
 </html>
 ```
@@ -195,7 +195,7 @@ document.addEventListener('visibilitychange', function () {
 <head>
 ```
 
-或者更优雅一点，我们有一个`js`目录用来存一些JS代码，我们可以新建一个js文件t`abTitleChange.js`，将代码放入其中，在head中引入这个js文件即可：
+或者更优雅一点，我们有一个`js`目录用来存一些JS代码，我们可以新建一个js文件`tabTitleChange.js`，将代码放入其中，在head中引入这个js文件即可：
 
 ```html
 <head>
