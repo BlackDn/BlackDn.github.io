@@ -674,13 +674,13 @@ pre code {
 .intro-header .post-heading h1 {
   font-size: 30px;
   margin-bottom: 24px;
-  text-shadow: -3px 0 grey, 0 3px grey, 3px 0 grey, 0 -3px grey
+  text-shadow: -3px 0 5px grey, 0 3px 5px grey, 3px 0 5px grey, 0 -3px 5px grey;
 }
 .intro-header .post-heading .subheading,
 .intro-header .post-heading .meta {
   line-height: 1.1;
   display: block;
-  text-shadow: 1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey
+  text-shadow: -2px 0 3px grey, 0 2px 3px grey, 2px 0 3px grey, 0 -2px 3px grey;
 }
 .intro-header .post-heading .subheading {
   /* Hux learn from
