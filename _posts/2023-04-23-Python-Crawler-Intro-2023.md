@@ -496,4 +496,3 @@ def get_single_chapter_and_save(url):
 4. [PEP 498 – Literal String Interpolation](https://peps.python.org/pep-0498/) 
 5. [内置函数：open()](https://docs.python.org/zh-cn/3/library/functions.html?highlight=open#open) / [Methods of File Objects](https://docs.python.org/3/tutorial/inputoutput.html#methods-of-file-objects)
 6. [python文件读写,以后就用with open语句](https://www.cnblogs.com/ymjyqsx/p/6554817.html)
-7. [Python3网络爬虫快速入门实战解析](https://cuijiahua.com/blog/2017/10/spider_tutorial_1.html)
