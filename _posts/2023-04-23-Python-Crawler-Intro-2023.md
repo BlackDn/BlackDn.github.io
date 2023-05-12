@@ -315,7 +315,7 @@ with open('test.txt', 'r') as f:
 
 接下来就是我们手把手来编写爬虫脚本的过程了，实战案例的话...我想想，就先来获取这篇博客的内容好了：[博客优化：文章标题描边 & 动态修改Tab Title](https://blackdn.github.io/2023/04/02/Blog-Title-Border-Tab-2022.md/)   
 
-项目上传到github仓库了：[PythonCrawlerForStudy](https://github.com/for-ever-yang/PythonCrawlerForStudy)，所以在文章里就不展示全部的代码了，可以跟着一步步来实现，或者直接去仓库看整体的代码。
+项目上传到github仓库了：[PythonCrawlerForStudy](https://github.com/BlackDn/PythonCrawlerForStudy)，所以在文章里就不展示全部的代码了，可以跟着一步步来实现，或者直接去仓库看整体的代码。
 
 ### 获取单个页面内容并保存到本地
 
@@ -407,8 +407,8 @@ if __name__ == '__main__':
 
 ```python
 if __name__ == '__main__':  
-	# def get_single_chapter_and_save(url) 省略
-    base_url = 'https://blackdn.github.io'  
+	# def get_single_chapter_and_save(url) 省略  
+	base_url = 'https://blackdn.github.io'  
     get_page_response = requests.get(url=base_url)  
     page_content_bs = BeautifulSoup(get_page_response.text, features='html.parser')  
   
