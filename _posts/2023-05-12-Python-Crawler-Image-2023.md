@@ -4,7 +4,7 @@ title:        Python爬虫：爬取Bilibili壁纸喵的相册图片
 subtitle:     简单的Python图片爬取，谢谢你，壁纸喵   
 date:         2023-05-12  
 auther:       BlackDn  
-header-img:   img/19mon5_06.jpg  
+header-img:   img/21mon8_16.jpg  
 catalog:      true  
 tags:    
     - Python  
