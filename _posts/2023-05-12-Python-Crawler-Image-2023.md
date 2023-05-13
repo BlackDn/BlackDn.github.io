@@ -224,7 +224,7 @@ if __name__ == '__main__':
 	
 	for current_page in range(page_number, last_page_number):  
 	    url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={current_page}&page_size=30&biz=all&jsonp=jsonp'  
-	    print(f'We are in page {page_number}')
+	    print(f'We are in page {current_page}')
 ```
 
 我们通过`格式化字符串f-string`将变量嵌入请求的url中，然后每次请求完让其+1——这使得我们可以通过**构建**的方式来获得后续url，而不用在html页面上查找，这让我们的访问方便了许多。
@@ -237,7 +237,7 @@ if __name__ == '__main__':
 
 for current_page in range(3):  
 	    url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={current_page}&page_size=30&biz=all&jsonp=jsonp'  
-	    print(f'We are in page {page_number}')
+	    print(f'We are in page {current_page}')
   
     response_page = requests.get(url_to_get_page)  
     response_page_json = response_page.json()  
@@ -247,7 +247,7 @@ for current_page in range(3):
     
     for img_index in range(5):  
         for index, pics in enumerate(img_list[img_index]['pictures']):  
-            img_name = f'page{page_number}-img{img_index}-{index}.jpg'  
+            img_name = f'page{current_page}-img{img_index}-{index}.jpg'  
   
             img_url = pics['img_src']  
             img_response = requests.get(img_url)  
