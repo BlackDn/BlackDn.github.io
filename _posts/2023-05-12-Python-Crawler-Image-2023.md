@@ -130,7 +130,13 @@ print(object_data['name'])
 
 ![page](https://s1.ax1x.com/2023/05/12/p9y2LGt.png)
 
-我们发现，当点击翻页的时候，会发送一个GET请求，这个请求会将当前页的所有图片信息都返回。而且仔细观察这个请求，当我们点击不同按钮的时候，唯一变化的参数只有`page_num`，也就是说，我们只要控制这个参数，就可以直接构建url，不需要在页面上寻找，也不需要一个一个详情页点进去了。  
+我们发现，当点击翻页的时候，会发送一个GET请求：
+
+```python
+    url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={page_number}&page_size=30&biz=all&jsonp=jsonp'
+```
+
+这个请求会将当前页的所有图片信息都返回。而且仔细观察这个请求，当我们点击不同按钮的时候，唯一变化的参数只有`page_num`，也就是说，我们只要控制这个参数，就可以直接构建url，不需要在页面上寻找，也不需要一个一个详情页点进去了。  
 要注意的是，翻页的`page_num`参数是从`0`开始的，即第一页`page_num = 0`，第十页`page_num = 9`
 
 ### 分析结构
@@ -211,8 +217,12 @@ if __name__ == '__main__':
 然后，我们已经知道了获取我们**图片json对象**的请求url，而我们需要做的仅仅是修改url中的`page_num`参数——而从页面得知，这个参数的取值是0～10，所以：
 
 ```python
-page_number = 0  
-url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={page_number}&page_size=30&biz=all&jsonp=jsonp'
+	page_number = 0  
+	last_page_number = 10
+	
+	for current_page in range(page_number, last_page_number):  
+	    url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={current_page}&page_size=30&biz=all&jsonp=jsonp'  
+	    print(f'We are in page {page_number}')
 ```
 
 我们通过`格式化字符串f-string`将变量嵌入请求的url中，然后每次请求完让其+1——这使得我们可以通过**构建**的方式来获得后续url，而不用在html页面上查找，这让我们的访问方便了许多。
@@ -223,7 +233,8 @@ url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=68
 ```python
 # only crawl 3 pages  
 for current_page in range(3):  
-    page_number = current_page  
+	    url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={current_page}&page_size=30&biz=all&jsonp=jsonp'  
+	    print(f'We are in page {page_number}')
   
     response_page = requests.get(url_to_get_page)  
     response_page_json = response_page.json()  
@@ -243,8 +254,8 @@ for current_page in range(3):
 ```
 
 为了~~省点流量~~方便快捷，上面只爬取了**前三页**的内容，每页只爬取**前五个投稿**的图片（喵的8MB的图片我都得下20秒）  
-如果想要爬取全部页面（10页），可以改成：`for current_page in range(10):`   
-如果想要爬取一页的全部投稿图片，可以直接遍历`img_list`，不用像上面示例中一样只获取前五个投稿：`for img_index in range(5)`  
+如果想要爬取全部页面（10页），改成原来的就行：`for current_page in range(page_number, last_page_number):`     
+如果想要爬取一页的全部投稿图片，可以直接遍历`img_list`，不用像上面示例中一样只获取前五个投稿（`for img_index in range(5)`  ）
 
 这个爬虫嵌套了三层循环，分别对应**遍历全部页面**、**遍历当前页面的全部投稿**、**遍历当前投稿的全部图片**。是的，每个投稿里可能还包含多个图片。  
 由于我们需要将图片下载到本地，所以要确保每个图片的命名都是独一无二的，这里采用`页码-投稿的当前页下标-图片在投稿的下标`的形式，所以用到了内置函数`enumerate()`来同时遍历下标和本体（`for`的第一个参数为下标，第二个参数为本体）
@@ -276,7 +287,7 @@ for current_page in range(3):
 
 ## 后话
 
-老样子，代码上传到Github了：[PythonCrawlerForStudy](https://github.com/BlackDn/PythonCrawlerForStudy)，改进了一点代码（本来也不多），加了些注释和参数啥的。说实话代码量比想象中的要少很多。  
+老样子，代码上传到Github了：[PythonCrawlerForStudy](https://github.com/BlackDn/PythonCrawlerForStudy)，改进了一点代码（本来也不多），加了些注释和参数啥的，不过大致思路都一样。说实话代码量比想象中的要少很多。  
 
 其实能像这样比较简单地爬到这些图片属实运气比较好，首先咱们没遭遇啥反爬虫手段，没有用户的cookie认证啥的；我们还非常幸运地发现了直接获取JSON对象的url，不然的话还得一个一个按投稿访问，会麻烦很多。
 
