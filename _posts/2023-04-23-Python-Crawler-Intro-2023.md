@@ -39,14 +39,18 @@ tags:
 ```python
 import requests
 # get请求
+
 getUserRes = requests.get('https://reqres.in/api/users/2')
 # 带请求体的get请求
+
 payload = {'page': 2}  
 getUserWithPara = requests.get('https://reqres.in/api/users', params=payload)
 # 带请求体的post请求
+
 payload = {'name': 'blackdn', 'job': 'sleeper'}  
 postCreateUser = requests.post('https://reqres.in/api/users', data=payload)
 # 其他请求
+
 deleteUser = requests.delete('https://reqres.in/api/users/2')
 ```
 
@@ -72,18 +76,24 @@ deleteUser = requests.delete('https://reqres.in/api/users/2')
 ```python
 print(deleteUser.status_code)
 # 204
+
 print(deleteUser.ok)
 # True
 
+
 print(getUserWithPara.status_code)
 # 200
+
 print(getUserWithPara.url)
 # https://reqres.in/api/users?page=2
 
+
 print(getUserWithPara.text)
 # {"page":2,"per_page":6,"total":12,"total_pages":2,"data":[...
+
 print(getUserWithPara.encoding)
 # utf-8
+
 print(getUserWithPara.content)
 # b'{"page":2,"per_page":6,"total":12,"total_pages":2,"data":[...
 ```
@@ -101,7 +111,7 @@ $ pip install beautifulsoup4
 ```
 
 bs的用法就非常简单了，这里引用一下用官方文档的例子，假设我们有一个文档页面（这内容通常由`requests`获取）
-```python
+```
 html_doc = """
 <html><head><title>The Dormouse's story</title></head>
 <body>
@@ -120,6 +130,7 @@ and they lived at the bottom of a well.</p>
 bs的核心方法是`BeautifulSoup()`，可以直接接收文档页面。它接收一二三四...很多个参数，包括解析器、编码啥的，但通常我们使用只用传两个就行了：
 ```python
 from bs4 import BeautifulSoup # 为了和bs3（包名BeautifulSoup）区分，bs4的包名直接叫bs4了
+
 doc_soup = BeautifulSoup(html_doc, features='html.parser')
 ```
 
@@ -130,24 +141,34 @@ doc_soup = BeautifulSoup(html_doc, features='html.parser')
 当我们soup完一个文档后，就可以对其进行后续的处理和操作了，比如：
 ```python
 doc_soup.prettify() # 输出好看点的文档（就是加了缩进和换行）
+
 doc_soup.text # 去掉所有标签之后的内容
 
+
 doc_soup.find('p') # 输出第一个<p>标签内容（包括标签本身）
+
 # <p class="title"><b>The Dormouse's story</b></p>
 
+
 doc_soup.find('p').get('class') # 获取某个属性值的内容（因为一个元素可能有多个class所以返回数组）
-['title']
 
 doc_soup.find(id='link2') # 输出第一个id='link2'的标签内容（包括标签本身）
+
 # <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>
+
 
 doc_soup.find(name='p', class_='story')
 # 输出第一个class为'story'的<p>标签内容（class是python关键字不能用，所以变量名该用class_）
+
 # 输出有点长就不复制了，就是包含三个<a>的那个<p>
 
+
 doc_soup.find_all('a') # 返回所有标签<a>内容所组成的数组（包括标签本身）
+
 # [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+
 # <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>,
+
 # <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
 ```
 
@@ -155,17 +176,26 @@ doc_soup.find_all('a') # 返回所有标签<a>内容所组成的数组（包括�
 此外，还有简略的方式来获取某个标签的内容（但是用的比较少，看着看着容易晕）：
 ```python
 doc_soup.p # 简化写法，相当于doc_soup.find('p')
+
 # <p class="title"><b>The Dormouse's story</b></p>
 
+
 doc_soup.title.name # 返回标签的名字
+
 # title
+
 doc_soup.title.string # 返回标签之间的文字
+
 # The Dormouse's story
 
+
 doc_soup.title.parent.name # 返回标签的上级标签的名字
+
 # head
 
+
 doc_soup.p['class'] # 相当于doc_soup.find('p').get('class')
+
 # ['title']
 ```
 
@@ -178,7 +208,9 @@ for link in doc_soup.find_all('a'):
 	linkPool.append(link.get('href'))
 print(linkPool)
 # ['http://example.com/elsie',
+
 # 'http://example.com/lacie',
+
 # 'http://example.com/tillie']
 ```
 
@@ -189,18 +221,25 @@ print(linkPool)
 doc_soup.find('p').get_text()
 # The Dormouse's story
 
+
 doc_soup.find('p', class_='story').get_text()
 # Once upon a time there were three little sisters; and their names were
+
 #        Elsie,
+
 #        Lacie and
+
 #        Tillie;
+
 #        and they lived at the bottom of a well.
+
 doc_soup.find('p', class_='story').string
 # None
 ```
 
 这里列举一些常用的属性/方法：  
 我们将一个开标签和闭标签所包含的内容（包括标签）定义为一个**节点**，比如`find()`成功找到后返回的结果就是一个节点。
+
 | 属性/方法                             | 说明                                                               |
 | ------------------------------------- | ------------------------------------------------------------------ |
 | contents                              | 返回包含节点的全部子节点的列表                                     |
@@ -245,6 +284,7 @@ doc_soup.find('p', class_='story').string
 name = 'world?'  
 f_string = f'hello {name}'  
 # hello world?
+
 
 name = 'world?'  
 f_string = f'hello {name.replace("?", "!")}'  
@@ -408,6 +448,7 @@ if __name__ == '__main__':
 ```python
 if __name__ == '__main__':  
 	# def get_single_chapter_and_save(url) 省略  
+	
 	base_url = 'https://blackdn.github.io'  
     get_page_response = requests.get(url=base_url)  
     page_content_bs = BeautifulSoup(get_page_response.text, features='html.parser')  
@@ -456,12 +497,14 @@ def get_single_chapter_and_save(url):
     article_content = html_content_bs.find(name='article')  
     
     # remove <ul class="pager"> and following node  
+    
     pager_node = article_content.find(class_='pager')  
     for node in pager_node.find_all_next():  
         node.extract()  
     pager_node.extract()  
   
     # remove reference node if exist  
+    
     reference_node = article_content.find(name='h2', id='参考')  
     if reference_node is not None:  
         for node in reference_node.find_all_next():  

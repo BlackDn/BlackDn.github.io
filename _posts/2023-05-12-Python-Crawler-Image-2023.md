@@ -90,9 +90,11 @@ json_data = json.dumps(data)
 print(json_data)
 # {"name": "blackdn", "age": 18, "hobbies": {"sports": "running", "food": "hamburger"}}
 
+
 json_data_with_indent = json.dumps(data, indent=4)  
 print(json_data_with_indent)
-'''
+# 输出：
+
 {
     "name": "blackdn",
     "age": 18,
@@ -101,7 +103,6 @@ print(json_data_with_indent)
         "food": "hamburger"
     }
 }
-'''
 ```
 
 `json.loads()`则是反过来，如果我们收到一个JSON对象，可以将其转为一个**Python对象（键值对）**。JSON的`key`就是对象的属性，`value`就是对象的值
@@ -110,6 +111,7 @@ print(json_data_with_indent)
 object_data = json.loads(json_data)  
 print(object_data)  
 # {'name': 'blackdn', 'age': 18, 'hobbies': {'sports': 'running', 'food': 'hamburger'}}
+
 print(object_data['name'])
 # blackdn
 ```
@@ -143,7 +145,7 @@ print(object_data['name'])
 
 我们先看看请求返回的是啥东西：
 
-```json
+```
 {
 	"code": 0,
 	"message": "0",
@@ -157,7 +159,7 @@ print(object_data['name'])
 显然其中只有`data`是我们需要的，`data`中只有一个名为`items`的列表，而这个列表就对应着空间相册当前页的所有图片信息   
 我们取其中一个对象看看：
 
-```json
+```
 [
 	{
 		"doc_id": 239076960,
@@ -232,6 +234,7 @@ if __name__ == '__main__':
 
 ```python
 # only crawl 3 pages  
+
 for current_page in range(3):  
 	    url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={current_page}&page_size=30&biz=all&jsonp=jsonp'  
 	    print(f'We are in page {page_number}')
@@ -241,6 +244,7 @@ for current_page in range(3):
     img_list = response_page_json['data']['items']  
   
     # only crawl 5 images in each page  
+    
     for img_index in range(5):  
         for index, pics in enumerate(img_list[img_index]['pictures']):  
             img_name = f'page{page_number}-img{img_index}-{index}.jpg'  
@@ -271,6 +275,7 @@ for current_page in range(3):
    for index, pics in enumerate(img_list[img_index]['pictures']):
 		img_name = f'page{page_number}-img{img_index}-{index}.jpg'
 		# skip if width < height  
+		
 		if pics['img_width'] < pics['img_height']:
 			print(f'skip {img_name}')
 			break
