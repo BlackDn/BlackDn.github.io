@@ -2,15 +2,18 @@
   "name": "BlackDn Blog",
   "short_name": "BlackDn Blog",
   "description": "BlackDn's blog",
-  "icons": [{
-    "src": "icons/avatar_128.png",
-    "sizes": "128x128",
-    "type": "image/png"
-  }, {
-    "src": "icons/avatar_512.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }],
+  "icons": [
+    {
+      "src": "icons/avatar_128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/avatar_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
   "background_color": "#fff",
   "theme_color": "#000",
   "start_url": "/",
