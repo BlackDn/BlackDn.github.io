@@ -12,8 +12,6 @@ tags:
 
 > "我与春风皆过客，你携秋水揽星河。"
 
-
-
 # Linux：基础知识和工具操作
 
 ## 前言
@@ -223,37 +221,37 @@ root$ wc test.txt
   mv 目录名 目录名：目标目录已存在，将源目录移动到目标目录；目标目录不存在则改名  
 
 - cat：查看文件内容
-
 - history：查看历史命令
 
 - netstat：查看端口  
-  netstat -a：查看所有端口情况  
+  `netstat -a`：查看所有端口情况  
+
+- `lsof -i`：查看所有进程及其占用的端口；`lsof -i :8080`：查看占用8080端口的进程
+- `kill [PID]`：杀死PID所对应的进程（释放端口）
 
 - shutdown：关机，默认一分钟后关机  
-  shutdown -h now：立即关机  
-  shutdown -t 10：10s后关机  
+  `shutdown -h now`：立即关机  
+  `shutdown -t 10`：10s后关机  
 
-- file 文件：查看文件类型
-
-- xdg-open：打开图片  
-
-- uniq -u： 上下相邻两行对比得到是否为单一行  
-  sort data.txt | uniq -u：筛选文本唯一行。（sort将文本的第一列以ASCII码的次序排列，再用uniq保留只有一行的文本）
+- `file [文件名]`：查看文件类型
+- `xdg-open`：打开图片  
+- `uniq -u`： 上下相邻两行对比得到是否为单一行  
+  `sort data.txt | uniq -u`：筛选文本唯一行。（sort将文本的第一列以ASCII码的次序排列，再用uniq保留只有一行的文本）
 
 - find：查找文件  
-  find / -group g -user u -size 33c ：从根目录（/）开始查询大小为33bytes的文件，其所有组名为g，所有用户为u  
+  `find / -group g -user u -size 33c` ：从根目录（/）开始查询大小为33bytes的文件，其所有组名为g，所有用户为u  
 
-- base64:进行base64的编码解码（没指定文件则从标准输入读取）  
-  base64 文件名：将文件内容base64编码并打印到标准输出   
-  base64 -d 文件名：将文件内容base64解码并打印到标准输出   
+- base64：进行base64的编码解码（没指定文件则从标准输入读取）  
+  `base64 [文件名]`：将文件内容base64编码并打印到标准输出   
+  `base64 -d [文件名]`：将文件内容base64解码并打印到标准输出   
 
 - tr：用于转换或删除文件中的字符   
   tr 第一字符集 第二字符集：将文件中第一字符集的字符换为第二字符集的字符（一一对应）  
-  cat data.txt | tr 'a-z' 'A-Z'：将data.txt文本中的a-z换成A-Z  
+  `cat data.txt | tr 'a-z' 'A-Z'`：将data.txt文本中的a-z换成A-Z  
 
 - xxd: 将一个文件以十六进制的形式显示出来  
-  xxd -r data：将data的内容由十六进制转为二进制显示  
-  xxd -a -c 12 -g 1 -l 512 -s +0x200 data：以十六进制显示data文件内容，自动跳过空白，每行显示12字节，一个字节一块，显示512字节内容，从0x200开始  
+  `xxd -r data`：将data的内容由十六进制转为二进制显示  
+  `xxd -a -c 12 -g 1 -l 512 -s +0x200 data`：以十六进制显示data文件内容，自动跳过空白，每行显示12字节，一个字节一块，显示512字节内容，从0x200开始  
 
 - more: 类似 cat ，不过会以一页一页的形式显示。空格下一页，b键上一页。  
   -num 一次显示的行数  
@@ -261,9 +259,8 @@ root$ wc test.txt
   +num 从第 num 行开始显示  
   more -s +20 testfile:从第 20 行开始显示 testfile 之文档内容，连续两行以上的空行变为一行空行显示  
 
-- head -n10：显示结果的前10行，等同于`head -10`
-
-- tail -n10：显示结果的最后10行，等同于`tail -10`
+- `head -n10`：显示结果的前10行，等同于`head -10`
+- `tail -n10`：显示结果的最后10行，等同于`tail -10`
 
 ## 一些好用的工具
 

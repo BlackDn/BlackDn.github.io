@@ -37,9 +37,9 @@ onActivityResult(requestCode, resultCode, intent) {
   if (resultCode == RESULT_OK) {  //通过resultCode判断是否进行后续操作
     switch (requestCode) {  //通过requestCode针对跳转不同进行不同的后续操作
       case 1:    
-		······
+		//do something
       case 2:  
-		······
+		//do something
     }  
   }  
 }
@@ -59,7 +59,7 @@ public void onClick(View view) {
 
 回到第一个Activity后，就会自动调用`onActivityResult()`方法，以此对回传的数据进行处理，并进行后续操作。（这里的`RESULT_OK`是Android自带的）  
 
-可以看出**Old API**实际上是想模仿一个前后端的交互的，`Request Code`用来区分请求来源，而`Result Code`就好比后端返回的状态码。  
+可以看出**Old API**实际上是想模仿一个前后端的交互的过程，`Request Code`用来区分请求来源，而`Result Code`就好比后端返回的状态码。  
 
 ### 小坑点
 
@@ -81,7 +81,7 @@ public void onClick(View view) {
 
 ### 基本用法
 
-Activity Result API主要在包`androidx.activity.result`中  
+Activity Result API主要在`androidx.activity.result`这个包中  
 它提供了一个启动类**ActivityResultLauncher**，我们可以通过调用`registerForActivityResult()`来获得一个**Launcher**，这个方法接收三个参数：
 1. `ActivityResultContract<I, O> contract`：Contract，称为**协议**或**约束**，用于规定输入类型（I）和输出类型（O），其内部通过构造Intent实现页面之间的跳转。
 2. `ActivityResultRegistry registry`：Registry，协议注册器，通常在Activity / Fragment以外的地方接收回传的`Result`时使用。
@@ -112,7 +112,8 @@ public void onClick(View view) {
 我们通过`Launcher.launch()`来启动Intent并实现跳转，当我们跳转到SecondActivity后，其中不需要任何改动——仍是通过`setResult(resultCode, intent)`和`finish()`回到FirstActivity（MainActivity）。
 
 这里我们使用了**StartActivityForResult**这个预定义的约束，它规定我们的输入类型是**Intent**，输出类型是**ActivityResult**。因此我们调用`Launcher.launch()`的时候传入的就是`Intent`；而回调接口的范型和回调方法的参数则是`ActivityResult`，表示输出回来的结果，拿到这个结果后我们就可以在回调方法中进一步处理。  
-当然，这里作为输出类型的**ActivityResult**也是Android提供给我们的，主要就是通过`result.getResultCode()`来获取`resultCode`，通过`result.getData()`来获取`setResult(resultCode, intent)`中的Intent。（它只有这两个属性）
+当然，这里作为输出类型的**ActivityResult**也是Android提供给我们的，主要就是通过`result.getResultCode()`来获取`resultCode`，通过`result.getData()`来获取**Intent**(来自
+`setResult(resultCode, intent)`）。（**ActivityResult**只有这两个属性）
 
 回调函数用的是也自带的**ActivityResultCallback**，其通过`onActivityResult()`进行结果的处理（虽然这个方法和Old API的方法重名，实际上是不同的方法）。  
 更多时候，我们喜欢用`lambda`来实现回调方法：
@@ -135,7 +136,7 @@ public void onClick(View view) {
 ### Contract约束
 
 #### 预定义的Contract
-之前提到，**StartActivityForResult**是一个预定义的Contract，当然除了它之外，还有许多其他给定的Contract供我们使用，这里列一些比较常见的：
+之前提到，**StartActivityForResult**是一个预定义的**Contract**，当然除了它之外，还有许多其他给定的Contract供我们使用，这里列一些比较常见的：
 
 | Contract                                                     | 功能                                  |
 | ------------------------------------------------------------ | ------------------------------------- |
@@ -167,8 +168,8 @@ openDocumentLauncher.launch(new String[]{"image/*", "video/*"});
 可以看到，如果String数组中有`"image/*"`，则会打开图片的目录，可以选择其中的图片文件；如果带上`"video/*"`，则会打开视频的目录等。当然还有可以传入`“*/*”`，表示打开所有的目录。因此，上传头像等功能就能用它来帮助实现啦。  
 `GetContent`、`OpenMultipleDocuments`、`OpenDocumentTree`等也是相似的操作流程。
 
-由于运行时请求权限用到的比较多比较，所以来看看相关的Contract：  
-因为返回结果代表着权限申请的成功与否，因此我们可以根据结果来判断是继续申请/退出，还是进一步执行操作。
+由于**运行时请求权限**的场景比较多，所以来看看相关的Contract：  
+返回结果代表着权限申请的成功与否，因此我们可以根据结果来判断是继续申请/退出，还是进一步执行操作。
 
 ```java
 private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new RequestPermission(), result -> {  
@@ -196,13 +197,14 @@ requestMultiPermissionsLauncher.launch(new String[] {
 ```
 
 其实用到最多的还是`StartActivityForResult`和几个`请求权限`相关的Contract，而其他的Contract都是在和其他App（系统App）交互的时候才用到，使用场景比较受限（打开相机、通讯录、文件管理器啥的）。  
-如果没有额外的需求，这些预定义的Contract完全够我们使用的，而其中的实现构成对我们来说是透明的，不需要关心，因此，整个操作流程就变的更加方便和简洁。
+如果没有额外的需求，这些预定义的Contract完全够我们使用的，而其中的实现过程对我们来说是透明的，不需要关心，因此，整个操作流程就变的更加方便和简洁。
 
 
 #### Contract的内部操作
-Contract既然规定了输入类型和输出类型，那么它内部应该是进行了一系列操作来进行转换的。我们就更进一步，看看其内部进行了哪些操作。（Result API中的Contract其实都是Kotlin实现的，其概念也是在Kotlin中引入的，我这里Decompile成Java展示）
 
-以`StartActivityForResult`为例，我们看看其内部是如何实现的：
+**Contract**既然规定了输入类型和输出类型，那么它内部应该是进行了一系列操作来进行转换的。我们就更进一步，看看其内部进行了哪些操作。（**Result API**中的**Contract**其实是由**Kotlin**实现的，**Contract约束**的概念也是在Kotlin中引入的，我这里Decompile成Java展示）
+
+以预定义的`StartActivityForResult`为例，我们看看其内部是如何实现的：
 
 ```java
 public static final class StartActivityForResult extends ActivityResultContract<Intent, ActivityResult> {
@@ -217,7 +219,7 @@ public static final class StartActivityForResult extends ActivityResultContract<
 }
 ```
 
-可以看到，`StartActivityForResult`是抽象类`ActivityResultContract`的一个终类（final class）。事实上，所有预定义的Contract都是它的终类，区别就是输入类型和输出类型的范型不同。我们先瞟一眼`ActivityResultContract`这个抽象类：
+可以看到，`StartActivityForResult`是抽象类`ActivityResultContract`的一个终类（final class）。事实上，所有预定义的Contract都是它的终类，区别就是输入类型和输出类型的范型不同。我们先瞟一眼`ActivityResultContract`这个大家的抽象父类：
 
 ```java
 public abstract class ActivityResultContract<I, O> {
@@ -229,14 +231,16 @@ public abstract class ActivityResultContract<I, O> {
 
 可以看到，主要方法就是接收输入的`createIntent()`和返回输出的`parseResult()`两个方法。  
 再回来看`StartActivityForResult`，当我们调用`launch()`的时候，`createIntent()`会被执行，其生成的**Intent**会被启动从而实现页面的跳转。  
-当页面返回，则会调用`parseResult()`接收来自第二个Activity回传的数据（`setResult(resultCode, intent)`），并将其转变为输出类型O，在这里就是`ActivityResult`。最后我们把这个结果传给回调函数进行最终的处理。
+当页面返回，则会调用`parseResult()`接收来自第二个Activity回传的数据（`setResult(resultCode, intent)`），并将其转变为输出类型O，在这里就是`ActivityResult`。最后我们在外面，通过**ActivityResultCallback**来接收`parseResult()`的结果，进行后续处理。
 
-也就是说，从`launch()`的参数开始算起，我们的数据流向大致是这样的：
-`[FirstActivity]: launch() -> createIntent() -> [SecondActivity] -> setResult() -> parseResult() -> [FirstActivity]: callback()`
+也就是说，从`launch()`开始算起，我们的数据流向大致是这样的：
+`[FirstActivity]: launch() -> [Contract]createIntent() -> [SecondActivity] -> setResult() -> [Contract]parseResult() -> [FirstActivity]: callback()`
+
+**Contract**成为了两个**Activity**之间信息传递的桥梁。
 
 #### 自定义的Contract
 
-既然有ActivityResultContract这个抽象类，那当然只要继承它，我们就可以自定义Contract，创造我们自己的**Custom Contract**了——只要实现`createIntent()`和`parseResult()`就好了嘛。
+既然有**ActivityResultContract**是个抽象类，那么当然，只要继承它，我们就可以自定义Contract，创造自己的**Custom Contract**了——只要实现`createIntent()`和`parseResult()`这两个抽象方法就好了嘛。
 
 ```java
 class CustomContract extends ActivityResultContract<String, String> {  
@@ -258,7 +262,7 @@ class CustomContract extends ActivityResultContract<String, String> {
 }
 ```
 
-这里我们定义了输入和输出都是String的Contract。它将携带输入的String内容，并跳转到**SecondActivity**。而当我们从SecondActivity返回的时候，则会将返回Intent中的String提取出来。  
+这里我们定义了**输入（I）和输出（O）都是String**的Contract。它将携带输入的String内容，并跳转到**SecondActivity**。而当我们从**SecondActivity**返回的时候，则会将返回`Intent`中的String提取出来。  
 接下来我们就可以在**MainActivity**中利用它来进行跳转了：
 
 ```java
@@ -272,7 +276,7 @@ public void onClick(View view) {
 }
 ```
 
-而在SecondActivity中，我们可以通过之前设定的Key（`"createIntentStringKey"`）来获取Intent中的String内容；同时给返回的Intent带上相应Key（`"parseResultStringKey"`）的String，便于Contract获取到我们返回的内容：
+而在**SecondActivity**中，我们可以通过之前设定的`Key`（`"createIntentStringKey"`）来获取**Intent**中的String内容；同时给返回的`Intent`带上相应`Key`（`"parseResultStringKey"`）的String，以便**Contract**获取到我们返回的内容：
 
 ```java
 //in SecondActivity
@@ -287,7 +291,7 @@ public void onClick(View view) {
 }
 ```
 
-我们从**MainActivity**跳转到**SecondActivity**，获取到`launch()`传来的`"hello"`，Log输出；然后回到**MainActivity**，触发回调，Log输出`setResult()`传来的`"world"`（其实传来的是Intent，不过我们的Contract“从中作梗”，已经将其加工成String给我们了）：
+我们从**MainActivity**跳转到**SecondActivity**，获取到`launch()`传来的`"hello"`，Log输出；然后回到**MainActivity**，触发回调，Log输出`setResult()`传来的`"world"`（其实传回的是`Intent`，不过我们的**Contract**“从中作梗”，已经将其加工成String给我们了）：
 
 ```
 D/SecondActivity: hello
@@ -297,7 +301,7 @@ D/Callback: world
 ### 注册器 ActivityResultRegistry
 
 我们发现，在之前的使用过程中，我们并没有接触到注册器**ActivityResultRegistry**，那么它到底是怎么工作的呢？  
-我们第一次提到Registry，是说它作为`registerForActivityResult()`的一个参数，那么我们就从这个方法入手：
+我们第一次提到**Registry**，是说它作为`registerForActivityResult()`的一个参数，那么我们就从这个方法入手：
 
 ```java
 //in ComponentActivity.java
@@ -318,7 +322,7 @@ public final <I, O> ActivityResultLauncher<I> registerForActivityResult(
 }  
 ```
 
-我们看到，我们最常使用的两个参数的重载，其实是因为Activity中自带了一个`mActivityResultRegistry`，实际上最终还是通过Registry的`register()`来获取的Launcher。  
+我们看到，我们最常使用的两个参数的重载，并非是没用到**Registy**，而是因为**Activity**中自带了一个`mActivityResultRegistry`。实际上，最终还是通过**Registry**的`register()`来获取的**Launcher**。  
 `mActivityResultRegistry`是**ActivityResultRegistry**的一个实例对象，仅实现了其`onLaunch()`的抽象方法。而在**ActivityResultRegistry**中，比较重要的方法有以下几个`onLaunch()`，`register()`，`dispatchResult()`
 
 - `onLaunch()`是一个抽象方法，而`mActivityResultRegistry`就实现了它，内部进行了一些权限获取，最终通过`ActivityCompat.startActivityForResult()`来启动Intent。（代码有点长就不贴了）  
