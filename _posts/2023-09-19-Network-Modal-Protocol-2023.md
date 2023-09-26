@@ -10,7 +10,7 @@ tags:
   -  Network  
 ---
 
-> "沿路花事轻浮，归途断井颓垣。"。
+> “沿路花事轻浮，归途断井颓垣。”
 
 # TCP/IP五层模型及协议
 
@@ -501,7 +501,7 @@ FTP 使⽤**两条 TCP 连接**实现⽂件传输：
 **SMTP（Simple Mail Transfer Protocol）** 定义了**发送**电子邮件的规则和标准。通常`发送方用户代理->发送方服务器`和`发送方服务器->接收方服务器`使用的就是SMTP协议。因此也可以说SMTP是**邮件服务器接收邮件的协议**。
 
 SMTP基于TCP协议，使用25号端口。其过程比较简单，用一张图来说明：  
-要注意的是其中的[SMTP 状态码](https://en.wikipedia.org/wiki/List_of_SMTP_server_return_codes)是SMTP自己定义的，要和HTTP的状态码进行区分
+要注意的是其中的[SMTP 状态码](https://en.wikipedia.org/wiki/List_of_SMTP_server_return_codes)是SMTP自己定义的，要和[HTTP的状态码](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)进行区分
 
 ![SMTP Progress](https://z1.ax1x.com/2023/09/18/pP4nVYT.png)
 
