@@ -53,7 +53,7 @@ tags:
 
 `export`可以新建或修改当前命令行的变量（在新的命令行中不生效）。比如如果我们想修改当前命令行的**前缀**可以进行如下操作：
 
-```bash
+```
 root@BlackDn-DESKTOP:/mnt/c/Users/BlackDn# export PS1='\u \$'
 root #
 ```
