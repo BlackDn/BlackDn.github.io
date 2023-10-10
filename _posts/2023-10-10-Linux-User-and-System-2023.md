@@ -620,8 +620,6 @@ Linux能够支持很多文件系统，因此有着良好的兼容性
 - `XFS`：日志文件系统，适用于高性能计算和大规模存储环境
 - `xiafs`：旨在通过扩展Minix文件系统来提高稳定性和安全性，但由于不再活跃开发和维护，已从内核 `2.1.21` 及之后被移除
 
-[to bash basic](2023-09-26-Bash-Grammar-2023)
-
 ## 参考
 
 1. [Linux 用户和用户组管理](https://www.runoob.com/linux/linux-user-manage.html)
