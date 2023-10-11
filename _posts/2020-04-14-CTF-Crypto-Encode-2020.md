@@ -308,8 +308,8 @@ Brainfuck是一种极小化的计算机语言
 > < + – . , [ ]
 ```
 ### 2. Ook！
-是由David Morgan-Mar创建的一个~~玩笑~~深奥的编程语言  
-实际上是将Brainfuk用各种Ook和比哦哎单符号表示  
+是由David Morgan-Mar创建的一个~~玩笑~~**深奥**的编程语言  
+实际上是将Brainfuk用各种Ook和标点符号表示  
 
 | Brainfuck |   Ook!   |
 | --------- | -------- |
