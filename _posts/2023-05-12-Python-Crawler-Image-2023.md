@@ -65,7 +65,7 @@ if not os.path.exists(dir_path):
 	os.makedirs(dir_path)
 ```
 
-最后提一嘴，`mkdir()`和`makrdirs()`都有一个默认的参数`mode`，用于配制我们创建的目录的权限，默认`mode=0o777`，表示777权限，即可读可写可执行。权限及其数值表示具体可见[Linux权限及chmod命令](https://blackdn.github.io/2020/03/29/Linux-Basic-Tool-2020/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)
+最后提一嘴，`mkdir()`和`makrdirs()`都有一个默认的参数`mode`，用于配制我们创建的目录的权限，默认`mode=0o777`，表示777权限，即可读可写可执行。权限及其数值表示具体可见[Linux权限及chmod命令](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)
 
 ### Python操作JSON对象：json库
 
@@ -300,5 +300,5 @@ for current_page in range(3):
 
 ## 参考
 1. [os — Miscellaneous operating system interfaces](https://docs.python.org/3/library/os.html)
-2. [Linux权限及chmod命令](https://blackdn.github.io/2020/03/29/Linux-Basic-Tool-2020/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)
+2. [Linux权限及chmod命令](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)
 3. [json — JSON encoder and decoder](https://docs.python.org/3/library/json.html)
