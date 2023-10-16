@@ -1,18 +1,18 @@
 ---
-layout:       post  
-title:        Linux：基础知识和工具操作  
-subtitle:     Linux相关知识及命令操作  
-date:         2020-03-29   
-auther:       BlackDn  
-header-img:   img/18mon2_07.jpg   
-catalog:      true  
-tags:  
-    - Linux  
+layout: post
+title: Linux：基础命令和工具操作
+subtitle: Linux相关知识及命令操作
+date: 2020-03-29
+auther: BlackDn
+header-img: img/18mon2_07.jpg
+catalog: true
+tags:
+  - Linux
 ---
 
 > "我与春风皆过客，你携秋水揽星河。"
 
-# Linux：基础知识和工具操作
+# Linux：基础命令和工具操作
 
 ## 前言
 
@@ -20,72 +20,153 @@ tags:
 更重要的是感觉没啥游戏好玩了  
 玩啥都是一个人没得小伙伴...
 
-这里主要放一些Linux尝试和用到的Linux命令  
-由于linux命令很多很多很多，所以不会马上全部po上来，遇到新的就更新一点点   
-反正是给自己看的=。=
+这里主要放一些Linux常用的命令  
+一下子把这么多命令全学会有些不现实，尽量持续更新  
+用到新的命令或新的参数用法再回来补充
 
-## Linux目录
+## Linux常见命令
 
-1. /：根目录 
-2. /bin：存放必要的命令 
-3. /boot：存放内核以及启动所需的文件
-4. /dev：存放设备文件 
-5. /etc：存放系统配置文件 
-6. /home：普通用户的宿主目录，用户数据存放在其主目录中 
-7. /lib：存放必要的运行库 
-8. /mnt：存放临时的映射文件系统，通常用来挂载使用。
-9. /proc：存放存储进程和系统信息 
-10. /root：超级用户的主目录 
-11. /sbin：存放系统管理程序 
-12. /tmp：存放临时文件
-13. /usr：存放应用程序，命令程序文件、程序库、手册和其它文档。 
-14. /var：系统默认日志存放目录  
-
-## 变量
-
-### 环境变量
-
-1. $PATH：主要是命令的搜索路径，比如一些`/bin`的路径都在其中
-2. $SHELL：当前使用的解析器（`/bin/bash`等）
-3. $PWD：当前工作目录（和`pwd`命令结果相同）
-4. $HOME：当前用户的`/home`目录路径
-5. $PS1：当前终端显示前缀（`\u`代表用户，`\H`代表主机，`\W`代表目录）
-
-`export`可以新建或修改当前命令行的变量（在新的命令行中不生效）。比如如果我们想修改当前命令行的**前缀**可以进行如下操作：
-
-```
-root@BlackDn-DESKTOP:/mnt/c/Users/BlackDn# export PS1='\u \$'
-root #
-```
-
-以上方法是暂时的，如果想要永久生效，需要在`/root/.bashrc`文件中增加这一行（`export PS1='\u \$'`）
-
-此外，`env`命令可以显示所有环境变量，而`set`命令可以显示所有本地定义的变量（包括环境变量和其他的变量）；而`unset`则可以删除某个环境变量。
-
-### 特殊变量
-
-| 特殊变量 | 说明                          |
-| ---- | --------------------------- |
-| `$?` | 上一条语句/命令的退出码。执行成功则为0，失败则为非0 |
-| `$$` | 保存当前Shell进程的ID              |
-| `$_` | 保存上一条语句/命令的最后一个参数           |
-| `$!` | 保存上一个后台执行的异步命令的进程 ID        |
-| `$0` | 保存当前 Shell 的名称              |
-| `$-` | 保存当前 Shell 的启动参数            |
-| `$#` | 保存脚本的参数数量                   |
-| `$@` | 保存脚本的参数值                    |
-
-## Linux操作命令
+虽然我们把工具和命令分开来说，其实我感觉在Linux中他们是一个东西  
+如果我们把所有的命令看成是额外需要安装的**包或软件**（分为预安装好的和需要自行安装的），那么他们就是**工具**；如果把所有在命令行使用的工具看成是`.sh`或`.bash`的**运行程序**，那么他们就是**命令**   
+感觉本质上他们都是一样的，我就不对命令或工具作出区分了，偶尔会混用一下
 
 在Linux的命令中，很多时候会涉及到**正则表达式**，特别是在匹配或者输出的时候  
 关于正则表达式可以看这篇文章：[正则表达式Regex及Java相关使用](https://blackdn.github.io/2022/03/13/Regex-and-Java-2022/)
 
+- df/du/fdisk/lsblk- 查看磁盘，文件信息
+
+- `cat`：查看文件内容
+- `grep`：筛选过滤
+- `wc`：计数
+- `history`：查看历史命令
+- `pwd`：显示当前所在的目录
+- `type`：判断命令来源（是bash内置还是外部程序）
+
+- `chmod`：修改文件权限（具体可见：[Linux权限及chmod命令](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)）
+- `chwon`：修改文件所有者
+- `chgrp`：修改文件所属组
+
+- `su blackdn`：更改用户（switch user），从当前用户改为用户名为blackdn的用户  
+- `su`：切换为root用户，相当于`su root`
+
+- `cd xx`：进入xx目录  
+- `cd ..`：返回上一级目录  
+- `cd /`：返回根目录  
+
+- `ls`： 查看当前目录所有的文件和目录。  
+- `ls -a`： 查看所有的文件，包括隐藏文件,以.开头的文件。  
+
+- `echo`：输出之后的内容
+- `echo -n`：输出后不进行换行
+- `echo -e`：对引号内特殊字符（`\n`等）进行解释而非原样输出
+
+- `head -n10`：显示结果的前10行，等同于`head -10`
+- `tail -n10`：显示结果的最后10行，等同于`tail -10`
+
+- `mkdir xxx`：创建名为xxx的目录
+- `rmdir xxx`：删除空目录xxx
+- `rm xxx`：删除文件xxx  
+- `rm -r xxx`：清空目录xxx下所有文件并删除目录xxx
+
+- `cp`：复制文件
+- `cp 文件 目录`：将文件复制到目录中  
+- `cp 文件1 文件2`：复制文件1，并命名为文件2  
+
+- `mv`：重命名或者移动文件或者目录  
+- `mv 文件名 文件名`：将源文件名改为目标文件名  
+- `mv 文件名 目录名`：将文件移动到目标目录  
+- `mv 目录名 目录名`：目标目录已存在，将源目录移动到目标目录；目标目录不存在则改名 
+
+- `more`: 类似 `cat` ，不过会以一页一页的形式显示。空格下一页，b键上一页。  
+- `more -s`： 当遇到有连续两行以上的空白行，就代换为一行的空白行
+- `more +num`： 从第 num 行开始显示  
+- `more -s +20 testfile`:从第 20 行开始显示 testfile 之文档内容，连续两行以上的空行变为一行空行显示  
+
+- `less`：类似`more`，以分页形式查看文件，会进入自己独立的界面，支持支持搜索和正则表达式查找等
+- `less -N`：显示行号
+- `less -S`：强制换行，不必左右滑动查看文件
+- `less -f`：强制显示（包括二进制文件）
+- `less file1.txt file2.txt`：多文件查看，可以在多个文件之间切换。
+
+- `date`：显示当前日期时间
+- `date "+格式"`：自定义输出格式，比如`date "+%Y-%m-%d %H:%M:%S"`将以`YYYY-MM-DD HH:MM:SS`的格式输出时间
+- `date +%s`：显示时间戳
+- `date -d "2 days ago"`：日期计算，显示两天前的时间
+- `sudo date -s "YYYY-MM-DD HH:MM:SS"`：修改系统时间
+
+- `find`：查找文件  
+- `find / -group g -user u -size 33c` ：从根目录（/）开始查询大小为33bytes的文件，其所有组名为g，所有用户为u  
+
+- `which`：查找系统中是否存在指定的可执行程序，并显示程序的绝对路径
+- `which ls`：查找是否有`ls`命令，将返回`/usr/bin/ls`，表示 `ls` 命令位于 `/bin` 目录
+- `whereis`：用于查找程序的二进制、源代码和帮助页面文件的位置
+- `whereis ls`：返回`ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz`，表示`ls`的命令位于`/usr/bin/ls`，同时其帮助文档位于`/usr/share/man/man1/ls.1.gz``
+
+- `netstat`：查看端口  
+- `netstat -a`：查看所有端口情况  
+- `lsof -i`：查看所有进程及其占用的端口；`lsof -i :8080`：查看占用8080端口的进程
+- `kill [PID]`：杀死PID所对应的进程（释放端口）
+
+- `ps`：显示当前用户进程进程
+- `ps -u username`：显示特定用户的进程
+- `ps -e`：显示全部进程
+- `pstree`：以树状结构显示进程
+- `ps -ejH`：显示进程信息，且进程名字段通过缩进表示进程的父子关系
+
+- `free`：查看内存使用情况
+- `free -h`：让输出更加易读
+- `free -s 5`：持续监控内存，每五秒输出一次使用情况
+
+- `top`：实时监视和显示系统的性能和进程信息（进入top后按`q`退出）
+- `top -u username`：显示特定用户的进程
+- 进入top后，按`h` 查看帮助信息，显示快捷键和选项等；按 `d` 输入刷新频率，以更改数据刷新的时间间隔；按`Shift-M` 按内存使用率排序；按`Shift-P` 按进程ID排序（默认排序方式）。
+
+- `df`：显示磁盘使用情况，包括磁盘的总容量、已使用空间、剩余空间及挂载点等信息。
+- `df -h`：让输出更加易读
+- `df -l`：只显示本地文件系统，不显示NFS、SMB等网络文件系统
+
+- `du directory_name`：查看目录的磁盘使用情况
+- `du -h directory_name` ：让输出更加易读
+- `du -a directory_name`：显示所有文件和目录的大小
+
+- `lsblk`：查看所有块设备的层次结构和挂载点，以了解系统的存储配置
+- `lsblk -f`：让输出更加易读
+- `lsblk -d`：只显示块设备，而不包括其子设备（如分区）的信息
+- `lsblk /dev/sda`：查看指定设备信息 
+
+- `fdisk`：用于管理硬盘分区，对磁盘分区进行创建、删除、修改等。具体操作可见：[Linux磁盘分区](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA)
+
+- `shutdown`：关机，默认一分钟后关机  
+- `shutdown -h now`：立即关机  
+- `shutdown -t 10`：10s后关机  
+  
+- `file [文件名]`：查看文件类型
+- `uniq -u`： 上下相邻两行对比得到是否为单一行  
+- `sort data.txt | uniq -u`：筛选文本唯一行。（sort将文本的第一列以ASCII码的次序排列，再用uniq保留只有一行的文本）
+
+- `base64`：进行base64的编码解码（没指定文件则从标准输入读取） 
+- `base64 [文件名]`：将文件内容base64编码并打印到标准输出   
+- `base64 -d [文件名]`：将文件内容base64解码并打印到标准输出   
+
+- `tr`：用于转换或删除文件中的字符   
+- `tr 第一字符集 第二字符集`：将文件中第一字符集的字符换为第二字符集的字符（一一对应）
+- `cat data.txt | tr 'a-z' 'A-Z'`：将data.txt文本中的a-z换成A-Z  
+
+- `xxd`: 将一个文件以十六进制的形式显示出来  
+- `xxd -r data`：将data的内容由十六进制转为二进制显示 
+- `xxd -a -c 12 -g 1 -l 512 -s +0x200 data`：以十六进制显示data文件内容，自动跳过空白，每行显示12字节，一个字节一块，显示512字节内容，从0x200开始  
+
+菜鸟传送门：[Linux 常用命令学习](https://www.runoob.com/w3cnote/linux-common-command-2.html)
+
+## Linux命令/工具详解
+
+因为有些命令很常用，功能也很强大，所以把它们拿出来单独再详细说说，介绍一下参数用法啥的
 ### grep命令
 
 `grep`命令是非常常用也好用的一个命令，用来对文本进行一个筛选或过滤，通常情况下会输出匹配到内容所在的一整行
 
 `Usage: grep [OPTION]... PATTERNS [FILE]...`：`PATTERNS`指的是匹配的表达式，`[FILE]`就是需要查找的文件  
-比如我想在“history.log”文件中找到含有`git`的内容：
+比如我想在`history.log`文件中找到含有`git`的内容：
 
 ```bash
 blackdn@BlackDn-DESKTOP$ grep "git" history.log
@@ -182,118 +263,6 @@ root$ wc test.txt
 | `-w` | （`--word` / `--words`）输出结果为`单词数 文件名`  |
 | `-c` | （`--chars` / `--bytes`）输出结果为`字节数 文件名` |
 | `-L` | 输出最长行的长度和文件名，包括空格，不包括换行               |
-
-### 其他常用命令
-
-- su blackdn：更改用户（switch user），从当前用户改为用户名为blackdn的用户  
-  su：默认改为root用户，相当于`su root`
-
-- cd xx：进入xx目录  
-  cd ..：返回上一级目录  
-  cd /：返回根目录  
-
-- type：判断命令来源（是bash内置还是外部程序）
-
-- ls： 查看当前目录所有的文件和目录。  
-  ls  -a 查看所有的文件，包括隐藏文件,以.开头的文件。  
-
-- echo：输出之后的内容  
-  echo -n：输出后不进行换行
-  echo -e：对引号内特殊字符（\\n等）进行解释而非原样输出
-
-- pwd：显示当前所在的目录。
-
-- mkdir xxx：创建名为xxx的目录
-
-- rmdir xxx：删除空目录xxx
-
-- rm xxx：删除文件xxx  
-  rm -r xxx：清空目录xxx下所有文件并删除目录xxx
-
-- cp：拷贝文件。    
-  cp 文件 目录：将文件复制到目录中  
-  cp 文件1 文件2：将文件1复制在当前文件夹，命名为文件2  
-  cp 目录1 目录2：将目录1及其内容复制到目录2中
-
-- mv：重命名或者移动文件或者目录  
-  mv 文件名 文件名：将源文件名改为目标文件名  
-  mv 文件名 目录名：将文件移动到目标目录  
-  mv 目录名 目录名：目标目录已存在，将源目录移动到目标目录；目标目录不存在则改名  
-
-- cat：查看文件内容
-- history：查看历史命令
-
-- netstat：查看端口  
-  `netstat -a`：查看所有端口情况  
-
-- `lsof -i`：查看所有进程及其占用的端口；`lsof -i :8080`：查看占用8080端口的进程
-- `kill [PID]`：杀死PID所对应的进程（释放端口）
-
-- shutdown：关机，默认一分钟后关机  
-  `shutdown -h now`：立即关机  
-  `shutdown -t 10`：10s后关机  
-
-- `file [文件名]`：查看文件类型
-- `xdg-open`：打开图片  
-- `uniq -u`： 上下相邻两行对比得到是否为单一行  
-  `sort data.txt | uniq -u`：筛选文本唯一行。（sort将文本的第一列以ASCII码的次序排列，再用uniq保留只有一行的文本）
-
-- find：查找文件  
-  `find / -group g -user u -size 33c` ：从根目录（/）开始查询大小为33bytes的文件，其所有组名为g，所有用户为u  
-
-- base64：进行base64的编码解码（没指定文件则从标准输入读取）  
-  `base64 [文件名]`：将文件内容base64编码并打印到标准输出   
-  `base64 -d [文件名]`：将文件内容base64解码并打印到标准输出   
-
-- tr：用于转换或删除文件中的字符   
-  tr 第一字符集 第二字符集：将文件中第一字符集的字符换为第二字符集的字符（一一对应）  
-  `cat data.txt | tr 'a-z' 'A-Z'`：将data.txt文本中的a-z换成A-Z  
-
-- xxd: 将一个文件以十六进制的形式显示出来  
-  `xxd -r data`：将data的内容由十六进制转为二进制显示  
-  `xxd -a -c 12 -g 1 -l 512 -s +0x200 data`：以十六进制显示data文件内容，自动跳过空白，每行显示12字节，一个字节一块，显示512字节内容，从0x200开始  
-
-- more: 类似 cat ，不过会以一页一页的形式显示。空格下一页，b键上一页。  
-  -num 一次显示的行数  
-  -s 当遇到有连续两行以上的空白行，就代换为一行的空白行  
-  +num 从第 num 行开始显示  
-  more -s +20 testfile:从第 20 行开始显示 testfile 之文档内容，连续两行以上的空行变为一行空行显示  
-
-- `head -n10`：显示结果的前10行，等同于`head -10`
-- `tail -n10`：显示结果的最后10行，等同于`tail -10`
-
-## 一些好用的工具
-
-因为很多工具是要额外下载的，所以这里新开一栏放一些工具的使用命令，让上面命令的那部分少一些。
-
-### 工具包集成管理：Homebrew
-
-官网：[Homebrew](https://brew.sh/)  
-Homebrew是一个包管理工具，因此我们可以使用它来进行工具/软件的安装和管理。  
-其实Mac里的开发者工具Xcode和其比较类似，但是因为XCode太大了（好像有几十个G吧），所以很多时候人们选择用Homebrew来安装需要的工具。
-
-```shell
-# 安装HomeBrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# 常用命令
-brew help # 查看所有命令
-brew install firefox # 安装软件（通过下载源码）
-brew install --cask firefox # 安装软件（通过下载安装包，和自己手动下载解压一样）
-brew uninstall firefox # 卸载软件
-brew list #显示已经安装软件列表
-brew services list #显示安装的服务
-brew info mysql #查看信息，比如目前的版本，依赖，安装后注意事项等
-
-brew update #更新 Homebrew
-brew outdated #列出可升级的软件/包
-brew upgrade #更新所有可升级的软件/包
-brew upgrade $mysql #更新指定的软件/包
-brew cleanup # 清理所有包的旧版本
-brew cleanup $mysql #清理指定的软件/包
-brew cleanup -n #查看可清理的旧版本软件/包
-brew home mysql #用浏览器打开官方主页
-```
 
 ### sed文本处理
 
@@ -441,168 +410,92 @@ curl https://blackdn.github.io/
 | `-b 'cookie'`       | 为请求添加`Cookie`内容，可以为文件      |
 | `--limit-rate 200k` | 显示带宽，默认使用最大带宽              |
 
-## Linux权限及chmod命令
 
-Linux的用户分组和权限一直是比较严格的，通常对一个文件来说，其所面对的用户分为三个类别，即**文件创建者、创建者所属组、其他用户**（其实Windows也有，但是用到的比较少）。  
-同样，对一个用户来说，他所拥有以下三种权限：
+## 工具包集成管理：Homebrew
 
-| 权限  | 数值  | 作用            |
-| --- | --- | ------------- |
-| r   | 4   | read，读权限      |
-| w   | 2   | write，写权限     |
-| x   | 1   | execute, 执行权限 |
-
-当我们在当前目录运行`ll`的时候，在文件或目录前会有一串字母，分别代表其`类型`和`权限`：
-
-```bash
-drwxrwxrwx 1 root root 4096 Mar  3 23:46 ./
-drwxrwxrwx 1 root root 4096 Mar  3 23:45 ../
--rwxrwxrwx 1 root root  554 Mar  3 23:46 READNEME.md
-```
-
-第一个字母表示文件类型，常见的有：`d`表示目录（directory），`l`表示链接文件（link），`-`表示普通文件  
-权限则是上面的rwx，三个一组，分别表示**文件创建者、创建者所属组、其他用户**的rwx权限。
-
-而`chmod`命令则可以对文件的权限进行修改，当然为了保证有“可以修改权限”的权限，所以通常都是root用户进行该操作  
-u，g，o，a分别表示**文件创建者（user）**，创建者所属组（group），**其他用户（others）**和**以上三者（all）**；  
-`+`表示增加权限、`-`表示取消权限、`=`表示唯一设定权限；  
-`r`表示可读取，`w`表示可写入，`x`表示可执行。
-
-于是，修改一个文件权限的命令就如下：
-
-```bash
-# 为test.py的创建者添加可执行权限
-chmod u+x test.py
-# 为所有用户添加可读取file.txt的权限
-chmod a+r file.txt
-```
-
-此外还有**八进制**的命令形式，读写执行（rwx）的权限分别用4、2、1表示。权限组合就是对应权限值求和，如下：  
-
-```
-7 = 4 + 2 + 1：      读写运行权限
-5 = 4 + 1：          读和运行权限
-4 = 4：              只读权限
-```
-
-于是，`chmod`还可以这样用：
-
-```bash
-# 为test.py文件的文件所有者、群组用户、其他用户三组用户权限设置分别设置为7，7，7（可读、可写、可执行）
-chmod 777 test.py
-```
-
-## 添加用户并给予sudo权限
-
-源于一个小bug，在Linux中添加了用户，结果该用户没有`/home`目录，还不能进行sudo操作
-
-在Linux中添加用户有两个命令，分别是`useradd`和`adduser`。其中，`useradd`比较低级不推荐使用，我就是用这个命令才导致上面的那个bug。  
-如果已经用useradd并产生以上bug，建议先用`userdel` 用户名删除用户，再用`adduser`添加用户。
+官网：[Homebrew](https://brew.sh/)  
+Homebrew是一个包管理工具，因此我们可以使用它来进行工具/软件的安装和管理。  
 
 ```shell
-root$ userdel blackdn
-root$ adduser blackdn
-正在添加用户"blackdn"...
-·····（中间省略一堆输出）
-请输入新值，或直接敲回车键以使用默认值
-        全名 []: 
-        房间号码 []:
-        工作电话 []:
-        家庭电话 []:
-        其它 []:
-这些信息是否正确？ [Y/n] y
+# 安装HomeBrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 常用命令
+brew help # 查看所有命令
+brew install firefox # 安装软件（通过下载源码）
+brew install --cask firefox # 安装软件（通过下载安装包，和自己手动下载解压一样）
+brew uninstall firefox # 卸载软件
+brew list #显示已经安装软件列表
+brew services list #显示安装的服务
+brew info mysql #查看信息，比如目前的版本，依赖，安装后注意事项等
+
+brew update #更新 Homebrew
+brew outdated #列出可升级的软件/包
+brew upgrade #更新所有可升级的软件/包
+brew upgrade $mysql #更新指定的软件/包
+brew cleanup # 清理所有包的旧版本
+brew cleanup $mysql #清理指定的软件/包
+brew cleanup -n #查看可清理的旧版本软件/包
+brew home mysql #用浏览器打开官方主页
 ```
 
-该方法建立的用户应该是有`/home`目录的，不过可能还是不能进行`sudo`操作，为此我们要编辑`/etc`目录下的`sudoer`文件
-
-```shell
-root$ vim /etc/sudoers
-
-# User privilege specification
-root    ALL=(ALL:ALL) ALL
-blackdn ALL=(ALL:ALL) ALL （新增）
-```
-
-在上面这行新增一行，内容为改变前面的用户名为新增用户的名字即可（`用户名 ALL=(ALL:ALL) ALL`） 
 
 ## 压缩操作
 
-1. .gz文件  
-   gzip ：压缩为.gz文件  
-   gzip -d xxx.gz，解压xxx.gz  
+### .gz文件压缩  
 
-2. .zip文件  
-   zip 压缩包名 文件名：将文件名压缩为zip压缩包  
-   zip --password 123 a.zip test.txt：将test.txt压缩为a.zip，密码为123  
-   unzip 文件名：解压zip文件  
-   unzip -P 123 data.zip：用密码123解压data.zip  
+- `gzip` ：压缩为.gz文件  
+- `gzip -d xxx.gz`：解压xxx.gz  
 
-3. .bz2文件  
-   bzip2：压缩或解压.bz2文件  
-   bzip2 -k data：将data文件压缩为data.bz2并保留data（不用-k会删除data）  
-   bzip2 -d temp.bz2：解压temp.bz2  
+### .zip文件  
 
-4. .tar/.gz文件  
-   tar:用来建立，还原备份文件的工具程序，它可以加入，解开备份文件内的文件  
-   tar -czvf test.tar.gz a.c：压缩 a.c文件为test.tar.gz  
-   tar -xzvf test.tar.gz ：解压test.tar.gz  
-   tar -xvf data_6.tar：解压data_6.tar  
-   （.gz需要命令-z解压）  
+- `zip 压缩包名 文件名`：将文件名压缩为zip压缩包
+- `zip --password 123 a.zip test.txt`：将test.txt压缩为a.zip，密码为123
+- `unzip 文件名`：解压zip文件  
+- `unzip -P 123 data.zip`：用密码123解压data.zip  
+
+### .bz2文件  
+
+- `bzip2`：压缩或解压.bz2文件 
+- `bzip2 -k data`：将data文件压缩为data.bz2并保留data（不用`-k`会删除data）  
+- `bzip2 -d temp.bz2`：解压temp.bz2  
+
+### .tar/.gz文件  
+
+- `tar -czvf test.tar.gz a.c`：压缩 a.c文件为test.tar.gz  
+- `tar -xzvf test.tar.gz` ：解压test.tar.gz  
+- `tar -xvf data_6.tar`：解压data_6.tar  
 
 ## 命令行辅助操作（快捷键）
 
-1. Tab：自动补齐（命令或路径，连续按两次可列出全部可选项）
-2. 反斜杠“\”：强制换行
-3. Alt + . ：输出上一个命令的参数
-4. Ctrl + C：终止当前命令
-5. Ctrl + U：清空至行首
-6. Ctrl + K：清空至行尾
-7. Ctrl + W：删除光标之前的一个单词
-8. Ctrl + C：终止正在执行的命令  
-9. Ctrl + L：清除屏幕并将当前行移到页面顶部（相当于`clear`）
-10. Ctrl + A：光标移至行首，不删除命令
-11. Ctrl + E：光标移至行尾，不删除命令
-12. Ctrl + D：关闭Shell会话
+在命令行操作的时候可以使用的快捷键（不分大小写）
 
-## Linux文本操作（vi/vim）
+1. `Tab`：自动补齐（命令或路径，连续按两次可列出全部可选项）
+2. 反斜杠`\`：强制换行
+3. `Alt` + . ：输出上一个命令的参数
+4. `Ctrl + C`：终止当前命令
+5. `Ctrl + U`：清空至行首
+6. `Ctrl + K`：清空至行尾
+7. `Ctrl + W`：删除光标之前的一个单词
+8. `Ctrl + C`：终止正在执行的命令  
+9. `Ctrl + L`：清除屏幕并将当前行移到页面顶部（相当于`clear`）
+10. `Ctrl + A`：光标移至行首，不删除命令
+11. `Ctrl + E`：光标移至行尾，不删除命令
+12. `Ctrl + D`：关闭Shell会话
 
-vi和vim都是linux的文本编辑器，vim比vi更加高级  
+## 关机
 
-基本上 vi/vim 共分为三种模式，分别是**命令模式（Command mode）**，**输入模式（Insert mode）**和**底线命令模式（Last line mode）**。 
+虽然但是，我们有很多命令可以实现关机：
 
-#### 命令模式
+- `init 0`：通常在Unix系统中使用，处于兼容性原因将其沿用到Linux。它将系统完全关闭，停止所有运行的进程，卸载文件系统，然后关闭计算机或服务器。但是由于比较老，功能有限（没有提供各种关机选项），而且在某些系统上可能不再受支持，因此**不建议使用**。
+- `poweroff`：将会立即关机。它会确保正常卸载文件系统、停止所有运行的进程，并关闭计算机，**建议使用**。
+- `halt`：停止系统的运行，但不一定会关闭电源（有点**待机**的意思）。通常需要用户手动再关闭电源。
 
-启动 vi/vim进入命令模式  
+- `shutdown`：用于计划系统的关机操作，提供了各种选项，功能较多，因此**推荐使用**
+- `shutdown -h now`：立即关机
+- `shutdown -h 10`：计划十分钟后关机
+- `shutdown -c`：取消关机计划
+- `shutdown -r now`：立即重启
 
-1. vim xxx：编辑xxx文件（若无则先创建）
-2. i：切换到输入模式，以输入字符
-3. x：删除当前光标所在处的字符
-4. “：”：切换到底线命令模式，以在最底一行输入命令  
-5. u：撤销上次操作（类似常用的ctrl+z）
-6. ctrl+r：取消上次撤销（类似常用的ctrl+y）
+- `reboot`：重启，等效于`shutdown -r now`
 
-#### 输入模式
-
-按 i 进入输入模式  
-
-1. BACK SPACE（退格键）：删除光标前一个字符
-2. DEL（删除键）：删除光标后一个字符
-3. HOME/END：移动光标到行首/行尾
-4. Page Up/Page Down：上/下翻页
-5. Insert：切换光标为输入/替换模式
-6. ESC：退出输入模式，切换到命令模式  
-
-#### 底线命令模式
-
-按 ：进入底线命令模式  
-
-1. :w ：保存文本
-2. :q：退出编辑器
-3. :wq：保存并退出
-4. :q!：不保存退出
-5. :e!：还原为初始状态
-6. :set nu：显示行号
-7. :set nonu：不显示行号
-8. 小写v：字符选择模式
-9. 大写V：行选择模式
-10. y：复制；p：粘贴（常和以上两种选择模式结合使用）
