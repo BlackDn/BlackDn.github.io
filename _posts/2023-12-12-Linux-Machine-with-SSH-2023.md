@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: Linux简介，虚拟机创建换源，ssh连接转发 
+title: Linux 简介 / 虚拟机创建及换源 / ssh 连接及转发 
 subtitle: 创建Linux虚拟机，换源，通过ssh进行操作 
 date: 2023-12-12 
 auther: BlackDn 
@@ -12,7 +12,7 @@ tags:
 
 > "星河滚烫，你是人间理想。"
 
-# Linux 简介，虚拟机创建换源，ssh 连接转发
+# Linux 简介 / 虚拟机创建及换源 / ssh 连接及转发
 
 ## 前言
 
