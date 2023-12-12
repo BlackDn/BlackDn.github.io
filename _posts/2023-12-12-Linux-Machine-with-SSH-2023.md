@@ -1,11 +1,11 @@
 ---
-layout: post
-title: Linux简介，虚拟机创建换源，ssh连接转发
-subtitle: 创建Linux虚拟机，换源，通过ssh进行操作
-date: 2023-12-12
-auther: BlackDn
-header-img: img/21mon8_31.jpg
-catalog: true
+layout: post 
+title: Linux简介，虚拟机创建换源，ssh连接转发 
+subtitle: 创建Linux虚拟机，换源，通过ssh进行操作 
+date: 2023-12-12 
+auther: BlackDn 
+header-img: img/21mon8_31.jpg 
+catalog: true 
 tags:
   - Linux
 ---
