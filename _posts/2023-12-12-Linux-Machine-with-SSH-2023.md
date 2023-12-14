@@ -36,7 +36,7 @@ tags:
 
 1993 年，**Debian** 项目成立，致力于创建一个 Linux 发行版的社区；1994 年，**Slackware** 和 **Red Hat** 都发布了早期的商业 Linux 发行版，为企业和个人用户提供了更多 Linux 选项。到了 21 世纪，Linux 已经成为了主流的**服务器**操作系统，并开始在云计算、嵌入式系统、移动设备、超级计算和物联网等领域扩展。
 
-Linux 内核的开发仍在持续进行，众多的 Linux 发行版，如 Ubuntu、Debian、Fedora、CentOS 等，为不同的用户需求提供了各种版本和包管理工具。这使得 Linux 成为一种十分 受欢迎的操作系统选择，同时也表现出其开放和灵活的本质。（顺便一提，当初学网络安全的时候用的 **Kali Linux**，里面内置很多安全工具，嘎嘎好用）
+Linux 内核的开发仍在持续进行，带来了众多的 Linux 发行版，如 Ubuntu、Debian、Fedora、CentOS 等。这使得 Linux 成为一种十分受欢迎的操作系统，同时也表现出其开放和灵活的本质。（顺便一提，当初学网络安全的时候用的 **Kali Linux**，里面内置很多安全工具，嘎嘎好用）
 
 ### Linux 发行版
 
@@ -71,7 +71,7 @@ $ sudo apt-get update
 
 ## 使用 ssh 连接到 Linux
 
-介绍了一下 Linux，我们的**Linux 虚拟机**应该也差不多装好了，现在来进行一下配置，首先是让我们从 Mac 的命令行能直接登录 Linux，这就需要**ssh**了
+到这我们的**Linux 虚拟机** 基本算装好了，接下来我们打算通过`ssh`来让我们能从 Mac 的**命令行**直接登录 **Linux**
 
 #### 安装 ssh 并获取 IP 地址
 
@@ -143,7 +143,7 @@ Now try logging into the machine, with:   "ssh 'blackdn@10.211.55.3'"
 and check to make sure that only the key(s) you wanted were added.
 ```
 
-然后到我们 Mac 机子保存密钥的目录下（默认为`~/.ssh/`），有个 `authorized_keys`文件，查看是否有刚上传的东西，有的话则是成功了。
+然后对应虚拟机保存密钥的目录下（默认为`~/.ssh/`），有个 `authorized_keys`文件，查看是否有刚上传的东西，有的话则是成功了。
 
 ```
 blackdn@root:~$ cat ~/.ssh/authorized_keys
@@ -169,6 +169,8 @@ IdentityFile ~/.ssh/id_rsa_linux
 上面的**Github ssh**是我之前为 Github 的 ssh 连接配置的，这次我们要为 Linux 添加配置，指定一下 Host（IP 地址）、User（登录账户）和所用的**私钥**密钥文件就好了。
 
 ## ssh 使用
+
+这里贴一下`ssh`的常用命令
 
 ### ssh 连接
 
@@ -317,7 +319,7 @@ ssh -fNL 12345:10.211.55.3:80 blackdn@10.211.55.3
 
 ## 为 Linux VM 配置静态 IP
 
-在`/etc/netpian/`的目录下，不出意外的话应该只有一个`00-installer-config.yaml`文件：
+在`/etc/netplan/`的目录下，不出意外的话应该只有一个`00-installer-config.yaml`文件：
 
 ```
 root: ^$ cat /etc/netplan/00-installer-config.yaml
@@ -332,15 +334,15 @@ network:
 
 可以看到目前我们的配置为空，且`dhcp4: true`，说明目前这个机器采用**动态主机配置协议 (DHCP)** 来动态获取 IPv4 的地址。  
 我们需要修改该文件，关闭 DHCP 并配置 IP 地址、网关等。  
-在这之前我们先要看看当前虚拟机的可用网段，在 Parallels Desktop 中打开当前虚拟机的`设置 -> Hardware 硬件 -> Advanced 高级 -> Network Preferences 网络首选项`，然后就能看到起始/结束地址、子网掩码等消息，从地址范围内挑一个喜欢的作为静态地址。  
-我看了下我的网段是`10.211.55.0/24`，我们可以挑个`10.211.55.55`：
+在这之前我们先要看看当前虚拟机的可用网段，在 **Parallels Desktop** 中打开当前虚拟机的`设置 -> Hardware 硬件 -> Advanced 高级 -> Network Preferences 网络首选项`，然后就能看到起始/结束地址、子网掩码等消息，从地址范围内挑一个喜欢的作为静态地址。  
+看了下我的网段是`10.211.55.0/24`，我们可以挑个`10.211.55.55`：
 
 ```ymal
 network:
 	ethernets:
 	    enp0s5:
 		    dhcp4: false   # 关闭DHCP
-		    addresses: [10.211.55.5/24]  # 配置IP
+		    addresses: [10.211.55.55/24]  # 配置IP
 		    gateway4: 10.211.55.1   # 配置默认网关
     version: 2
 ```
