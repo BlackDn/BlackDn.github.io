@@ -41,37 +41,44 @@ tags:
 - `history`：查看历史命令
 - `pwd`：显示当前所在的目录
 - `type`：判断命令来源（是bash内置还是外部程序）  
----
+  
+  
 - `chmod`：修改文件权限（具体可见：[Linux权限及chmod命令](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)）
 - `chwon`：修改文件所有者
 - `chgrp`：修改文件所属组  
----
+
+  
 - `su blackdn`：更改用户（switch user），从当前用户改为用户名为blackdn的用户  
 - `su`：切换为root用户，相当于`su root`  
----
+
+  
 - `cd xx`：进入xx目录  
 - `cd ..`：返回上一级目录  
 - `cd /`：返回根目录    
----
+
+  
 - `ls`： 查看当前目录所有的文件和目录。  
 - `ls -a`： 查看所有的文件，包括隐藏文件,以.开头的文件。    
----
+
+  
 - `echo`：输出之后的内容
 - `echo -n`：输出后不进行换行
 - `echo -e`：对引号内特殊字符（`\n`等）进行解释而非原样输出  
----
+
+    
 - `head -n10`：显示结果的前10行，等同于`head -10`
 - `tail -n10`：显示结果的最后10行，等同于`tail -10`  
----
+
+  
 - `mkdir xxx`：创建名为xxx的目录
 - `rmdir xxx`：删除空目录xxx
 - `rm xxx`：删除文件xxx  
 - `rm -r xxx`：清空目录xxx下所有文件并删除目录xxx  
----
+
+  
 - `cp`：复制文件
 - `cp 文件 目录`：将文件复制到目录中  
 - `cp 文件1 文件2`：复制文件1，并命名为文件2    
-
 
 
 - `mv`：重命名或者移动文件或者目录  
@@ -80,12 +87,10 @@ tags:
 - `mv 目录名 目录名`：目标目录已存在，将源目录移动到目标目录；目标目录不存在则改名   
 
 
-
 - `more`: 类似 `cat` ，不过会以一页一页的形式显示。空格下一页，b键上一页。  
 - `more -s`： 当遇到有连续两行以上的空白行，就代换为一行的空白行
 - `more +num`： 从第 num 行开始显示  
 - `more -s +20 testfile`:从第 20 行开始显示 testfile 之文档内容，连续两行以上的空行变为一行空行显示   
-
 
 
 - `less`：类似`more`，以分页形式查看文件，会进入自己独立的界面，支持支持搜索和正则表达式查找等
@@ -95,7 +100,6 @@ tags:
 - `less file1.txt file2.txt`：多文件查看，可以在多个文件之间切换。  
 
 
-
 - `date`：显示当前日期时间
 - `date "+格式"`：自定义输出格式，比如`date "+%Y-%m-%d %H:%M:%S"`将以`YYYY-MM-DD HH:MM:SS`的格式输出时间
 - `date +%s`：显示时间戳
@@ -103,10 +107,8 @@ tags:
 - `sudo date -s "YYYY-MM-DD HH:MM:SS"`：修改系统时间  
 
 
-
 - `find`：查找文件  
 - `find / -group g -user u -size 33c` ：从根目录（`/`）开始查询大小为33bytes的文件，其所有组名为`g`，所有用户为`u`   
-
 
 
 - `which`：查找系统中是否存在指定的可执行程序，并显示程序的绝对路径
@@ -115,13 +117,11 @@ tags:
 - `whereis ls`：返回`ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz`，表示`ls`的命令位于`/usr/bin/ls`，同时其帮助文档位于`/usr/share/man/man1/ls.1.gz`     
   
 
-
 - `netstat`：查看端口  
 - `netstat -a`：查看所有端口情况  
 - `lsof -i`：查看所有进程及其占用的端口；`lsof -i :8080`：查看占用8080端口的进程
 - `kill [PID]`：杀死PID所对应的进程（释放端口）  
   
-
 
 - `ps`：显示当前用户进程
 - `ps -u username`：显示特定用户的进程
@@ -129,7 +129,6 @@ tags:
 - `pstree`：以树状结构显示进程
 - `ps -ejH`：显示进程信息，且进程名字段通过缩进表示进程的父子关系  
   
-
 
 - `free`：查看内存使用情况
 - `free -h`：让输出更加易读
@@ -144,7 +143,6 @@ tags:
 - `df`：显示磁盘使用情况，包括磁盘的总容量、已使用空间、剩余空间及挂载点等信息。
 - `df -h`：让输出更加易读
 - `df -l`：只显示本地文件系统，不显示NFS、SMB等网络文件系统  
-
 
  
 - `du directory_name`：查看目录的磁盘使用情况
@@ -185,7 +183,7 @@ tags:
 - `xxd -r data`：将data的内容由十六进制转为二进制显示 
 - `xxd -a -c 12 -g 1 -l 512 -s +0x200 data`：以十六进制显示data文件内容，自动跳过空白，每行显示12字节，一个字节一块，显示512字节内容，从0x200开始   
 
-菜鸟传送门：[Linux 常用命令学习](https://www.runoob.com/w3cnote/linux-common-command-2.html)
+菜鸟教程传送门：[Linux 常用命令学习](https://www.runoob.com/w3cnote/linux-common-command-2.html)
 
 ## Linux命令/工具详解
 

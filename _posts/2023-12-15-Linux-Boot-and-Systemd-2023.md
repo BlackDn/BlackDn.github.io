@@ -20,11 +20,6 @@ tags:
 之前介绍了Linux，创建了自己的虚拟机，非常实操  
 这次就换个口味，整一篇纯理论的文章  
 说实话，感觉这篇文章写完后估计我自己都不会怎么来看=。=   
-[生命周期 Lifecycle](./2024-Angular-JS#Lifecycle)
-
-[Test Link](./2023-12-12-Linux-Machine-with-SSH-2023#ssh%20转发)
-
-[Test LInk 2](./2023-10-13-Linux-Vim-2023#工作模式)
 
 ## Linux 开机启动流程
 
