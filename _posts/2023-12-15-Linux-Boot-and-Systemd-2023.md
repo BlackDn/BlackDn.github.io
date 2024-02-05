@@ -19,7 +19,12 @@ tags:
 
 之前介绍了Linux，创建了自己的虚拟机，非常实操  
 这次就换个口味，整一篇纯理论的文章  
-说实话，感觉这篇文章写完后估计我自己都不会怎么来看=。=  
+说实话，感觉这篇文章写完后估计我自己都不会怎么来看=。=   
+[生命周期 Lifecycle](./2024-Angular-JS#Lifecycle)
+
+[Test Link](./2023-12-12-Linux-Machine-with-SSH-2023#ssh%20转发)
+
+[Test LInk 2](./2023-10-13-Linux-Vim-2023#工作模式)
 
 ## Linux 开机启动流程
 
@@ -455,12 +460,12 @@ Directive2=value
 `[Service]`区块用来 Service 的配置，只有 **Service** 类型的 **Unit** 才有这个区块。它的主要字段如下：
 
 - `Type`：定义启动时的进程行为。它有以下几种值。
-- `Type=simple`：默认值，执行`ExecStart`指定的命令，启动主进程
-- `Type=forking`：以 fork 方式从父进程创建子进程，创建后父进程会立即退出
-- `Type=oneshot`：一次性进程，Systemd 会等当前服务退出，再继续往下执行
-- `Type=dbus`：当前服务通过D-Bus启动
-- `Type=notify`：当前服务启动完毕，会通知`Systemd`，再继续往下执行
-- `Type=idle`：若有其他任务执行完毕，当前服务才会运行
+	  `Type=simple`：默认值，执行`ExecStart`指定的命令，启动主进程
+	  `Type=forking`：以 fork 方式从父进程创建子进程，创建后父进程会立即退出
+	  `Type=oneshot`：一次性进程，Systemd 会等当前服务退出，再继续往下执行
+	  `Type=dbus`：当前服务通过D-Bus启动
+	  `Type=notify`：当前服务启动完毕，会通知`Systemd`，再继续往下执行
+	  `Type=idle`：若有其他任务执行完毕，当前服务才会运行
 - `ExecStart`：启动当前服务的命令
 - `ExecStartPre`：启动当前服务之前执行的命令
 - `ExecStartPost`：启动当前服务之后执行的命令
