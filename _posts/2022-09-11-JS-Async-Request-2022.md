@@ -1,14 +1,14 @@
 ---
-layout:       post  
-title:        Web：异步方法 & 网络请求  
-subtitle:     JS的异步和网络请求（Promise，Fetch，XMLHttpRequest）  
-date:         2022-09-11  
-auther:       BlackDn  
-header-img:   img/19mon7_16.jpg  
-catalog:      true  
-tags:  
-    - Web  
-    - JavaScript  
+layout: post
+title: Web：异步方法 & 网络请求
+subtitle: JS的异步和网络请求（Promise，Fetch，XMLHttpRequest）
+date: 2022-09-11
+auther: BlackDn
+header-img: img/19mon7_16.jpg
+catalog: true
+tags:
+  - Web
+  - JavaScript
 ---
 
 > "偶尔傻傻孤单，偶尔傻傻浪漫。"
@@ -18,11 +18,11 @@ tags:
 ## 前言
 
 祝大家昨天中秋快乐嗷  
-这是一些JS中的异步方法和网络请求方法  
+这是一些 JS 中的异步方法和网络请求方法  
 恭喜离全栈又更近了一步=。=
 
 本文用到了[REQRES](https://reqres.in/)提供的接口。这个网站提供假的接口以便我们测试前端的连接。  
-简单来说就是我们访问他的API，然后通过返回值判断连接是否成功（他会告诉你请求内容是什么，他返回给你的东西是什么）。挺好用的，感兴趣的话可以去看看。
+简单来说就是我们访问他的 API，然后通过返回值判断连接是否成功（他会告诉你请求内容是什么，他返回给你的东西是什么）。挺好用的，感兴趣的话可以去看看。
 
 ## 异步
 
@@ -33,7 +33,7 @@ tags:
 常见异步场景：
 
 1. 定时任务：setTimeout，setInterval
-2. 网络请求：前端向后端请求API，图片加载等
+2. 网络请求：前端向后端请求 API，图片加载等
 3. 事件监听
 
 ### 回调
@@ -41,58 +41,56 @@ tags:
 有些时候，我们将一些耗时的代码称为**生产者代码（producing code）**，这些代码通常**异步执行**。而往往有另外一部分代码需要使用生产者代码的产物，我们将这些代码称为**消费者代码（consuming code）**。  
 既然消费者代码要用到生产者代码的结果产物，那么就要等到生产者结束后再执行。而生产者代码是异步的，我们不知道异步代码的执行时间，所以不可能显式设置消费者代码的等待时间。**回调（Callback）**则是处理这种情况的方法之一。
 
-我们先举个栗子🌰，用`setTimeout()`表示异步的耗时操作。这是为了举例而举例，没有什么业务逻辑所以看着会比较牵强。
+我们先举个栗子 🌰，用`setTimeout()`表示异步的耗时操作。这是为了举例而举例，没有什么业务逻辑所以看着会比较牵强。
 
 ```js
 let temp = 0;
 function asyncMethod(answer) {
-    setTimeout(() => temp = answer, 1000);	//延迟1000毫秒
+  setTimeout(() => (temp = answer), 1000); //延迟1000毫秒
 }
 function tempShouldBeOne() {
-    if (temp === 1) {
-        console.log("yeah, temp = 1");
-    } else {
-        console.log("no, temp != 1");
-    }
+  if (temp === 1) {
+    console.log("yeah, temp = 1");
+  } else {
+    console.log("no, temp != 1");
+  }
 }
 
-asyncMethod(1);	//L1 生产者代码
-console.log("temp is : " + temp);	//L2	
-tempShouldBeOne();	//L3 消费者代码
+asyncMethod(1); //L1 生产者代码
+console.log("temp is : " + temp); //L2
+tempShouldBeOne(); //L3 消费者代码
 //输出结果：
 //temp is : 0
 //no, temp != 1
 ```
 
-这个例子就比较经典，说白了就说执行`L3`的时候`L1`还没执行完，所以`temp`仍然为0，消费者代码就没有按我们想法顺利执行。
-
-
+这个例子就比较经典，说白了就说执行`L3`的时候`L1`还没执行完，所以`temp`仍然为 0，消费者代码就没有按我们想法顺利执行。
 
 ```js
 let temp = 0;
 function asyncMethod(answer, callbackMethod) {
-    setTimeout(() => {
-        temp = answer;
-        callbackMethod();
-    }, 1000);
+  setTimeout(() => {
+    temp = answer;
+    callbackMethod();
+  }, 1000);
 }
 function tempShouldBeOne() {
-    if (temp === 1) {
-        console.log("yeah, temp = 1");
-    } else {
-        console.log("no, temp != 1");
-    }
+  if (temp === 1) {
+    console.log("yeah, temp = 1");
+  } else {
+    console.log("no, temp != 1");
+  }
 }
 
-asyncMethod(1, tempShouldBeOne);	//L1
-console.log("temp is : " + temp);	//L2
+asyncMethod(1, tempShouldBeOne); //L1
+console.log("temp is : " + temp); //L2
 //输出结果：
 //temp is : 0
 //yeah, temp = 1
 ```
 
 可以看到，我们将生产者代码作为回调函数传给消费者代码，并在对`temp`操作结束后调用生产者代码。  
-这里要注意一点，代码的异步指的是它和其他代码的关系，但是其内部仍然是同步。举个栗子🌰，数据库的操作和其他代码是异步的，因为进行数据库操作的时候（比如登录注册的时候）其他代码仍正常运行（比如一些动画效果、轮播图照常滚动等）。但是数据库操作的内部仍是同步执行的，比如先搜索数据库（发现没有这个用户），再更新数据库（新建这个用户）。这也是为什么我们只用简单地把`callbackMethod()`放在`temp = answer`下面就可以同步执行了。  
+这里要注意一点，代码的异步指的是它和其他代码的关系，但是其内部仍然是同步。举个栗子 🌰，数据库的操作和其他代码是异步的，因为进行数据库操作的时候（比如登录注册的时候）其他代码仍正常运行（比如一些动画效果、轮播图照常滚动等）。但是数据库操作的内部仍是同步执行的，比如先搜索数据库（发现没有这个用户），再更新数据库（新建这个用户）。这也是为什么我们只用简单地把`callbackMethod()`放在`temp = answer`下面就可以同步执行了。  
 再额外提一点，由于`L1`是异步代码，需要耗时。因此先执行完的是`L2`，所以输出也是先输出`L2`的结果，再输出`L1`的结果。
 
 如果我们老板提出一个非人的要求，想先让`temp=1`，再让`temp=-1`，那该怎么办？  
@@ -102,25 +100,27 @@ console.log("temp is : " + temp);	//L2
 ```js
 let temp = 0;
 function asyncMethod(answer, callbackMethod) {
-    setTimeout(() => {
-        temp = answer;
-        callbackMethod();
-    }, 1000);
+  setTimeout(() => {
+    temp = answer;
+    callbackMethod();
+  }, 1000);
 }
 
 asyncMethod(1, () => {
-    if (temp === 1) {	//第一次，让temp = 1
-        console.log("yeah, temp = 1");
+  if (temp === 1) {
+    //第一次，让temp = 1
+    console.log("yeah, temp = 1");
+  } else {
+    console.log("no, temp != 1");
+  }
+  asyncMethod(-1, () => {
+    //第二次，让temp = -1
+    if (temp === -1) {
+      console.log("yeah again, temp = -1");
     } else {
-        console.log("no, temp != 1");
+      console.log("no again, temp != -1");
     }
-    asyncMethod(-1, () => {	//第二次，让temp = -1
-        if (temp === -1) {
-            console.log("yeah again, temp = -1");
-        } else {
-            console.log("no again, temp != -1");
-        }
-    }); 
+  });
 });
 console.log("temp is : " + temp);
 //输出结果：
@@ -134,60 +134,66 @@ console.log("temp is : " + temp);
 
 ### Promise
 
-人们厌倦了无止尽的回调和嵌套，于是诞生了**Promise**，它就像是个中间商，像个订阅系统。我们在其中执行生产者代码，并在操作结束后发出通知，进而让消费者代码执行（有Android基础的同学可以将其类比成Handler）。    
+人们厌倦了无止尽的回调和嵌套，于是诞生了**Promise**，它就像是个中间商，像个订阅系统。我们在其中执行生产者代码，并在操作结束后发出通知，进而让消费者代码执行（有 Android 基础的同学可以将其类比成 Handler）。  
 其基本结果如下：
 
 ```js
-let promise = new Promise(function(resolve, reject) {
+let promise = new Promise(function (resolve, reject) {
   // executor（生产者代码，耗时异步操作）
-  if (finished) {	//如果工作完成，调用resolve()，通知外界任务完成
-    resolve("job done.");	
-  } else {	//如果工作出错，调用reject()，通知外界执行失败
+  if (finished) {
+    //如果工作完成，调用resolve()，通知外界任务完成
+    resolve("job done.");
+  } else {
+    //如果工作出错，调用reject()，通知外界执行失败
     reject(new Error("something wrong!"));
   }
 });
 ```
 
 我们将**Promise**看作一个容器，其作为参数的这个函数称为**Executor**，**Executor**的两个参数`resolve`和`reject`是`Promise`自身提供的回调，不需要我们自己写。  
-我们要做的就是直接在Executor中编写我们的耗时异步操作，并在操作结束的时候调用`resolve()`或在出错的时候调用`reject()`（可以不用`if-else`，上面我就是举个栗子把他俩放一起）。  
-**Promise**对象有两个属性，即`state`和`result`。当一个Promise被new出来后，这两个属性分别为`state : "pending"`，`result : "undefined"`，通过调用不同的方法，会有不同的变化：
+我们要做的就是直接在 Executor 中编写我们的耗时异步操作，并在操作结束的时候调用`resolve()`或在出错的时候调用`reject()`（可以不用`if-else`，上面我就是举个栗子把他俩放一起）。  
+**Promise**对象有两个属性，即`state`和`result`。当一个 Promise 被 new 出来后，这两个属性分别为`state : "pending"`，`result : "undefined"`，通过调用不同的方法，会有不同的变化：
 
 - 调用`resolve(value)`：`state : "fulfilled"`，`result : value`
 - 调用`reject(error)`：`state : "rejected"`，`result : error`
 
-这也是为啥我在`resolve()`中可以直接传字符串，而在`reject()`中却要new一个Error。（顺便提一句，为了和`"pending"`对应，`"fulfilled"`和`"rejected"`统称为`"settled"`）
+这也是为啥我在`resolve()`中可以直接传字符串，而在`reject()`中却要 new 一个 Error。（顺便提一句，为了和`"pending"`对应，`"fulfilled"`和`"rejected"`统称为`"settled"`）
 
-#### then和catch
+#### then 和 catch
 
-上面我们只是用Promise执行异步代码并通知了外界，那么要怎样继续执行消费者代码呢？  
-于是就有了`.then`，它紧跟在Promise对象后面，并接受两个函数作为参数，分别对应`resolve`和`reject`之后执行的消费者代码。
+上面我们只是用 Promise 执行异步代码并通知了外界，那么要怎样继续执行消费者代码呢？  
+于是就有了`.then`，它紧跟在 Promise 对象后面，并接受两个函数作为参数，分别对应`resolve`和`reject`之后执行的消费者代码。
 
 ```js
 promise.then(
-  function(result) { /* promise执行成功后（resolve） */ },
-  function(error) { /* promise执行失败后（reject） */ }
+  function (result) {
+    /* promise执行成功后（resolve） */
+  },
+  function (error) {
+    /* promise执行失败后（reject） */
+  }
 );
 ```
 
-照样来举个栗子🌰：
+照样来举个栗子 🌰：
 
 ```js
 let temp = 0;
 let promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        temp = 1;
-        if(temp === 1) {
-            resolve("temp is 1");
-        } else {
-            reject(new Error("temp is not 1"));
-        }
-    }, 1000);
+  setTimeout(() => {
+    temp = 1;
+    if (temp === 1) {
+      resolve("temp is 1");
+    } else {
+      reject(new Error("temp is not 1"));
+    }
+  }, 1000);
 });
 
 promise.then(
-    result => console.log(result),	//执行这个
-    error => console.log(error)		//不执行这个
-    );
+  (result) => console.log(result), //执行这个
+  (error) => console.log(error) //不执行这个
+);
 //输出：temp is 1
 ```
 
@@ -196,46 +202,40 @@ promise.then(
 ```js
 let temp = 0;
 let promise = new Promise((resolve) => {
-    setTimeout(() => {
-        temp = 1;
-        resolve("temp is 1");
-    }, 1000);
+  setTimeout(() => {
+    temp = 1;
+    resolve("temp is 1");
+  }, 1000);
 });
 
-promise.then(
-    result => console.log(result)
-    );
+promise.then((result) => console.log(result));
 //输出：temp is 1
 ```
 
-同理，如果我们只想出错的时候进行操作，成功啥也不做的话，可以用`then(null, error => {})`的形式。而这还有种简写的形式：`catch(error => {})` 
+同理，如果我们只想出错的时候进行操作，成功啥也不做的话，可以用`then(null, error => {})`的形式。而这还有种简写的形式：`catch(error => {})`
 
 ```js
 let temp = 0;
-let promise = new Promise((resolve, reject) => {    
-    setTimeout(() => {
-        temp = 2;   //出错啦
-        if(temp === 1) {
-            resolve("temp is 1"); //这个和参数中的resolve也可以删掉
-        } else {
-            reject(new Error("temp is not 1"));
-        }
-
-    }, 1000);
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    temp = 2; //出错啦
+    if (temp === 1) {
+      resolve("temp is 1"); //这个和参数中的resolve也可以删掉
+    } else {
+      reject(new Error("temp is not 1"));
+    }
+  }, 1000);
 });
 
-promise.then(
-    null,
-    error => console.log(error)
-    );
+promise.then(null, (error) => console.log(error));
 //等同于
 promise.catch((error) => {
-    console.log(error);
+  console.log(error);
 });
 //输出：Error: temp is not 1
 ```
 
-说白了，Promise就是`resolve`和`reject`二选一执行一条，并在`then`中根据这两种方法到底执行了哪一种进行进一步操作。
+说白了，Promise 就是`resolve`和`reject`二选一执行一条，并在`then`中根据这两种方法到底执行了哪一种进行进一步操作。
 
 #### finally
 
@@ -245,23 +245,25 @@ promise.catch((error) => {
 ```js
 let temp = 0;
 let promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        temp = 1;
-        if(temp === 1) {
-            resolve("temp is 1");
-        } else {
-            reject(new Error("temp is not 1"));
-        }
-    }, 1000);
+  setTimeout(() => {
+    temp = 1;
+    if (temp === 1) {
+      resolve("temp is 1");
+    } else {
+      reject(new Error("temp is not 1"));
+    }
+  }, 1000);
 });
 
-promise.then(
-    result => console.log(result),
-    error => console.log(error)	
-    ).finally(()=>{
-        temp = 0;
-        console.log("reset temp: " + temp)
-    });
+promise
+  .then(
+    (result) => console.log(result),
+    (error) => console.log(error)
+  )
+  .finally(() => {
+    temp = 0;
+    console.log("reset temp: " + temp);
+  });
 //输出：
 //temp is 1
 //reset temp: 0
@@ -272,40 +274,50 @@ promise.then(
 ```js
 let temp = 0;
 let promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        temp = 1;
-        if(temp === 1) {
-            resolve("temp is 1");
-        } else {
-            reject(new Error("temp is not 1"));
-        }
-    }, 1000);
+  setTimeout(() => {
+    temp = 1;
+    if (temp === 1) {
+      resolve("temp is 1");
+    } else {
+      reject(new Error("temp is not 1"));
+    }
+  }, 1000);
 });
 
-promise.finally(() => {
+promise
+  .finally(() => {
     console.log("I am finally");
-}).then((result) => {
-    console.log(result);
-}, (error) => {
-    console.log(error);
-})
+  })
+  .then(
+    (result) => {
+      console.log(result);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 //输出：
 //I am finally
 //temp is 1
 ```
 
 要记住，我们执行`finally`的时候，**promise**中的内容已经结束了，也就是说`resolve`和`reject`已经执行了，只不过其结果被`finally`保留并向下传递。  
-因此，如果我们在`finally`中改变条件，并不会影响到`resolve`和`reject`的调用。  
+因此，如果我们在`finally`中改变条件，并不会影响到`resolve`和`reject`的调用。
 
 ```js
-promise.finally(() => {
+promise
+  .finally(() => {
     console.log("I am finally");
-    tmep = 2;	//改变了temp，但执行的仍是resolve
-}).then((result) => {
-    console.log(result);
-}, (error) => {
-    console.log(error);
-})
+    tmep = 2; //改变了temp，但执行的仍是resolve
+  })
+  .then(
+    (result) => {
+      console.log(result);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 //输出不变：
 //I am finally
 //temp is 1
@@ -318,26 +330,30 @@ promise.finally(() => {
 ```js
 let temp = 0;
 let promise = new Promise((resolve) => {
-    setTimeout(() => {
-        temp = 1;
-        if(temp === 1) {
-            resolve("temp is 1");
-        }
-    }, 1000);
+  setTimeout(() => {
+    temp = 1;
+    if (temp === 1) {
+      resolve("temp is 1");
+    }
+  }, 1000);
 });
 
-promise.then((result) => {
+promise
+  .then((result) => {
     console.log(result);
     return result + "; in first then";
-}).then((result) => {
+  })
+  .then((result) => {
     console.log(result);
     return result + "; in second then";
-}).then((result) => {
+  })
+  .then((result) => {
     console.log(result);
     return result + " in third then";
-}).finally(() => {
+  })
+  .finally(() => {
     console.log("finally end");
-});
+  });
 //输出：
 //temp is 1
 //temp is 1; in first then
@@ -347,7 +363,7 @@ promise.then((result) => {
 
 ### async / await
 
-`async/await` 的出现让我们更加舒适地使用**Promise** ，它也非常易于理解和使用。 
+`async/await` 的出现让我们更加舒适地使用**Promise** ，它也非常易于理解和使用。
 
 #### async
 
@@ -355,18 +371,18 @@ promise.then((result) => {
 
 ```js
 async function countRabbit() {
-    return '1 rabbit';
-};
+  return "1 rabbit";
+}
 //等效于：
 function countRabbit() {
-    return new Promise((resolve) => {
-        resolve('1 rabbit');
-    });
-};
+  return new Promise((resolve) => {
+    resolve("1 rabbit");
+  });
+}
 //都可以通过如下方式调用：
 countRabbit().then((result) => {
-    console.log(result);
-})
+  console.log(result);
+});
 //输出：1 rabbit
 ```
 
@@ -376,15 +392,15 @@ countRabbit().then((result) => {
 
 ```js
 async function countRabbit() {
-    let promise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log('counting rabbits...')
-            resolve(5);
-        }, 1000);
-    });
-    let result = await promise; //在这里阻塞，直到promise执行完	
-    console.log('we have ' + result + ' rabbits');
-};
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("counting rabbits...");
+      resolve(5);
+    }, 1000);
+  });
+  let result = await promise; //在这里阻塞，直到promise执行完
+  console.log("we have " + result + " rabbits");
+}
 
 countRabbit();
 //输出：
@@ -392,27 +408,27 @@ countRabbit();
 //we have 5 rabbits
 ```
 
-`await` 实际上会暂停函数的执行，直到 `promise` 状态变为 `settled`。但是得益于JS引擎（可以同时处理其他任务），这并不会耗费任何 CPU 资源。  
-`await`的出现允许我们以更优雅的方式获取**Promise**的结果并进行后续操作，避免了所有**Promise**之后都要跟上`then`的硬伤。  
+`await` 实际上会暂停函数的执行，直到 `promise` 状态变为 `settled`。但是得益于 JS 引擎（可以同时处理其他任务），这并不会耗费任何 CPU 资源。  
+`await`的出现允许我们以更优雅的方式获取**Promise**的结果并进行后续操作，避免了所有**Promise**之后都要跟上`then`的硬伤。
 
-#### Error处理
+#### Error 处理
 
 之前提到，我们的`async`是用`resolve`将函数的结果包裹，但是如果出现错误，我们可以在`async`函数后面添加`catch`
 
 ```js
 async function countRabbit() {
-    let promise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log('counting rabbits...')
-            reject(new Error('I forget the number'));
-        }, 1000);
-    });
-    let result = await promise; //并不会执行因为promise中抛出了错误
-    console.log('we have ' + result + ' rabbits');
-};
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("counting rabbits...");
+      reject(new Error("I forget the number"));
+    }, 1000);
+  });
+  let result = await promise; //并不会执行因为promise中抛出了错误
+  console.log("we have " + result + " rabbits");
+}
 
 countRabbit().catch((err) => {
-    console.log(err);
+  console.log(err);
 });
 //输出：
 //Error: I forget the number
@@ -422,19 +438,19 @@ countRabbit().catch((err) => {
 
 ```js
 async function countRabbit() {
-    try {
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                console.log('counting rabbits...')
-                reject(new Error('I forget the number'));
-            }, 1000);
-        });
-        let result = await promise; //并不会执行因为promise中抛出了错误
-        console.log('we have ' + result + ' rabbits');
-    } catch (err) {
-        console.log(err);
-    }
-};
+  try {
+    let promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("counting rabbits...");
+        reject(new Error("I forget the number"));
+      }, 1000);
+    });
+    let result = await promise; //并不会执行因为promise中抛出了错误
+    console.log("we have " + result + " rabbits");
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 countRabbit();
 //输出：
@@ -445,47 +461,47 @@ countRabbit();
 
 ### URL
 
-其实很多情况下，我们请求的URL都可以用字符串表示，但是**URL**对象还是提供了很多有用的方法的。
+其实很多情况下，我们请求的 URL 都可以用字符串表示，但是**URL**对象还是提供了很多有用的方法的。
 
-#### URL对象
+#### URL 对象
 
 ```js
-new URL(url, [base])
+new URL(url, [base]);
 ```
 
-参数url就是我们请求的URL，不过当我们规定了可选参数base之后，可以只在url传入路径，URL对象会根据base和路径自动生成url去请求。
+参数 url 就是我们请求的 URL，不过当我们规定了可选参数 base 之后，可以只在 url 传入路径，URL 对象会根据 base 和路径自动生成 url 去请求。
 
 ```js
 //访问：https://blackdn.github.io/
-let url1 = new URL('https://blackdn.github.io/');
+let url1 = new URL("https://blackdn.github.io/");
 //访问：https://blackdn.github.io/about
-let url2 = new URL('/about', 'https://blackdn.github.io/');
+let url2 = new URL("/about", "https://blackdn.github.io/");
 ```
 
-此外，**URL**会自动帮我们解析url，因此我们可以直接访问其某个部分：
+此外，**URL**会自动帮我们解析 url，因此我们可以直接访问其某个部分：
 
 ```js
-let url = new URL('https://blackdn.github.io/about');
+let url = new URL("https://blackdn.github.io/about");
 alert(url.protocol); // https:
-alert(url.host);     // blackdn.github.io
+alert(url.host); // blackdn.github.io
 alert(url.pathname); // /about
 ```
 
 #### 编码
 
-[RFC3986标准](https://tools.ietf.org/html/rfc3986) 定义了 URL 中允许或不允许的字符，而那些不被允许的字符必须被编码（非拉丁字母和空格，比如中文）。  
+[RFC3986 标准](https://tools.ietf.org/html/rfc3986) 定义了 URL 中允许或不允许的字符，而那些不被允许的字符必须被编码（非拉丁字母和空格，比如中文）。  
 将其变为 UTF-8 代码，前缀为 `%`，例如 `%20`（由于历史原因，空格可以用 `+` 编码，但这是一个例外）  
 不过**URL**会自动帮我们编码，我们不需要自己手动编码再传入
 
 ```js
-let url = new URL('https://blackdn.github.io/你好');
+let url = new URL("https://blackdn.github.io/你好");
 console.log(url.href);
 //输出：https://blackdn.github.io/%E4%BD%A0%E5%A5%BD
 ```
 
 ### XMLHttpRequest
 
-`XMLHttpRequest`一开始只是微软浏览器提供的一个接口，后来各浏览器纷纷效仿提供了这个接口，于是W3C对它进行了标准化，提出了[XMLHttpRequest标准](https://www.w3.org/TR/XMLHttpRequest/)。  
+`XMLHttpRequest`一开始只是微软浏览器提供的一个接口，后来各浏览器纷纷效仿提供了这个接口，于是 W3C 对它进行了标准化，提出了[XMLHttpRequest 标准](https://www.w3.org/TR/XMLHttpRequest/)。  
 简单来说它是一个浏览器对象，允许**使用 JavaScript 发送 HTTP 请求**，并从返回结果中获取信息。  
 不过，如今有更为现代的方法 `fetch`，它的出现使得 `XMLHttpRequest` 在某种程度上被弃用。  
 不过不少情况下，我们仍在使用`XMLHttpRequest`，包括但不限于：
@@ -502,26 +518,26 @@ console.log(url.href);
 创建`XMLHttpRequest`对象非常简单：
 
 ```js
-let xhr = new XMLHttpRequest();	//创建对象
+let xhr = new XMLHttpRequest(); //创建对象
 ```
 
-此时`XMLHttpRequest`的构造器没有参数，所以我们要用`open()`方法对其进行初始化  
+此时`XMLHttpRequest`的构造器没有参数，所以我们要用`open()`方法对其进行初始化
 
 ```js
-xhr.open(method, URL, [async, user, password]);	//初始化操作
+xhr.open(method, URL, [async, user, password]); //初始化操作
 ```
 
 其参数如下（`[]`表示参数可选）：
 
-- `method`：表示请求所采用的方法（GET、POST之类的）
-- `URL`：请求的URL，可以为字符串，也可以为URL对象
+- `method`：表示请求所采用的方法（GET、POST 之类的）
+- `URL`：请求的 URL，可以为字符串，也可以为 URL 对象
 - `async`：可以为`true`或`false`。默认为`true`，表示为异步请求
 - `user`、`password`：身份验证所需的账户和密码
 
-注意`open()`仅配置请求信息，不会建立连接，不要被它的名字误导了  最后我们通过`send()`来发送请求
+注意`open()`仅配置请求信息，不会建立连接，不要被它的名字误导了 最后我们通过`send()`来发送请求
 
 ```js
-xhr.send([body]);	//发送请求
+xhr.send([body]); //发送请求
 ```
 
 调用了`send()`之后，会建立连接并发送请求到服务器，而参数`body`则表示请求的`request body`。
@@ -529,19 +545,22 @@ xhr.send([body]);	//发送请求
 这之后我们可以监听改对象以获取响应，存在三种状态：
 
 - `load`：表示请求完成，且响应结果已成功下载
-- `error`：表示无法发出请求或无效URL等错误
+- `error`：表示无法发出请求或无效 URL 等错误
 - `progress`：表示正在下载响应的结果
 
 ```js
-xhr.onload = function() {	//当接收到响应后，将调用此函数
+xhr.onload = function () {
+  //当接收到响应后，将调用此函数
   console.log(`Loaded: ${xhr.status} ${xhr.response}`);
 };
 
-xhr.onerror = function() { // 仅在根本无法发出请求时触发
+xhr.onerror = function () {
+  // 仅在根本无法发出请求时触发
   console.log(`Network Error`);
 };
 
-xhr.onprogress = function(event) { // 定期触发
+xhr.onprogress = function (event) {
+  // 定期触发
   // event.loaded —— 已经下载了多少字节
   // event.lengthComputable = true，则表示服务器发送了 Content-Length header
   // event.total —— 总字节数（如果 lengthComputable 为 true）
@@ -549,7 +568,7 @@ xhr.onprogress = function(event) { // 定期触发
 };
 ```
 
-可以看到，我们的响应结果也会交给`XMLHttpRequest`对象，其中包含很多属性，比如`xhr.status`表示响应的状态码，`xhr.statusText`表示状态码对应的消息（`200` 对应 `OK`，`404`对应`Not Found`），`xhr.response`则表示服务器的`response body`    
+可以看到，我们的响应结果也会交给`XMLHttpRequest`对象，其中包含很多属性，比如`xhr.status`表示响应的状态码，`xhr.statusText`表示状态码对应的消息（`200` 对应 `OK`，`404`对应`Not Found`），`xhr.response`则表示服务器的`response body`  
 此外，我们还可以指定超时时间`timeout`，当超出这个时间请求仍没有成功执行，则会取消请求并触发`timeout`事件
 
 ```js
@@ -562,7 +581,7 @@ xhr.timeout = 10000; // timeout 单位是 ms，所以此处为 10 秒
 
 ```js
 let xhr = new XMLHttpRequest();
-xhr.open('GET', '/article/xmlhttprequest/hello.txt', false);
+xhr.open("GET", "/article/xmlhttprequest/hello.txt", false);
 
 try {
   xhr.send();
@@ -571,12 +590,13 @@ try {
   } else {
     alert(xhr.response);
   }
-} catch(err) { // 代替 onerror
+} catch (err) {
+  // 代替 onerror
   alert("Request failed");
 }
 ```
 
-虽然同步的操作看起来更简单，但是还是应该尽量少用同步请求，他们会阻塞页面内的其他JS操作，直到请求结束。如果请求时间过长，甚至会导致页面无法滚动、页面未响应等错误。
+虽然同步的操作看起来更简单，但是还是应该尽量少用同步请求，他们会阻塞页面内的其他 JS 操作，直到请求结束。如果请求时间过长，甚至会导致页面无法滚动、页面未响应等错误。
 
 #### 其他
 
@@ -587,7 +607,7 @@ try {
 可以通过`setRequestHeader(name, value)`设置给定的`name`和`value`
 
 ```js
-xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.setRequestHeader("Content-Type", "application/json");
 ```
 
 ##### 响应格式和状态码
@@ -619,7 +639,7 @@ DONE = 4; // 请求完成
 因此可以用`readystatechange`来进行监听跟踪：
 
 ```js
-xhr.onreadystatechange = function() {
+xhr.onreadystatechange = function () {
   if (xhr.readyState == 3) {
     // 加载中
   }
@@ -631,9 +651,9 @@ xhr.onreadystatechange = function() {
 
 以前还没有`load/error/progress`等事件处理机制，因此人们会用`readystatechange`，不过如今它已经被前者取代了。
 
-##### 构建Post的FormData
+##### 构建 Post 的 FormData
 
-如果我们使用的是**POST**请求，我们可以用`FormData`对象来保存相关的信息  然后我们可以在`send()`方法中将`FormData`发送到服务器
+如果我们使用的是**POST**请求，我们可以用`FormData`对象来保存相关的信息 然后我们可以在`send()`方法中将`FormData`发送到服务器
 
 ```js
 let formData = new FormData([form]); // 创建一个FormData对象
@@ -647,37 +667,37 @@ xhr.send(formData); //发送请求
 
 ```html
 <form name="person">
-    <input name="first-name" value="John">
-    <input name="last-name" value="Smith">
+  <input name="first-name" value="John" />
+  <input name="last-name" value="Smith" />
 </form>
 
 <script>
-    let formData = new FormData(document.forms.person);	  // 从表单预填充 FormData
-    formData.append("middle", "Lee");	  // 附加一个字段
-    let xhr = new XMLHttpRequest();	  // 将其发送出去
-    xhr.open("POST", "/article/xmlhttprequest/post/user");
-    xhr.send(formData);
-    xhr.onload = () => alert(xhr.response);
+  let formData = new FormData(document.forms.person); // 从表单预填充 FormData
+  formData.append("middle", "Lee"); // 附加一个字段
+  let xhr = new XMLHttpRequest(); // 将其发送出去
+  xhr.open("POST", "/article/xmlhttprequest/post/user");
+  xhr.send(formData);
+  xhr.onload = () => alert(xhr.response);
 </script>
 ```
 
-上面的例子是用`multipart/form-data`编码，如果我们想要用JSON，也可以先用`JSON.stringify()`构建JSON对象，然后直接作为send方法的参数发送。不过要在`header` 里声明以下式JSON类型
+上面的例子是用`multipart/form-data`编码，如果我们想要用 JSON，也可以先用`JSON.stringify()`构建 JSON 对象，然后直接作为 send 方法的参数发送。不过要在`header` 里声明以下式 JSON 类型
 
 ```js
 let xhr = new XMLHttpRequest();
 let json = JSON.stringify({
-    name: "John",
-    surname: "Smith"
+  name: "John",
+  surname: "Smith",
 });
 
-xhr.open("POST", '/submit')
-xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+xhr.open("POST", "/submit");
+xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 xhr.send(json);
 ```
 
 ##### 追踪上传进度
 
-之前提到，在下载阶段的状态是`progress`。但是于POST来说，`XMLHttpRequest`会先上传数据（request body），然后再下载响应。  
+之前提到，在下载阶段的状态是`progress`。但是于 POST 来说，`XMLHttpRequest`会先上传数据（request body），然后再下载响应。  
 因此，`xhr.onprogress`就不能跟踪上传进度，我们要转而使用`xhr.upload`。它也存在许多状态供我们监听：
 
 - `loadstart` —— 上传开始。
@@ -691,26 +711,24 @@ xhr.send(json);
 举几个监听的例子：
 
 ```js
-xhr.upload.onprogress = function(event) {
+xhr.upload.onprogress = function (event) {
   alert(`Uploaded ${event.loaded} of ${event.total} bytes`);
 };
-xhr.upload.onload = function() {
+xhr.upload.onload = function () {
   alert(`Upload finished successfully.`);
 };
-xhr.upload.onerror = function() {
+xhr.upload.onerror = function () {
   alert(`Error during the upload: ${xhr.status}`);
 };
 ```
 
-
-
 ### Fetch API
 
 **Fetch API**提供了一系列接口用于网络请求并获取资源（包括跨域请求），其内部是基于**Promise**实现的。之前也提到，比起**XMLHttpRequest**，人们更喜欢用**Fetch**。  
-它提供了一个全局方法`fetch()` ，这个异步方法简单好用，接受一个必须参数——资源的路径`url`和一个可选参数`options`，其包括很多可选内容，如`method`、`header`等，具体可见：[Fetch API](https://zh.javascript.info/fetch-api)。  
+它提供了一个全局方法`fetch()` ，这个异步方法简单好用，接受一个必须参数——资源的路径`url`和一个可选参数`options`，其包括很多可选内容，如`method`、`header`等，具体可见：[Fetch API](https://zh.javascript.info/fetch-api)。
 
 ```js
-let promise = fetch(url, [options])
+let promise = fetch(url, [options]);
 ```
 
 当然，如果不加`options`，那它就是一个简单的**GET**请求。  
@@ -718,45 +736,47 @@ let promise = fetch(url, [options])
 
 **Fetch**发送请求后，通常分为**两个阶段**来获取响应（Response）。  
 第一个阶段，我们接受服务器发送来的**响应头（response header）**，这时还没有**响应体（response body）**。但是我们可以通过检查响应头，来检查 HTTP 状态以确定请求是否成功。  
-**Response**的`status`属性代表HTTP状态码，如200成功连接，404 Not Found；`ok`属性是个布尔值，如果`status`状态码在`200～299`则为`true`
+**Response**的`status`属性代表 HTTP 状态码，如 200 成功连接，404 Not Found；`ok`属性是个布尔值，如果`status`状态码在`200～299`则为`true`
 
 ```js
 async function tryFetch() {
   //访问我本地的服务器
   let response = await fetch("http://localhost:1234/");
-  if (response.ok) { // 如果 HTTP 状态码为 200-299
-    console.log('ok')
+  if (response.ok) {
+    // 如果 HTTP 状态码为 200-299
+    console.log("ok");
   } else {
     console.log("HTTP-Error: " + response.status);
   }
-};
+}
 
 tryFetch();
 //输出：ok
 ```
 
-第二阶段，自然是获取**response body**。不过**Response** 提供了多种基于 promise 的方法，来以不同的格式访问response body，这就需要我们自己选择调用了。
+第二阶段，自然是获取**response body**。不过**Response** 提供了多种基于 promise 的方法，来以不同的格式访问 response body，这就需要我们自己选择调用了。
 
 - **`response.text()`**：读取 response，并以文本形式返回 response
 - **`response.json()`**：将 response 解析为 JSON 格式，
 - **`response.formData()`**：以 `FormData` 的形式返回 response，
-- **`response.blob()`**：以 Blob形式（具有类型的二进制数据）返回 response，
-- **`response.arrayBuffer()`**：以 ArrayBuffer形式（低级别的二进制数据）返回 response，
+- **`response.blob()`**：以 Blob 形式（具有类型的二进制数据）返回 response，
+- **`response.arrayBuffer()`**：以 ArrayBuffer 形式（低级别的二进制数据）返回 response，
 - 另外，`response.body` 是 [ReadableStream](https://streams.spec.whatwg.org/#rs-class) 对象，它允许你逐块读取 body，我们稍后会用一个例子解释它。
 
-比如在上面的栗子中，我如果输出`response.text()`，那么返回的就是整个html文档的内容：
+比如在上面的栗子中，我如果输出`response.text()`，那么返回的就是整个 html 文档的内容：
 
 ```js
 async function tryFetch() {
   //访问我本地的服务器
   let response = await fetch("http://localhost:1234/");
-  if (response.ok) { // 如果 HTTP 状态码为 200-299
+  if (response.ok) {
+    // 如果 HTTP 状态码为 200-299
     let text = await response.text();
     console.log(text);
   } else {
     console.log("HTTP-Error: " + response.status);
   }
-};
+}
 
 tryFetch();
 //输出：
@@ -773,17 +793,17 @@ tryFetch();
 async function myFetch(url) {
   let response = await fetch(url);
   return response.json();
-};
+}
 //等效于
 function myFetch(url) {
   return fetch(url).then((response) => response.json());
-};
+}
 ```
 
 #### 响应头 Response header
 
-众所周知，根据HTTP协议的报文格式，响应头中有包含了很多信息。他们就保存在Response的 `response.headers` 中，是一个类似于 `Map` 的 **header** 对象。  
-它不是真正的 Map，但是它具有类似的方法，因此我们可以迭代全部的header或者只获取其中一个。
+众所周知，根据 HTTP 协议的报文格式，响应头中有包含了很多信息。他们就保存在 Response 的 `response.headers` 中，是一个类似于 `Map` 的 **header** 对象。  
+它不是真正的 Map，但是它具有类似的方法，因此我们可以迭代全部的 header 或者只获取其中一个。
 
 ```javascript
 async function tryFetch() {
@@ -794,8 +814,8 @@ async function tryFetch() {
     console.log(`${key} = ${value}`);
   }
   //获取一个header
-  console.log(response.headers.get('Content-Type'));
-};
+  console.log(response.headers.get("Content-Type"));
+}
 
 tryFetch();
 //迭代输出：
@@ -814,40 +834,40 @@ tryFetch();
 
 #### 请求头 Request header
 
-众所周知，根据HTTP协议的报文格式，请求头中有包含了很多信息...  
+众所周知，根据 HTTP 协议的报文格式，请求头中有包含了很多信息...  
 总之请求头中的一些信息我们是可以自定义的：
 
 ```js
 let response = fetch("http://localhost:1234/", {
   headers: {
-    Authentication: 'secret'
-  }
+    Authentication: "secret",
+  },
 });
 ```
 
-但是还有一些header是由浏览器控制，而我们无法修改的，这也是为了保证HTTP的正确性和安全性，如`Content-Length`、`Cookie/Cookie2`、`Date`等。详见： [forbidden HTTP headers](https://fetch.spec.whatwg.org/#forbidden-header-name)
+但是还有一些 header 是由浏览器控制，而我们无法修改的，这也是为了保证 HTTP 的正确性和安全性，如`Content-Length`、`Cookie/Cookie2`、`Date`等。详见： [forbidden HTTP headers](https://fetch.spec.whatwg.org/#forbidden-header-name)
 
-#### POST请求
+#### POST 请求
 
-之前我们的fetch()方法中只有一个url参数，在缺省情况下这就是简单的GET请求。而要创建一个 `POST` 请求（或其他方法的请求），我们需要添加额外的参数：
+之前我们的 fetch()方法中只有一个 url 参数，在缺省情况下这就是简单的 GET 请求。而要创建一个 `POST` 请求（或其他方法的请求），我们需要添加额外的参数：
 
 - **`method`**：HTTP 方法，例如 `POST`，
 - `body`：request body。可为字符串（例如 JSON 编码），`FormData` （以 `multipart/form-data` 形式发送数据），`Blob`/`BufferSource` （发送二进制数据），`URLSearchParams`（以 `x-www-form-urlencoded` 编码形式发送数据，很少使用）
 
-那还是JSON比较常用嗷
+那还是 JSON 比较常用嗷
 
 ```js
 async function postFetch() {
   let user = {
     name: "morpheus",
-    job: "leader"
+    job: "leader",
   };
-  let response = await fetch('https://reqres.in/api/users', {
-    method: 'POST',
+  let response = await fetch("https://reqres.in/api/users", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(user),
   });
 
   let result = await response.json();
@@ -875,24 +895,24 @@ postFetch();
 
 ```html
 <form id="myForm">
-  <input type="text" name="name" value="morpheus">
-  <input type="text" name="job" value="leader">
-  <input type="submit">
+  <input type="text" name="name" value="morpheus" />
+  <input type="text" name="job" value="leader" />
+  <input type="submit" />
 </form>
 
 <script>
   myForm.onsubmit = async (e) => {
     e.preventDefault();
-    let myFormData = new FormData(myForm);//使用formdata
+    let myFormData = new FormData(myForm); //使用formdata
     for (const [key, value] of myFormData) {
-      console.log(`key: ${key}, value: ${value}`)
+      console.log(`key: ${key}, value: ${value}`);
     }
     //输出：
     //key: name, value: morpheus
-		//key: job, value: leader
+    //key: job, value: leader
 
-    let response = await fetch('https://reqres.in/api/users', {
-      method: 'POST',
+    let response = await fetch("https://reqres.in/api/users", {
+      method: "POST",
       body: myFormData,
     });
 
@@ -903,8 +923,8 @@ postFetch();
 </script>
 ```
 
-这里最后的输出有点不一样是因为实际上这并不是我们期望返回的响应内容。因为**REQRES**接收的请求要是JSON，但是我们这里传的是**FormData**。我们知道用JSON请求时，`Content-Type`应该是 `application/json`。但是FormData自带 `multipart/form-data`的`Content-Type`。所以我们不是JSON，所以返回值有所不同。  
-似乎**FormData**自己没有直接转为JSON对象的方法，所以需要我们自己写。我才不写呢。
+这里最后的输出有点不一样是因为实际上这并不是我们期望返回的响应内容。因为**REQRES**接收的请求要是 JSON，但是我们这里传的是**FormData**。我们知道用 JSON 请求时，`Content-Type`应该是 `application/json`。但是 FormData 自带 `multipart/form-data`的`Content-Type`。所以我们不是 JSON，所以返回值有所不同。  
+似乎**FormData**自己没有直接转为 JSON 对象的方法，所以需要我们自己写。我才不写呢。
 
 我们可以使用以下方法修改 `FormData` 中的字段：
 
@@ -920,10 +940,10 @@ postFetch();
 
 ```js
 let formData = new FormData();
-formData.append('name', 'blackdn');
-formData.append('sex', 'male');
+formData.append("name", "blackdn");
+formData.append("sex", "male");
 
-for(let [key, value] of formData) {
+for (let [key, value] of formData) {
   console.log(`${key} = ${value}`);
 }
 //输出：
@@ -931,33 +951,33 @@ for(let [key, value] of formData) {
 //sex = male
 ```
 
-#### 用AbortController中止请求
+#### 用 AbortController 中止请求
 
-因为很多异步方法都没有中止的指令，包括**Promise**，更别说基于Promise的**Fetch**了。所以我们就用**AbortController**来完成中止的任务。
+因为很多异步方法都没有中止的指令，包括**Promise**，更别说基于 Promise 的**Fetch**了。所以我们就用**AbortController**来完成中止的任务。
 
 `let controller = new AbortController()`
 
-**AbortController对象**（以下简称**Controller**）有一个`abort()`方法和`signal`属性。我们需要在`signal`上设置监听器，当`abort()`方法被调用之后，会停止异步方法并调用`signal`的监听方法，最后将`signal.aborted`属性设为`true`。
+**AbortController 对象**（以下简称**Controller**）有一个`abort()`方法和`signal`属性。我们需要在`signal`上设置监听器，当`abort()`方法被调用之后，会停止异步方法并调用`signal`的监听方法，最后将`signal.aborted`属性设为`true`。
 
 ```js
 let controller = new AbortController();
 //第一个参数的'abort'表示controller的abort()触发后调用该方法
-controller.signal.addEventListener('abort', () => {
-  console.log('it aborted!');
+controller.signal.addEventListener("abort", () => {
+  console.log("it aborted!");
 });
 controller.abort();
-console.log('aborted: ' + controller.signal.aborted);
+console.log("aborted: " + controller.signal.aborted);
 //输出：
 //it aborted!
 //aborted: true
 ```
 
-如果想用**Controller**取消**Fetch**，需要讲signal作为参数传递给`fetch()`。**Fetch**会自己监听`signal`，所以我们只要在需要的地方调用`controller.abort()`即可
+如果想用**Controller**取消**Fetch**，需要讲 signal 作为参数传递给`fetch()`。**Fetch**会自己监听`signal`，所以我们只要在需要的地方调用`controller.abort()`即可
 
 ```js
 let controller = new AbortController();
 fetch(url, {
-  signal: controller.signal
+  signal: controller.signal,
 });
 ```
 
@@ -965,20 +985,20 @@ fetch(url, {
 
 ```js
 let controller = new AbortController();
-controller.signal.addEventListener('abort', () => {
-  console.log('it aborted!')
+controller.signal.addEventListener("abort", () => {
+  console.log("it aborted!");
 });
 
 myForm.onsubmit = async (e) => {
   e.preventDefault();
   let myFormData = new FormData(myForm);
-  controller.abort();//中止
+  controller.abort(); //中止
   try {
-    let response = await fetch('https://reqres.in/api/users', {
-      method: 'POST',
+    let response = await fetch("https://reqres.in/api/users", {
+      method: "POST",
       body: myFormData,
-      signal: controller.signal //绑定signal
-    });      
+      signal: controller.signal, //绑定signal
+    });
   } catch (err) {
     console.log(err.name);
   }
@@ -995,38 +1015,38 @@ myForm.onsubmit = async (e) => {
 **Axios**是一个基于**Promise**网络请求库，非常简单好用，因此对于网络请求这块，流行度基本上是这样的：  
 `Axios > Fetch > XMLHttpRequest`
 
-**Axios**有很多优点，我们最直观感受到的就是在使用它的时候，我们不必再明确声明请求头中的`Content-Type`，**Axios**会自动帮我们解析，这让我们在传输JSON的时候十分方便；其次，对于返回的结果我们也不必再进一步处理。在用**Fetch**的时候，返回的结果是原原本本的JSON对象，需要我们自己进行转换；而**Axios**会自动将返回值转为JS对象，可以直接调用，非常方便。  
-要在项目中使用Axios有很多方法，具体可见[Axios中文文档](https://www.axios-http.cn/)，我还是喜欢万能的`npm install axios`
+**Axios**有很多优点，我们最直观感受到的就是在使用它的时候，我们不必再明确声明请求头中的`Content-Type`，**Axios**会自动帮我们解析，这让我们在传输 JSON 的时候十分方便；其次，对于返回的结果我们也不必再进一步处理。在用**Fetch**的时候，返回的结果是原原本本的 JSON 对象，需要我们自己进行转换；而**Axios**会自动将返回值转为 JS 对象，可以直接调用，非常方便。  
+要在项目中使用 Axios 有很多方法，具体可见[Axios 中文文档](https://www.axios-http.cn/)，我还是喜欢万能的`npm install axios`
 
-用Axios发起请求最基本的方法就是通过参数传递相关配置：
+用 Axios 发起请求最基本的方法就是通过参数传递相关配置：
 
 ```js
 // 发起一个post请求
 axios({
-  method: 'post',
-  url: 'https://reqres.in/api/users',
+  method: "post",
+  url: "https://reqres.in/api/users",
   data: {
     name: "morpheus",
-    job: "leader"
-  }
+    job: "leader",
+  },
 });
 ```
 
 但是实际上**Axios**为所有支持的方法提供了别名，如`axios.get`，`axios.post`等，所以上面这种方式用的也比较少，接下来看看其简单使用吧。
 
-#### GET请求
+#### GET 请求
 
 我们再用到[REQRES](https://reqres.in/)进行测试：
 
 ```js
-axios.get('https://reqres.in/api/users/2').then((response) => {
+axios.get("https://reqres.in/api/users/2").then((response) => {
   console.log(response);
   console.log(response.data);
   console.log(response.data.support);
 });
 ```
 
-其中，`response`包含了很多信息，包括`data`、`headers`、`status`、`statusText`等，而从服务器返回的JSON字串则在`data`中，输出结果和**REQRES**的一致：
+其中，`response`包含了很多信息，包括`data`、`headers`、`status`、`statusText`等，而从服务器返回的 JSON 字串则在`data`中，输出结果和**REQRES**的一致：
 
 ```
 //console.log(response.data);
@@ -1045,7 +1065,7 @@ axios.get('https://reqres.in/api/users/2').then((response) => {
 }
 ```
 
-得益于**Axios**已经帮我们把结果变成了JS对象，因此我们呢可以直接进一步输出`data`中的信息：
+得益于**Axios**已经帮我们把结果变成了 JS 对象，因此我们呢可以直接进一步输出`data`中的信息：
 
 ```
 //console.log(response.data.support);
@@ -1055,36 +1075,40 @@ axios.get('https://reqres.in/api/users/2').then((response) => {
 }
 ```
 
-如果是带参数的GET请求，除了直接传入构建好的url，还可以额外用一个`params`属性来标识：
+如果是带参数的 GET 请求，除了直接传入构建好的 url，还可以额外用一个`params`属性来标识：
 
 ```js
-axios.get('https://reqres.in/api/users?delay=3').then((response) => {
+axios.get("https://reqres.in/api/users?delay=3").then((response) => {
   console.log(response.data);
 });
 //等效于
-axios.get('https://reqres.in/api/users', {
-  params: {
-    delay: 3,
-  }
-}).then((response) => {
-  console.log(response.data);
-});
+axios
+  .get("https://reqres.in/api/users", {
+    params: {
+      delay: 3,
+    },
+  })
+  .then((response) => {
+    console.log(response.data);
+  });
 ```
 
 这个返回结果有点长，就不展示了，可以去**REQRES**查看。  
 `then`之后还可以用`catch`处理`error`，也懒得演示了。
 
-#### POST请求
+#### POST 请求
 
 也差不多，就是多了个构建`body`的过程
 
 ```js
-axios.post('https://reqres.in/api/users', {
-  name: "morpheus",
-  job: "leader"
-}).then((response) => {
-  console.log(response.data);
-});
+axios
+  .post("https://reqres.in/api/users", {
+    name: "morpheus",
+    job: "leader",
+  })
+  .then((response) => {
+    console.log(response.data);
+  });
 //输出：
 //{
 //    "name": "morpheus",
@@ -1100,51 +1124,51 @@ axios.post('https://reqres.in/api/users', {
 
 ```js
 function getSingleUser() {
-  return axios.get('https://reqres.in/api/users/2');
+  return axios.get("https://reqres.in/api/users/2");
 }
 
 function getSingleUserAgain() {
-  return axios.get('https://reqres.in/api/users/2');
+  return axios.get("https://reqres.in/api/users/2");
 }
 
 Promise.all([getSingleUser(), getSingleUserAgain()]).then((results) => {
   const firstResult = results[0];
   const secondResult = results[1];
-  console.log('first: ' + firstResult.data.data.id);	//输出：2
-  console.log('second: ' + secondResult);	//是个Object
+  console.log("first: " + firstResult.data.data.id); //输出：2
+  console.log("second: " + secondResult); //是个Object
 });
 ```
 
-更多**Axios**操作还是看文档吧嗷，写不动了，这篇文章的篇幅太长了QAQ
+更多**Axios**操作还是看文档吧嗷，写不动了，这篇文章的篇幅太长了 QAQ
 
 ## 一些示例
 
-### XMLHttpRequest的异步GET请求
+### XMLHttpRequest 的异步 GET 请求
 
 我们用[REQRES](https://reqres.in/)的接口进行一个异步的`GET`请求。  
 这里用了**回调**的方法来进行请求成功或失败的后续操作：
 
 ```js
 function successCallback(xhr) {
-    console.log('request success: ' + xhr.responseText);
+  console.log("request success: " + xhr.responseText);
 }
 function errorCallback(error) {
-    console.log('error: ' + error.message);
+  console.log("error: " + error.message);
 }
 
 function requestByXHR(url, successCallback, errorCallback) {
-    let xhr = new XMLHttpRequest();
-    xhr.onload = () => {
-        successCallback(xhr);
-    }
-    xhr.onerror = () => {
-        errorCallback(new Error(xhr.statusText));
-    }
-    xhr.open('get', url, true);
-    xhr.send();
+  let xhr = new XMLHttpRequest();
+  xhr.onload = () => {
+    successCallback(xhr);
+  };
+  xhr.onerror = () => {
+    errorCallback(new Error(xhr.statusText));
+  };
+  xhr.open("get", url, true);
+  xhr.send();
 }
 
-const URL = 'https://reqres.in/api/users/2';
+const URL = "https://reqres.in/api/users/2";
 requestByXHR(URL, successCallback, errorCallback);
 ```
 
@@ -1166,25 +1190,25 @@ requestByXHR(URL, successCallback, errorCallback);
 }
 ```
 
-### Promise的异步GET请求
+### Promise 的异步 GET 请求
 
 和**XMLHttpRequest**用的是同一个`GET`请求接口  
-因为Promise只是用来提供异步方法，其本身并没有进行网络连接的方法，因此在其内部我们还是用到了**XMLHttpRequest**   
+因为 Promise 只是用来提供异步方法，其本身并没有进行网络连接的方法，因此在其内部我们还是用到了**XMLHttpRequest**  
 不过好处在于我们不再需要使用回调进行后续操作，而可以使用**Promise**自己的`resolve`和`reject`了。
 
 ```js
 function fetchData(url) {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = () => {
-            resolve(xhr.responseText);
-        };
-        xhr.onerror = () => {
-            reject(new Error(xhr.statusText));
-        };
-        xhr.open('GET', url, true);
-        xhr.send();
-    });
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+      resolve(xhr.responseText);
+    };
+    xhr.onerror = () => {
+      reject(new Error(xhr.statusText));
+    };
+    xhr.open("GET", url, true);
+    xhr.send();
+  });
 }
 ```
 
@@ -1206,21 +1230,23 @@ function fetchData(url) {
 }
 ```
 
-### Fetch的异步GET请求
+### Fetch 的异步 GET 请求
 
 **Fetch**感觉上就是升级版的**Promise**，可以进行网络请求，语法什么的都差不多
 
 ```js
 function requestByFetch(url) {
-    return fetch(url).then((response) => response.json());
+  return fetch(url).then((response) => response.json());
 }
 
-const URL = 'https://reqres.in/api/users/2';
-requestByFetch(URL).then((result) => {
+const URL = "https://reqres.in/api/users/2";
+requestByFetch(URL)
+  .then((result) => {
     console.log(result);
-}).catch((error) => {
+  })
+  .catch((error) => {
     console.log(error);
-});
+  });
 ```
 
 因为访问的接口都是一样的，所以返回值也一样，这里就不写了。  
@@ -1228,16 +1254,16 @@ requestByFetch(URL).then((result) => {
 
 ```js
 async function requestByFetch(url) {
-    try {
-        let response = await fetch(url);
-        let data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-const URL = 'https://reqres.in/api/users/2';
+const URL = "https://reqres.in/api/users/2";
 requestByFetch(URL);
 ```
 
@@ -1249,9 +1275,8 @@ requestByFetch(URL);
 2. [Promise](https://zh.javascript.info/promise-basics)，[MDN：Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 3. [MDN：FetchAPI](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API)，[Fetch](https://zh.javascript.info/fetch)，[Fetch API](https://zh.javascript.info/fetch-api)
 4. [forbidden HTTP headers](https://fetch.spec.whatwg.org/#forbidden-header-name)，[Referrer Policy 规范](https://w3c.github.io/webappsec-referrer-policy/)
-5. [URL对象](https://zh.javascript.info/url)，[RFC3986标准](https://tools.ietf.org/html/rfc3986) 
+5. [URL 对象](https://zh.javascript.info/url)，[RFC3986 标准](https://tools.ietf.org/html/rfc3986)
 6. [XMLHttpRequest](https://zh.javascript.info/xmlhttprequest)
 7. [Sending JavaScript Http Requests with XMLHttpRequest](https://www.youtube.com/watch?v=4K33w-0-p2c&t=407s)
-8. [Axios中文文档](https://www.axios-http.cn/)，[Sending JavaScript Http Requests with Axios](https://www.youtube.com/watch?v=qM4G1Ai2ZpE)
+8. [Axios 中文文档](https://www.axios-http.cn/)，[Sending JavaScript Http Requests with Axios](https://www.youtube.com/watch?v=qM4G1Ai2ZpE)
 9. [REQRES](https://reqres.in/)
-
