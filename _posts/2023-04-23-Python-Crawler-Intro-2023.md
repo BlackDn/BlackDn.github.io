@@ -1,25 +1,25 @@
 ---
-layout:       post  
-title:        Python爬虫入门：爬取自己的博客文本  
-subtitle:     request和BeautifulSoup库的使用及案例  
-date:         2023-04-23  
-auther:       BlackDn  
-header-img:   img/18mon2_35.jpg  
-catalog:      true  
-tags:    
-    - Python  
-    - Crawler  
+layout: post
+title: Python爬虫入门：爬取自己的博客文本
+subtitle: request和BeautifulSoup库的使用及案例
+date: 2023-04-23
+author: BlackDn
+header-img: img/18mon2_35.jpg
+catalog: true
+tags:
+  - Python
+  - Crawler
 ---
 
 > "细雨下落花点碎，微风里水音飘流。"
 
-# Python爬虫入门：爬取自己的博客文本
+# Python 爬虫入门：爬取自己的博客文本
 
 ## 前言
 
 虽然更新频率有点低。。。但是我还是要纠正一下：  
-逃票的不是**莱莎3**是**莱莎1**，**幽灵线东京**有点晕3D所以没怎么玩  
-主要精力放在**仁王**上，一周目结束，游戏时间突破100小时  
+逃票的不是**莱莎 3**是**莱莎 1**，**幽灵线东京**有点晕 3D 所以没怎么玩  
+主要精力放在**仁王**上，一周目结束，游戏时间突破 100 小时  
 魂类游戏真好玩，谢谢你，宫崎英高  
 我宣布我现在是**光荣特库摩**单推人！
 
@@ -32,9 +32,10 @@ tags:
 ## 常用的第三方库
 
 ### requests
-**requests**是Python非常流行的网络请求库，允许我们轻松地构造请求头、请求体，对请求/返回体进行编码/解码  
-由于其功能很强大，这里就简单介绍一下get请求、post请求等一些基本用法，更进阶具体的操作还得是根据文档来。  
-这里举的例子🌰采用[REQRES](https://reqres.in/)提供的接口，url、请求体格式、返回体等均由其定义
+
+**requests**是 Python 非常流行的网络请求库，允许我们轻松地构造请求头、请求体，对请求/返回体进行编码/解码  
+由于其功能很强大，这里就简单介绍一下 get 请求、post 请求等一些基本用法，更进阶具体的操作还得是根据文档来。  
+这里举的例子 🌰 采用[REQRES](https://reqres.in/)提供的接口，url、请求体格式、返回体等均由其定义
 
 ```python
 import requests
@@ -43,11 +44,11 @@ import requests
 getUserRes = requests.get('https://reqres.in/api/users/2')
 # 带请求体的get请求
 
-payload = {'page': 2}  
+payload = {'page': 2}
 getUserWithPara = requests.get('https://reqres.in/api/users', params=payload)
 # 带请求体的post请求
 
-payload = {'name': 'blackdn', 'job': 'sleeper'}  
+payload = {'name': 'blackdn', 'job': 'sleeper'}
 postCreateUser = requests.post('https://reqres.in/api/users', data=payload)
 # 其他请求
 
@@ -56,23 +57,24 @@ deleteUser = requests.delete('https://reqres.in/api/users/2')
 
 发送请求后，如果请求成功，返回体是`requests`的`Response`对象，其主要属性如下：
 
-| 属性/方法          | 作用                                                        |
-| ------------------ | ----------------------------------------------------------- |
-| url                | 请求的url                                                   |
-| status_code        | 返回的状态码                                                |
-| ok                 | 布尔值，`status_code < 400`为`true`，否则为`false`          |
-| reason             | 状态码对应的原因（比如`200->OK`）                           |
-| headers            | 返回体的头部信息                                            |
-| request            | 返回请求体                                                  |
-| content            | 请求的返回体（字节码byte形式）                              |
-| text               | 请求的返回体（unicode形式）                                 |
-| encoding           | text的编码方式                                              |
-| cookies            | 返回一个cookie数组（没有就是一个空数组）                    |
-| json()             | 返回一个返回体的JSON对象（如果返回体不是JSON格式则报错）    |
-| raise_for_status() | 当请求错误时，改方法返回`HTTPError`对象（没出错返回`None`） |
+| 属性/方法          | 作用                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| url                | 请求的 url                                                   |
+| status_code        | 返回的状态码                                                 |
+| ok                 | 布尔值，`status_code < 400`为`true`，否则为`false`           |
+| reason             | 状态码对应的原因（比如`200->OK`）                            |
+| headers            | 返回体的头部信息                                             |
+| request            | 返回请求体                                                   |
+| content            | 请求的返回体（字节码 byte 形式）                             |
+| text               | 请求的返回体（unicode 形式）                                 |
+| encoding           | text 的编码方式                                              |
+| cookies            | 返回一个 cookie 数组（没有就是一个空数组）                   |
+| json()             | 返回一个返回体的 JSON 对象（如果返回体不是 JSON 格式则报错） |
+| raise_for_status() | 当请求错误时，改方法返回`HTTPError`对象（没出错返回`None`）  |
 
-要注意的是，**get请求**的返回体的`url`属性会自动帮我们拼接`url`和`params`    
-`text`和`content`内容虽然差不多，但是前者是unicode形式（就是字符串），我们获取页面文本或者链接，后者是字节形式（print结果前面会加个`b`标识）
+要注意的是，**get 请求**的返回体的`url`属性会自动帮我们拼接`url`和`params`  
+`text`和`content`内容虽然差不多，但是前者是 unicode 形式（就是字符串），我们获取页面文本或者链接，后者是字节形式（print 结果前面会加个`b`标识）
+
 ```python
 print(deleteUser.status_code)
 # 204
@@ -98,19 +100,20 @@ print(getUserWithPara.content)
 # b'{"page":2,"per_page":6,"total":12,"total_pages":2,"data":[...
 ```
 
-
 ### BeautifulSoup
 
-**BeautifulSoup（bs）** 是一个Python开源库，用于从HTML和XML文档中抓取数据或进行格式化，因此通常和requests共同使用（requests返回的结果是带标签的，然后用bs把标签去掉）    
-bs目前用分为版本3和版本4，分别对应Python2和Python3，不过随着Python2使用的减少，bs3已经停止维护了。因此官方推荐使用bs4，它兼容Python2和Python3。
+**BeautifulSoup（bs）** 是一个 Python 开源库，用于从 HTML 和 XML 文档中抓取数据或进行格式化，因此通常和 requests 共同使用（requests 返回的结果是带标签的，然后用 bs 把标签去掉）  
+bs 目前用分为版本 3 和版本 4，分别对应 Python2 和 Python3，不过随着 Python2 使用的减少，bs3 已经停止维护了。因此官方推荐使用 bs4，它兼容 Python2 和 Python3。
 
-这个库通过PyPi发布，因此可以通过 `easy_install` 或 `pip` 来安装  
-（注意PyPi中有`BeautifulSoup` 和`beautifulsoup4`两个包，分别代表bs3和bs4）
+这个库通过 PyPi 发布，因此可以通过  `easy_install`  或  `pip`  来安装  
+（注意 PyPi 中有`BeautifulSoup`  和`beautifulsoup4`两个包，分别代表 bs3 和 bs4）
+
 ```shell
 $ pip install beautifulsoup4
 ```
 
-bs的用法就非常简单了，这里引用一下用官方文档的例子，假设我们有一个文档页面（这内容通常由`requests`获取）
+bs 的用法就非常简单了，这里引用一下用官方文档的例子，假设我们有一个文档页面（这内容通常由`requests`获取）
+
 ```
 html_doc = """
 <html><head><title>The Dormouse's story</title></head>
@@ -127,18 +130,20 @@ and they lived at the bottom of a well.</p>
 """
 ```
 
-bs的核心方法是`BeautifulSoup()`，可以直接接收文档页面。它接收一二三四...很多个参数，包括解析器、编码啥的，但通常我们使用只用传两个就行了：
+bs 的核心方法是`BeautifulSoup()`，可以直接接收文档页面。它接收一二三四...很多个参数，包括解析器、编码啥的，但通常我们使用只用传两个就行了：
+
 ```python
 from bs4 import BeautifulSoup # 为了和bs3（包名BeautifulSoup）区分，bs4的包名直接叫bs4了
 
 doc_soup = BeautifulSoup(html_doc, features='html.parser')
 ```
 
-第一个参数当然是我们的文档，而第二个参数`features`是告诉bs我们处理的是什么文档（xml、html、html5等），可选值为`lxml`、`lxml-xml`、`html.parser`、`html5lib`。  
-当然`features`其实也可以省略，不过bs会报一个警告来告诉你没传`features`，并告诉你我用`html.parser`作为默认值   
+第一个参数当然是我们的文档，而第二个参数`features`是告诉 bs 我们处理的是什么文档（xml、html、html5 等），可选值为`lxml`、`lxml-xml`、`html.parser`、`html5lib`。  
+当然`features`其实也可以省略，不过 bs 会报一个警告来告诉你没传`features`，并告诉你我用`html.parser`作为默认值  
 其他的参数用的比较少，不过在源码中都有注释的，可以自己导个包去看看
 
-当我们soup完一个文档后，就可以对其进行后续的处理和操作了，比如：
+当我们 soup 完一个文档后，就可以对其进行后续的处理和操作了，比如：
+
 ```python
 doc_soup.prettify() # 输出好看点的文档（就是加了缩进和换行）
 
@@ -172,8 +177,9 @@ doc_soup.find_all('a') # 返回所有标签<a>内容所组成的数组（包括�
 # <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
 ```
 
-要注意`find()`和`find_all()`方法都是严格取出开闭标签中间的内容，因此我们看到`doc_soup.find_all('a')`返回结果中不存在原文档第二个`<a>`后面的`and`   
+要注意`find()`和`find_all()`方法都是严格取出开闭标签中间的内容，因此我们看到`doc_soup.find_all('a')`返回结果中不存在原文档第二个`<a>`后面的`and`  
 此外，还有简略的方式来获取某个标签的内容（但是用的比较少，看着看着容易晕）：
+
 ```python
 doc_soup.p # 简化写法，相当于doc_soup.find('p')
 
@@ -247,8 +253,8 @@ doc_soup.find('p', class_='story').string
 | string                                | 如果节点仅包含一个字节点，输出其文本内容；否则返回`None`           |
 | strings                               | 获取全部字节点内容的列表                                           |
 | stripped_strings                      | 获取全部字节点内容的列表，忽略空行，去除段首和段末的空格           |
-| find()                                | 获取符合条件（tag名、id、class等）的第一个节点                     |
-| find_all()                            | 获取符合条件（tag名、id、class等）的所有节点，返回数组             |
+| find()                                | 获取符合条件（tag 名、id、class 等）的第一个节点                   |
+| find_all()                            | 获取符合条件（tag 名、id、class 等）的所有节点，返回数组           |
 | find_parent()                         | 和`find()`类似，不过查找的是当前节点的第一个父节点                 |
 | find_parents()                        | 和`find_all()`类似，不过查找的是当前节点的所有父节点，返回数组     |
 | find_next_sibling()                   | 和`find()`类似，查找对象为之后的第一个兄弟（同级）节点             |
@@ -260,19 +266,19 @@ doc_soup.find('p', class_='story').string
 | clear()                               | 清除节点的文本内容，保留标签                                       |
 | extract()                             | 将当前节点移除，并作为方法结果返回                                 |
 | get_text()                            | 去掉标签，获取节点文本内容的字符串（包括子标签）                   |
-| prettify()                            | 格式化后并以字符串输出（Unicode编码），每个标签独占一行            |
+| prettify()                            | 格式化后并以字符串输出（Unicode 编码），每个标签独占一行           |
 
 因为`find_all()`使用的比较多，所以最后来看一下它的参数：`find_all( name , attrs , recursive , string , **kwargs )`。  
 其实这几个`find`开头的方法参数基本上都是一样的：
 
-1. `name`：查找标签名为 `name` 的节点
+1. `name`：查找标签名为  `name`  的节点
 2. `keyword` 参数：查找标签属性满足条件的节点。`find_all(id='link2')`返回所有含有`id='link2'`的节点；`find_all(id=True)`返回所有包含`id`属性的节点
 3. `string`： 查找内容包含`string`的节点，如果仅传入该参数，返回值仅为内容，不含标签。可以和上面两个参数组合，实现过滤节点。
 4. `limit`：限制返回数量，`find_all(limit=1)`等价于`find()`
 
-## Python知识点补充
+## Python 知识点补充
 
-其实我也没系统地学习过python，自己也是边做边学。但是比起Java，Python会更容易上手，因为是弱类型语言，没有那么多条条框框的规则限制。  
+其实我也没系统地学习过 python，自己也是边做边学。但是比起 Java，Python 会更容易上手，因为是弱类型语言，没有那么多条条框框的规则限制。  
 不过为了避免用一次查一次的繁琐，在这里就把爬虫编写的过程中，会涉及到的点介绍一下（用的是**Python3**嗷）
 
 ### 格式化字符串 f-string
@@ -281,13 +287,13 @@ doc_soup.find('p', class_='story').string
 虽然没有去考究，但个人感觉`f`代表的就是`format`。用法就是用`f''`声明这是一个格式化字符串，如果要用到变量啥的就用花括号括起来：
 
 ```python
-name = 'world?'  
-f_string = f'hello {name}'  
+name = 'world?'
+f_string = f'hello {name}'
 # hello world?
 
 
-name = 'world?'  
-f_string = f'hello {name.replace("?", "!")}'  
+name = 'world?'
+f_string = f'hello {name.replace("?", "!")}'
 # hello world!
 ```
 
@@ -295,26 +301,28 @@ f_string = f'hello {name.replace("?", "!")}'
 要注意的是，我们知道单引号里识别不了单引号，这在`f-string`同样适用。所以如果需要在其中用到引号，需要改成双引号或进行转义。  
 当然，不论是单引号、双引号还是三引号，都可以在前面加个`f`表示这是格式化字符串
 
-### Python文件读写：open
+### Python 文件读写：open
 
-对于python来说，文件的读写可能会比其他语言都来的方便，`open()`方法打开文件，然后用`read()`和`write()`进行读写等操作就好了。  
-先来看看`open()`方法，它能够打开并返回对应的文件对象（file object），所需参数和默认值是这样的：`open(file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None)`  ，虽然有点多，但常用的也没几个，不用太担心。  
+对于 python 来说，文件的读写可能会比其他语言都来的方便，`open()`方法打开文件，然后用`read()`和`write()`进行读写等操作就好了。  
+先来看看`open()`方法，它能够打开并返回对应的文件对象（file object），所需参数和默认值是这样的：`open(file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None)` ，虽然有点多，但常用的也没几个，不用太担心。
+
 1. `file`：路径（绝对路径或者相对当前目录的路径）或文件描述符
 2. `mode`：文件的读写模式，默认为`r`表示只读。之后会介绍一下常用的模式
-3. `buffering`：缓冲策略， 0表示关闭，1表示开启，若大于1则表示缓冲区大小（字节），用到的不多。
+3. `buffering`：缓冲策略， 0 表示关闭，1 表示开启，若大于 1 则表示缓冲区大小（字节），用到的不多。
 4. `encoding`：读写文件时使用的编码（比如`utf-8`啥的）
 5. `errors`：指定如何处理编码和解码错误，用到的不多。
-6. `newline`：规定如何换行，可以为`None`、`''`、`'\n'`、 `'\r'`或者 `'\r\n'`
+6. `newline`：规定如何换行，可以为`None`、`''`、`'\n'`、 `'\r'`或者  `'\r\n'`
 7. `closefd`：一言难尽，不理他。如果`file`参数用的不是路径而是**文件描述符**再去看看这个参数有什么影响。
 
 当我们读写文件的时候，都是直接对内存进行操作，这都是对系统资源的占用。因此当读写操作结束之后，我们都需要调用`close()`来释放我们的文件资源  
 但是由于文件读写时可能产生`IOError`（比如`r`模式下文件不存在或`x`模式下文件已存在），这会导致后面的`close()`方法得不到调用，造成内存泄漏。所以为了避免这种情况，我们需要用`try-catch-finally`来实现：
+
 ```python
-try:  
-    f = open('test.txt', 'r')  
-    print(f.read())  
-finally:  
-    if f:  
+try:
+    f = open('test.txt', 'r')
+    print(f.read())
+finally:
+    if f:
         f.close()
 ```
 
@@ -354,27 +362,27 @@ with open('test.txt', 'r') as f:
 
 ## 小试身手
 
-接下来就是我们手把手来编写爬虫脚本的过程了，实战案例的话...我想想，就先来获取这篇博客的内容好了：[博客优化：文章标题描边 & 动态修改Tab Title](https://blackdn.github.io/2023/04/02/Blog-Title-Border-Tab-2022.md/)   
+接下来就是我们手把手来编写爬虫脚本的过程了，实战案例的话...我想想，就先来获取这篇博客的内容好了：[博客优化：文章标题描边 & 动态修改 Tab Title](https://blackdn.github.io/2023/04/02/Blog-Title-Border-Tab-2022.md/)
 
-项目上传到github仓库了：[PythonCrawlerForStudy](https://github.com/BlackDn/PythonCrawlerForStudy)，所以在文章里就不展示全部的代码了，可以跟着一步步来实现，或者直接去仓库看整体的代码。
+项目上传到 github 仓库了：[PythonCrawlerForStudy](https://github.com/BlackDn/PythonCrawlerForStudy)，所以在文章里就不展示全部的代码了，可以跟着一步步来实现，或者直接去仓库看整体的代码。
 
 ### 获取单个页面内容并保存到本地
 
 热身环节，获取单个页面十分简单，我们通过`requests`获取整个页. ，再用`BeautifulSoup`去掉标签，这不就好了嘛
 
 ```python
-import requests  
-from bs4 import BeautifulSoup  
-  
-if __name__ == '__main__':  
-    single_chapter_url = 'https://blackdn.github.io/2023/04/02/Blog-Title-Border-Tab-2022.md/'  
-    response = requests.get(url=single_chapter_url)  
-    html_content_bs = BeautifulSoup(response.text, features='html.parser') 
-    text_content = html_content_bs.text 
+import requests
+from bs4 import BeautifulSoup
+
+if __name__ == '__main__':
+    single_chapter_url = 'https://blackdn.github.io/2023/04/02/Blog-Title-Border-Tab-2022.md/'
+    response = requests.get(url=single_chapter_url)
+    html_content_bs = BeautifulSoup(response.text, features='html.parser')
+    text_content = html_content_bs.text
 ```
 
-这个时候`htmlContentBs`里就是我们带标签的页面内容；而`textContent`就是去掉标签之后，页面所有的文本内容（因为图片是包含在`<img/>`里的，所以会被过滤掉）。不过，如果我们将`textContent`打印一下就会发现，其包含了**用于Jekyll解析的文章头配置**、**Tag和友链**、**底部copyright**等无意义的内容，那么就尝试把他们去掉。为了减少工作量，我们吧**参考内容**也看作是不需要的东西。  
-于是，就开始了对结果的过滤生涯，咱们可以在页面通过浏览器的**Inspect**查看页面结构，也可以通过`prettify()`方法在IDE中通过`print`查看。
+这个时候`htmlContentBs`里就是我们带标签的页面内容；而`textContent`就是去掉标签之后，页面所有的文本内容（因为图片是包含在`<img/>`里的，所以会被过滤掉）。不过，如果我们将`textContent`打印一下就会发现，其包含了**用于 Jekyll 解析的文章头配置**、**Tag 和友链**、**底部 copyright**等无意义的内容，那么就尝试把他们去掉。为了减少工作量，我们吧**参考内容**也看作是不需要的东西。  
+于是，就开始了对结果的过滤生涯，咱们可以在页面通过浏览器的**Inspect**查看页面结构，也可以通过`prettify()`方法在 IDE 中通过`print`查看。
 
 首先，我们发现文章的正文部分都包括在`<article>`的标签中，而该标签整个页面都只有一个，于是先将其取出：
 
@@ -407,10 +415,10 @@ with open('./singleChapter.txt', 'w') as file:
 
 ```python
 # ···
-articleTitle = articleContent.find(name='h1').string  
-textContent = articleContent.text.strip()  
-  
-with open(f'{articleTitle}.txt', 'w') as file:  
+articleTitle = articleContent.find(name='h1').string
+textContent = articleContent.text.strip()
+
+with open(f'{articleTitle}.txt', 'w') as file:
     file.write(textContent)
 ```
 
@@ -422,24 +430,24 @@ with open(f'{articleTitle}.txt', 'w') as file:
 因为我们已经有了爬取并保存一篇文章的代码了，改改就能用，我们先重构一下代码，将其抽成一个方法，将`url`作为参数传入：
 
 ```python
-if __name__ == '__main__':  
-  
-    def get_single_chapter_and_save(url):  
-        single_chapter_url = url  
-        response = requests.get(url=single_chapter_url)  
-        html_content_bs = BeautifulSoup(response.text, features='html.parser')  
-  
-        article_content = html_content_bs.find(name='article')  
-        reference_node = article_content.find(id="参考")  
-  
-        for node in reference_node.find_all_next():  
-            node.extract()  
-        reference_node.extract()  
-  
-        article_title = article_content.find(name='h1').string  
-        text_content = article_content.text.strip()  
-  
-        with open(f'{article_title}.txt', 'w') as file:  
+if __name__ == '__main__':
+
+    def get_single_chapter_and_save(url):
+        single_chapter_url = url
+        response = requests.get(url=single_chapter_url)
+        html_content_bs = BeautifulSoup(response.text, features='html.parser')
+
+        article_content = html_content_bs.find(name='article')
+        reference_node = article_content.find(id="参考")
+
+        for node in reference_node.find_all_next():
+            node.extract()
+        reference_node.extract()
+
+        article_title = article_content.find(name='h1').string
+        text_content = article_content.text.strip()
+
+        with open(f'{article_title}.txt', 'w') as file:
             file.write(text_content)
 ```
 
@@ -447,37 +455,37 @@ if __name__ == '__main__':
 所以我们先用`find()`找到`postlist-container`的节点，然后用`find_all()`获取所有文章节点的数组：
 
 ```python
-if __name__ == '__main__':  
-	# def get_single_chapter_and_save(url) 省略  
-	
-	base_url = 'https://blackdn.github.io'  
-    get_page_response = requests.get(url=base_url)  
-    page_content_bs = BeautifulSoup(get_page_response.text, features='html.parser')  
-  
+if __name__ == '__main__':
+	# def get_single_chapter_and_save(url) 省略
+
+	base_url = 'https://blackdn.github.io'
+    get_page_response = requests.get(url=base_url)
+    page_content_bs = BeautifulSoup(get_page_response.text, features='html.parser')
+
     chapter_list = page_content_bs.find(class_='postlist-container').find_all(class_='post-preview')
 ```
 
-进一步观察，我们发现每个`post-preview`中都有一个`<a>`，其中就有我们想要的文章链接，那么最后我们只要循环获取每一个`<a>`中的url，并执行`get_single_chapter_and_save(url)`就好了。  
-不过要注意的是`<a>`中的url是相对位置的url，我们还需要在前面加上`base_url`才能正确访问：
+进一步观察，我们发现每个`post-preview`中都有一个`<a>`，其中就有我们想要的文章链接，那么最后我们只要循环获取每一个`<a>`中的 url，并执行`get_single_chapter_and_save(url)`就好了。  
+不过要注意的是`<a>`中的 url 是相对位置的 url，我们还需要在前面加上`base_url`才能正确访问：
 
 ```python
-for chapter_node in chapter_list:  
-    current_url = chapter_node.a['href']  
+for chapter_node in chapter_list:
+    current_url = chapter_node.a['href']
     get_single_chapter_and_save(f'{base_url}{current_url}')
 ```
 
-### bug修复
+### bug 修复
 
 #### 报错： FileNotFoundError: \[Errno 2\] No such file or directory
 
 一看报错信息，感觉有些疑惑，咱们用的是`w`模式，只会写入文件，当文件不存在的时候应该会创建新文件，怎么会报`NotFound`呢？  
-实际上，这是因为我们的文件名里存在斜杠，比如这篇文章：[Git配置多用户 & reset / revert & 合并Commit](https://blackdn.github.io/2022/10/04/Git-Advance-2022/)  
-这个斜杠在我们看来是文件名，而在python看来则是文件路径，所以python会在根目录寻找名为`Git配置多用户 & reset` 的文件夹，然后寻找名为`revert & 合并Commit`的文件（没有则创建）。  
-但是我们当然没有这样的文件夹，python也不会为我们创建，因此报了`NotFound`的错误。  
+实际上，这是因为我们的文件名里存在斜杠，比如这篇文章：[Git 配置多用户 & reset / revert & 合并 Commit](https://blackdn.github.io/2022/10/04/Git-Advance-2022/)  
+这个斜杠在我们看来是文件名，而在 python 看来则是文件路径，所以 python 会在根目录寻找名为`Git配置多用户 & reset` 的文件夹，然后寻找名为`revert & 合并Commit`的文件（没有则创建）。  
+但是我们当然没有这样的文件夹，python 也不会为我们创建，因此报了`NotFound`的错误。  
 解决方法也非常简单，把我们的文件名中的斜杠给替换掉就好了。我这里直接把斜杠去掉了，如果实在想保留斜杠，可以将其换成全角的（中文版）斜杠
 
 ```python
-with open(f'{article_title.replace("/","")}', 'w') as file:  
+with open(f'{article_title.replace("/","")}', 'w') as file:
     file.write(text_content)
 ```
 
@@ -490,32 +498,32 @@ with open(f'{article_title.replace("/","")}', 'w') as file:
 最终修改后的`get_single_chapter_and_save()`结果：
 
 ```python
-def get_single_chapter_and_save(url):  
-    single_chapter_url = url  
-    response = requests.get(url=single_chapter_url)  
-    html_content_bs = BeautifulSoup(response.text, features='html.parser')  
-  
-    article_content = html_content_bs.find(name='article')  
-    
-    # remove <ul class="pager"> and following node  
-    
-    pager_node = article_content.find(class_='pager')  
-    for node in pager_node.find_all_next():  
-        node.extract()  
-    pager_node.extract()  
-  
-    # remove reference node if exist  
-    
-    reference_node = article_content.find(name='h2', id='参考')  
-    if reference_node is not None:  
-        for node in reference_node.find_all_next():  
-            node.extract()  
-        reference_node.extract()  
-  
-    article_title = article_content.find(name='h1').string  
-    text_content = article_content.text.strip()  
-  
-	with open(f'{article_title.replace("/","")}', 'w') as file:  
+def get_single_chapter_and_save(url):
+    single_chapter_url = url
+    response = requests.get(url=single_chapter_url)
+    html_content_bs = BeautifulSoup(response.text, features='html.parser')
+
+    article_content = html_content_bs.find(name='article')
+
+    # remove <ul class="pager"> and following node
+
+    pager_node = article_content.find(class_='pager')
+    for node in pager_node.find_all_next():
+        node.extract()
+    pager_node.extract()
+
+    # remove reference node if exist
+
+    reference_node = article_content.find(name='h2', id='参考')
+    if reference_node is not None:
+        for node in reference_node.find_all_next():
+            node.extract()
+        reference_node.extract()
+
+    article_title = article_content.find(name='h1').string
+    text_content = article_content.text.strip()
+
+	with open(f'{article_title.replace("/","")}', 'w') as file:
 	    file.write(text_content)
 ```
 
@@ -524,19 +532,20 @@ def get_single_chapter_and_save(url):
 ## 后话
 
 暂时就先到这吧，本来想再写一个案例表示用来获取**每篇文章的参考列表**或者**开头的一句骚话**的，但是想想用到的东西都是重复的，就懒得写了。  
-第一次把文章的案例代码放到仓库，所以花了点时间让代码变得好看一点  
+第一次把文章的案例代码放到仓库，所以花了点时间让代码变得好看一点
 
 爬虫本质上就是一个脚本，获取页面然后进行数据清洗/格式化，没什么高深的。其重难点主要就在于我们获取页面内容后的后续操作，是要获取某一块内容呢，还是要统计词频呢，还是要做什么其他的事呢？目的不同就会导致爬虫代码的千变万化，说它大吧也就是`request`加`bs`的组合，说它小吧我们会碰到很多琐碎的细节问题需要处理。
 
-更难受的一点是现在的网站基本上都有反爬虫策略了，有的要求我们使用规定格式的请求头啥的，还有的会对统一ip地址的访问次数进行限制，如果短时间内大量访问就会把你的ip地址给禁了。  
-高级点的方法是使用**ip池**来进行ip的切换，不过可靠的ip池服务当然需要充钱了；或者用穷人的方法：用`sleep`来延迟自己的访问。
+更难受的一点是现在的网站基本上都有反爬虫策略了，有的要求我们使用规定格式的请求头啥的，还有的会对统一 ip 地址的访问次数进行限制，如果短时间内大量访问就会把你的 ip 地址给禁了。  
+高级点的方法是使用**ip 池**来进行 ip 的切换，不过可靠的 ip 池服务当然需要充钱了；或者用穷人的方法：用`sleep`来延迟自己的访问。
 
 以后应该会再写个获取图片的爬虫吧。
 
 ## 参考
+
 1. [Requests: HTTP for Humans](https://requests.readthedocs.io/en/latest/)
 2. [Python requests.Response Object](https://www.w3schools.com/python/ref_requests_response.asp)
 3. [Beautiful Soup Documentation](https://beautiful-soup-4.readthedocs.io/en/latest/) / [Beautiful Soup 4.4.0 文档](https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/)
-4. [PEP 498 – Literal String Interpolation](https://peps.python.org/pep-0498/) 
+4. [PEP 498 – Literal String Interpolation](https://peps.python.org/pep-0498/)
 5. [内置函数：open()](https://docs.python.org/zh-cn/3/library/functions.html?highlight=open#open) / [Methods of File Objects](https://docs.python.org/3/tutorial/inputoutput.html#methods-of-file-objects)
-6. [python文件读写,以后就用with open语句](https://www.cnblogs.com/ymjyqsx/p/6554817.html)
+6. [python 文件读写,以后就用 with open 语句](https://www.cnblogs.com/ymjyqsx/p/6554817.html)

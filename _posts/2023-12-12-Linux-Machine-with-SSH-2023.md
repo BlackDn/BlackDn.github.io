@@ -1,11 +1,11 @@
 ---
-layout: post 
-title: Linux 简介 / 虚拟机创建及换源 / ssh 连接及转发 
-subtitle: 创建Linux虚拟机，换源，通过ssh进行操作 
-date: 2023-12-12 
-auther: BlackDn 
-header-img: img/21mon8_31.jpg 
-catalog: true 
+layout: post
+title: Linux 简介 / 虚拟机创建及换源 / ssh 连接及转发
+subtitle: 创建Linux虚拟机，换源，通过ssh进行操作
+date: 2023-12-12
+author: BlackDn
+header-img: img/21mon8_31.jpg
+catalog: true
 tags:
   - Linux
 ---
@@ -71,7 +71,7 @@ $ sudo apt-get update
 
 ## 使用 ssh 连接到 Linux
 
-到这我们的**Linux 虚拟机** 基本算装好了，接下来我们打算通过`ssh`来让我们能从 Mac 的**命令行**直接登录 **Linux**
+到这我们的**Linux 虚拟机**  基本算装好了，接下来我们打算通过`ssh`来让我们能从 Mac 的**命令行**直接登录 **Linux**
 
 #### 安装 ssh 并获取 IP 地址
 

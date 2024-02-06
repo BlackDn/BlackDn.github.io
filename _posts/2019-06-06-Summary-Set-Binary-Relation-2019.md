@@ -1,78 +1,94 @@
 ---
-layout:   post
-title:    学习总结——集合和二元关系
-subtitile:  离散数学的概念性总结
-date:      2019-06-06
-auther:    BlackDn
-header-img:     img/acg.gy_02.jpg 
-catalog:      true
-tags:   
-      - SchoolClass
+layout: post
+title: 学习总结——集合和二元关系
+subtitile: 离散数学的概念性总结
+date: 2019-06-06
+author: BlackDn
+header-img: img/acg.gy_02.jpg
+catalog: true
+tags:
+  - SchoolClass
 ---
-> "志之所趋，穷山距海，不可阻挡。"  
+
+> "志之所趋，穷山距海，不可阻挡。"
+
 # 前言
-我好像找到了一种能正常现实图片的方法...虽然还是比较麻烦...不过我的Microsoft Edge不会图裂了，感动  
-其实还是上传的GitHub，用开发人员工具扣出图片的utl，在前面加上"https://github.com/...."  
+
+我好像找到了一种能正常现实图片的方法...虽然还是比较麻烦...不过我的 Microsoft Edge 不会图裂了，感动  
+其实还是上传的 GitHub，用开发人员工具扣出图片的 utl，在前面加上"https://github.com/...."  
 不过要注意，在这里图片的名称要英文，不要特殊字符  
 这份总结主要是因为离散的集合那一块，概念太多太多，又容易混在一起。  
 之前小测的时候我连符号都不知道是什么意思....  
-估计之后学图的时候还得总结一份QAQ  
+估计之后学图的时候还得总结一份 QAQ
+
 # 集合及关系
+
 ### 关系的运算
-1. AxB：笛卡尔乘积。A中的元素作为第一元素，B中的元素作为第二元素，构成所有的序偶构成的集合作为结果。
-2. domR：R的定义域。R中所有序偶第一元素构成的集合
-3. ranR：R的值域。R中所有序偶第二元素构成的集合
-4. fldR：R的域。domR与ranR的并集
-5. R^-1：R的逆关系/R的逆。每个序偶第一元素和第二元素交换
-6. F⚪G：G对F的右合成。第一元素x来自F，第二元素y来自G，如果F中存在<x，t>，G中存在<t，y>，则结果为所有<x，y>组成的集合。（F到G的传递）
-7. IA：基于A的恒等关系。即所有元素既作为第一元素也作为第二元素<x，x>所组成的集合  
 
-![calculate](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/calculate.png?raw=true)  
+1. AxB：笛卡尔乘积。A 中的元素作为第一元素，B 中的元素作为第二元素，构成所有的序偶构成的集合作为结果。
+2. domR：R 的定义域。R 中所有序偶第一元素构成的集合
+3. ranR：R 的值域。R 中所有序偶第二元素构成的集合
+4. fldR：R 的域。domR 与 ranR 的并集
+5. R^-1：R 的逆关系/R 的逆。每个序偶第一元素和第二元素交换
+6. F⚪G：G 对 F 的右合成。第一元素 x 来自 F，第二元素 y 来自 G，如果 F 中存在<x，t>，G 中存在<t，y>，则结果为所有<x，y>组成的集合。（F 到 G 的传递）
+7. IA：基于 A 的恒等关系。即所有元素既作为第一元素也作为第二元素<x，x>所组成的集合
+
+![calculate](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/calculate.png?raw=true)
+
 ### 关系的性质
-1. 自反：对于A中每个元素x，R中都有<x，x>  
-如果有一个元素不存在，就不满足自反
-2. 反自反：对于A中每个元素x，R中都没有<x，x>  
-如果有一个元素存在，则不满足反自反  
-综上，如果A中有元素存在，但并不是所有元素都存在，则既不是自反，也不是反自反  
-3. 对称：对R中所有的<x，y>，同时也存在<y，x>
-4. 反对称：对R中所有的<x，y>，要么不存在<y，x>，若存在，则x=y  
-综上，如果存在<x，y>,<y，x>，但并不是所有元素都存在，则既不是对称也不是反对称  
-5. 可传递：对R中所有的<x，y>，如果存在<y，z>，那么就有<x，z>
-6. 不可传递：R中存在<x，y>，也存在<y，z>，但是没有<x，z>  
-综上，如果关系R不是可传递的，那就是不可传递的。当且仅当所有的<x，y>、<y，z>都有<x，z>，才是可传递的。即不存在和不全存在都为不可传递。  
 
-![property](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/property.png?raw=true)  
+1. 自反：对于 A 中每个元素 x，R 中都有<x，x>  
+   如果有一个元素不存在，就不满足自反
+2. 反自反：对于 A 中每个元素 x，R 中都没有<x，x>  
+   如果有一个元素存在，则不满足反自反  
+   综上，如果 A 中有元素存在，但并不是所有元素都存在，则既不是自反，也不是反自反
+3. 对称：对 R 中所有的<x，y>，同时也存在<y，x>
+4. 反对称：对 R 中所有的<x，y>，要么不存在<y，x>，若存在，则 x=y  
+   综上，如果存在<x，y>,<y，x>，但并不是所有元素都存在，则既不是对称也不是反对称
+5. 可传递：对 R 中所有的<x，y>，如果存在<y，z>，那么就有<x，z>
+6. 不可传递：R 中存在<x，y>，也存在<y，z>，但是没有<x，z>  
+   综上，如果关系 R 不是可传递的，那就是不可传递的。当且仅当所有的<x，y>、<y，z>都有<x，z>，才是可传递的。即不存在和不全存在都为不可传递。
+
+![property](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/property.png?raw=true)
+
 ### 关系的闭包运算
-1. r(R)：自反闭包。R本身并上恒等关系IA。构造基于R的最小的自反关系。
-2. s(R)：对称闭包。R本身并上R逆。构造基于R的最小的对称关系。
-3. t(R)：传递闭包。公式上等于R^1并上R^2并上R^3....直到趋于无穷。通常会陷入循环或一开始就等于本身。若陷入循环则结果为第一段循环。  
-可用wallshall算法来求得  
 
-![closure](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/closure.png?raw=true)  
+1. r(R)：自反闭包。R 本身并上恒等关系 IA。构造基于 R 的最小的自反关系。
+2. s(R)：对称闭包。R 本身并上 R 逆。构造基于 R 的最小的对称关系。
+3. t(R)：传递闭包。公式上等于 R^1 并上 R^2 并上 R^3....直到趋于无穷。通常会陷入循环或一开始就等于本身。若陷入循环则结果为第一段循环。  
+   可用 wallshall 算法来求得
+
+![closure](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/closure.png?raw=true)
+
 ### 特殊关系
-1. 覆盖：若集合A由若干集合构成，且A中的集合都是S集合的子集，且所有集合的并集结果为S，称A是S的覆盖。
-2. 划分：当S的覆盖A中任意两个的子集的交集都为空，则称A为S的划分。  
-综上，覆盖和划分都不唯一。覆盖会存在交集，而划分是正好的，不存在交集。
-3. **等价关系**：关系R同时满足自反、对称、可传递
-这里引入模k关系：a，b两个数满足a-b=mk，则ab满足模k关系，其中m为任意整数，k是我们提前设的。模k关系为等价关系  
-4. 等价类：等价关系下一个划分组成的集合  
+
+1. 覆盖：若集合 A 由若干集合构成，且 A 中的集合都是 S 集合的子集，且所有集合的并集结果为 S，称 A 是 S 的覆盖。
+2. 划分：当 S 的覆盖 A 中任意两个的子集的交集都为空，则称 A 为 S 的划分。  
+   综上，覆盖和划分都不唯一。覆盖会存在交集，而划分是正好的，不存在交集。
+3. **等价关系**：关系 R 同时满足自反、对称、可传递
+   这里引入模 k 关系：a，b 两个数满足 a-b=mk，则 ab 满足模 k 关系，其中 m 为任意整数，k 是我们提前设的。模 k 关系为等价关系
+4. 等价类：等价关系下一个划分组成的集合
 5. 商集：所有等价类作为元素的集合  
-不难看出，商集中的集合（所有等价类）构成了此关系的划分。等价关系->等价类->商集->划分。  
-![equivalence](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/equivalence.png?raw=true)  
-6. **相容关系**：关系R同时满足自反、对称
+   不难看出，商集中的集合（所有等价类）构成了此关系的划分。等价关系->等价类->商集->划分。  
+   ![equivalence](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/equivalence.png?raw=true)
+6. **相容关系**：关系 R 同时满足自反、对称
 7. 最大相容类：满足相容的集合有一个子集，这个子集中的任何一个元素与子集其他所有元素能构成相容关系，但是和这个子集外的任何元素没有相容关系，则这个子集称为最大相容类
-判断相容类或者最大相容类的时候，通过关系图能很好进行判断  
-两两相连的就是相容类，再加一个元素就不满足两两相连的相容类就是最大相容类  
-![ReCompatibility](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/ReCompatibility.png?raw=true)
+   判断相容类或者最大相容类的时候，通过关系图能很好进行判断  
+   两两相连的就是相容类，再加一个元素就不满足两两相连的相容类就是最大相容类  
+   ![ReCompatibility](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/ReCompatibility.png?raw=true)
 
 ### 次序关系
-1. 偏序关系：R是**自反的**、**反对称的**、**可传递的**，称R是A中的偏序关系。用≤表示偏序关系
-2. 拟序关系：R是**反自反的**、**可传递的**，称R是A中的拟序关系。用＜表示拟序关系
-3. 全序关系：R是偏序关系，对于A中每一个x，y，都有x小于等于y或y小于等于x。即满足线性关系（一条线），哈斯图中一层只有一个元素
 
-![partial](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/partial.png?raw=true)  
+1. 偏序关系：R 是**自反的**、**反对称的**、**可传递的**，称 R 是 A 中的偏序关系。用 ≤ 表示偏序关系
+2. 拟序关系：R 是**反自反的**、**可传递的**，称 R 是 A 中的拟序关系。用＜表示拟序关系
+3. 全序关系：R 是偏序关系，对于 A 中每一个 x，y，都有 x 小于等于 y 或 y 小于等于 x。即满足线性关系（一条线），哈斯图中一层只有一个元素
+
+![partial](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/partial.png?raw=true)
+
 #### 哈斯图
-表达偏序关系的利器  
+
+表达偏序关系的利器
+
 1. 最小元：在给定集合中选，可以不存在，存在则唯一。一定和给定集合所有元素满足偏序，即给定集合任意元素向下能达到最小元。
 2. 最大元：在给定集合中选，可以不存在，存在则唯一。一定和给定集合所有元素满足偏序，即给定集合任意元素向上能达到最大元。
 3. 极小元：在给定集合中选，一定存在，可以多个。哈斯图中给定集合的最底层。
@@ -82,4 +98,4 @@ tags:
 7. 上确界（最小上界）：在整个集合中选，可以不存在，存在则唯一。上届中最小的元素，即哈斯图中上界的最底层。若最底层不唯一则不存在。
 8. 下确界（最大下界）：在整个集合中选，可以不存在，存在则唯一。下届中最大的元素，即哈斯图中下界的最高层。若最高层不唯一则不存在。
 
-![Hasse](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/Hasse.png?raw=true)  
+![Hasse](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/Hasse.png?raw=true)

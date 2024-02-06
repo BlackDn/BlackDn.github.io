@@ -3,7 +3,7 @@ layout: post
 title: Web：异步方法 & 网络请求
 subtitle: JS的异步和网络请求（Promise，Fetch，XMLHttpRequest）
 date: 2022-09-11
-auther: BlackDn
+author: BlackDn
 header-img: img/19mon7_16.jpg
 catalog: true
 tags:
