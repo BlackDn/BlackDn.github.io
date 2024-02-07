@@ -33,3 +33,7 @@ Temporary Items
 
 # debug file
 _site
+
+# Ignore local Gemfile as GitHub Page has its own Gemfile
+Gemfile
+Gemfile.*
