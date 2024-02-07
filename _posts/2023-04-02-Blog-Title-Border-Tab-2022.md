@@ -173,9 +173,11 @@ document.addEventListener("visibilitychange", function () {
 
 ### 动态修改 Github Page 的 Tab Title
 
-有了理论基础，这一块代码实现页面就很简单了，添加`visibilitychange`监听并利用`document.hidden`判断页面是否可见，如果不可见就改个`title`就好。
+有了理论基础，这一块代码实现页面就很简单了，添加`visibilitychange`监听并利用`document.hidden`判断页面是否可见，如果不可见就改个`title`就好。   
+为了让代码结构更好看，我们新建文件`js/tab-title-change.js`，代码如下：
 
 ```javascript
+// tab-title-change.js
 document.addEventListener("visibilitychange", function () {
   if (document.hidden) {
     document.title = "(づ￣ ³￣)づ人家在这等你哦";
@@ -185,7 +187,7 @@ document.addEventListener("visibilitychange", function () {
 });
 ```
 
-代码就这么点，剩下的就是放哪里的问题。  
+代码就这么点，剩下的就是放哪里的问题。   
 我们看到`_layout`目录下有一个`default.html`，它规定了每个页面的框架：
 
 ```html
@@ -193,46 +195,43 @@ document.addEventListener("visibilitychange", function () {
 <html lang="en">
   {% raw %}{% include head.html %}{% endraw %}
   <body ontouchstart="">
-    {% raw %}{% include nav.html %}{% endraw %} {% raw %}{% include search.html %}{% endraw %} {%
-    raw %}{{ content }}{% endraw %} {% raw %}{% include footer.html %}{% endraw %}
+    {% raw %}{% include nav.html %}{% endraw %}
+    {% raw %}{% include search.html %}{% endraw %}
+    {% raw %}{{ content }}{% endraw %}
+    {% raw %}{% include footer.html %}{% endraw %}
   </body>
 </html>
 ```
 
-看了下，决定放在`head.html`中，毕竟如果是写在一个文件中的话，我们的 script 脚本也是通过 script 标签在`<head>`中引入的。（当然，放在其他地方也能实现）
+看了下，决定放在`head.html`中，毕竟像其他 `nav.html`、`footer.html` 等文件都是模块化的页面部分，放一个页面无关的方法进去有些奇怪。而 `head.html` 基本都是页面无关的链接啊，script脚本啥的，就扔这儿了。   
+我们在 `head.html` 末尾加上一句话来引用这个脚本：
 
 ```html
+<!-- _includes/head.html -->
 <head>
   <!-- ······ -->
-  <script>
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        document.title = "(づ￣ ³￣)づ人家在这等你哦";
-      } else {
-        document.title = "WelcomeQwQ";
-      }
-    });
-  </script>
-  <head></head>
+  <script src="{{ site.baseurl }}/js/tab-title-change.js"></script>
 </head>
 ```
 
-或者更优雅一点，我们有一个`js`目录用来存一些 JS 代码，我们可以新建一个 js 文件`tabTitleChange.js`，将代码放入其中，在 head 中引入这个 js 文件即可：
+前面这个 `{{ site.baseurl }}` 是 **Jekyll** 定义的项目根地址，比如我的这个网站就是 `https://blackdn.github.io` ，使用它来正确加载我们的脚本。
+
+这个时候，虽然我们的脚本能正常运行，会在我们切换到其他页面的时候变换标题，但还是有些bug的——不管在哪个页面都会生效，且不管原来的页面标题是什么，最后都会变成`WelcomeQwQ`。  
+在我的这个网站中，只有首页的标题是`WelcomeQwQ`，其他页面就不一样了，比如**Tab页面**  是`Tab - WelcomeQwQ`，在文章页面则是文章的标题。因此在这些页面我们需要保留原来的标题，好让我们知道自己打开的是什么页面。   
+这所以有这个问题，其实也好理解，毕竟脚本里的标题是写死了的，所以我们需要进一步限定这个脚本生效的地方：
 
 ```html
+<!-- _includes/head.html -->
 <head>
-  <!-- ······ -->
-  <!-- change tab title when hide -->
-  <script src="../js/tabTitleChange.js"></script>
-  <head></head>
+  <!-- ······ -->  
+  {% raw %}{% if page.title == "WelcomeQwQ" %}{% endraw %}
+  <script src="{{ site.baseurl }}/js/tab-title-change.js"></script>
+  {% raw %}{% endif %}{% endraw %}
 </head>
 ```
 
-#### 不是问题的小问题
-
-写完代码后我去 Github Page 中看了一眼，发现在文章页面以外（HOME 页、TAG 页、ABOUT 页等）这个 Title 的变化是没有问题的，当我们切换 Tab 后会动态变化，但是点进文章页后它就不会切换了。  
-虽然和预想中的不一样，但是也可以接受。毕竟即使我在其他 Tab 页冲浪，我也想知道我打开了哪片文章，省的回来还得想我上次看到哪儿了。  
-猜测可能文章页没有应用`default.html`的框架，或者文章页用了新的`head`覆盖了原来的`head`，不过暂时懒得去看了，就这样吧=。=
+这是**Liquid语言**的语法，我们通关当前页面的标题判断是否载入这个脚本。只有当页面标题为`WelcomeQwQ`的时候才启用这个动态改变标题的脚本，也就是只有在主页的时候，标题才会动态改变。  
+这样这个根据页面可见性动态修改标题的功能就算实现啦～
 
 ## 参考
 
