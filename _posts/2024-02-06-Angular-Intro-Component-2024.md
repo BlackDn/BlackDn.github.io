@@ -13,6 +13,8 @@ tags:
 
 > "像亿万星辰奔波漫漫长夜，不诉怨语。"
 
+# Angular JS 入门指南
+
 ## 前言
 
 新年新气象，年前赶紧发一篇=v=  
@@ -104,7 +106,7 @@ export class HelloWorld {
 
 #### 插值
 
-在模板中，使用双大括号`{{}}`来传递一些动态变量或内容，称之为**插值（Interpolation）**
+在模板中，使用双大括号`{% raw %}{{}}{% endraw %}`来传递一些动态变量或内容，称之为**插值（Interpolation）**
 
 ```typescript
 @Component({
@@ -116,8 +118,15 @@ export class DemoComponent {
 ```
 
 当插值内容发生变化时，**Angular** 会自动更新 DOM 来刷新组件。  
-此外，插值内容也可以是表达式，`Angular` 会对其进行运算，如 `<p>Title: {{ 1 + 1 }}</p>` 会显示 `Title: 2`  
-如果想要将其作为文本而非表达式，则需要添加 `ngNonBindable`标识： `<p ngNonBindable>Title: {{ 1 + 1 }}</p>` 会显示 `Title: {{ 1 + 1 }}`  
+此外，插值内容也可以是表达式，`Angular` 会对其进行运算，比如  
+ `{% raw %}<p>Title: {{ 1 + 1 }}</p>{% endraw %}`  
+ 会显示 `Title: 2`
+
+如果想要将其作为文本而非表达式，则需要添加 `ngNonBindable`标识：  
+`{% raw %}<p ngNonBindable>Title: {{ 1 + 1 }}</p>{% endraw %}`  
+会显示  
+ `{% raw %}Title: {{ 1 + 1 }}{% endraw %}`
+
 `ngNonBindable`实际上是一个**指令**，关于指令的更多内容会在以后提到。
 
 #### 绑定属性和方法
