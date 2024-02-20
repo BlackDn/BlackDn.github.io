@@ -341,7 +341,7 @@ with open('test.txt', 'r') as f:
 | f.read()     | 当参数为空或为负数时返回全部内容，否则返回指定大小的内容（单位为字符/字节）；若达到文件末尾则返回`''`    |
 | f.readline() | 读取单行内容，返回结果末尾保留换行符（`\n`）                                                             |
 | f.write()    | 把内容写入文件，并返回写入的字符数。需要自己加换行符且算一个字符数。                                     |
-| f.tell()     | 返回一个整数，表示当前文件指针的位置（到文件头的字节数)                                                  |
+| f.tell()     | 返回一个整数，表示当前文件指针的位置（到文件头的字节数）                                                 |
 | f.seek()     | 移动指针位置，第一个参数偏移量可正可负；第二个可选参数表示参考位置，0=文件头（默认）;1=当前位置;2=文件尾 |
 | f.close()    | 关闭文件，释放资源                                                                                       |
 
@@ -362,7 +362,7 @@ with open('test.txt', 'r') as f:
 
 ## 小试身手
 
-接下来就是我们手把手来编写爬虫脚本的过程了，实战案例的话...我想想，就先来获取这篇博客的内容好了：[博客优化：文章标题描边 & 动态修改 Tab Title](https://blackdn.github.io/2023/04/02/Blog-Title-Border-Tab-2022.md/)
+接下来就是我们手把手来编写爬虫脚本的过程了，实战案例的话...我想想，就先来获取这篇博客的内容好了：[博客优化：文章标题描边 & 动态修改 Tab Title](https://blackdn.github.io/2023-04-02-Blog-Title-Border-Tab-2022/)
 
 项目上传到 github 仓库了：[PythonCrawlerForStudy](https://github.com/BlackDn/PythonCrawlerForStudy)，所以在文章里就不展示全部的代码了，可以跟着一步步来实现，或者直接去仓库看整体的代码。
 
@@ -375,7 +375,7 @@ import requests
 from bs4 import BeautifulSoup
 
 if __name__ == '__main__':
-    single_chapter_url = 'https://blackdn.github.io/2023/04/02/Blog-Title-Border-Tab-2022.md/'
+    single_chapter_url = 'https://blackdn.github.io/2023-04-02-Blog-Title-Border-Tab-2022/'
     response = requests.get(url=single_chapter_url)
     html_content_bs = BeautifulSoup(response.text, features='html.parser')
     text_content = html_content_bs.text
@@ -479,8 +479,8 @@ for chapter_node in chapter_list:
 #### 报错： FileNotFoundError: \[Errno 2\] No such file or directory
 
 一看报错信息，感觉有些疑惑，咱们用的是`w`模式，只会写入文件，当文件不存在的时候应该会创建新文件，怎么会报`NotFound`呢？  
-实际上，这是因为我们的文件名里存在斜杠，比如这篇文章：[Git 配置多用户 & reset / revert & 合并 Commit](https://blackdn.github.io/2022/10/04/Git-Advance-2022/)  
-这个斜杠在我们看来是文件名，而在 python 看来则是文件路径，所以 python 会在根目录寻找名为`Git配置多用户 & reset` 的文件夹，然后寻找名为`revert & 合并Commit`的文件（没有则创建）。  
+实际上，这是因为我们的文件名里存在斜杠，比如这篇文章：[Git 配置多用户 & reset/revert 简介 & 合并 Commit](https://blackdn.github.io/2022-10-04-Git-Advance-2022/)  
+这个斜杠在我们看来是文件名，而在 python 看来则是文件路径，所以 python 会在根目录寻找名为`Git 配置多用户 & reset` 的文件夹，然后寻找名为`revert 简介 & 合并 Commit`的文件（没有则创建）。  
 但是我们当然没有这样的文件夹，python 也不会为我们创建，因此报了`NotFound`的错误。  
 解决方法也非常简单，把我们的文件名中的斜杠给替换掉就好了。我这里直接把斜杠去掉了，如果实在想保留斜杠，可以将其换成全角的（中文版）斜杠
 

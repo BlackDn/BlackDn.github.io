@@ -31,7 +31,7 @@ tags:
 感觉本质上他们都是一样的，我就不对“命令”或“工具”作出区分了，偶尔会混用一下
 
 在 Linux 的命令中，很多时候会涉及到**正则表达式**，特别是在匹配或者输出的时候  
-关于正则表达式可以看这篇文章：[正则表达式 Regex 及 Java 相关使用](./2022-03-13-Regex-and-Java-2022 | custom_link)  
+关于正则表达式可以看这篇文章：[正则表达式 Regex 及 Java 相关使用](./2022-03-13-Regex-and-Java-2022)  
 （下面的命令主要是写一下其常用的简单用法，更多细节和详细参数还是要自己去搜嗷）
 
 - `cat`：查看文件内容
@@ -40,7 +40,7 @@ tags:
 - `history`：查看历史命令
 - `pwd`：显示当前所在的目录
 - `type`：判断命令来源（是 bash 内置还是外部程序）
-- `chmod`：修改文件权限（具体可见：[Linux 权限及 chmod 命令](../2023-10-10-Linux-User-and-System-2023/#linux-权限及-chmod-命令)）
+- `chmod`：修改文件权限（具体可见：[Linux 权限及 chmod 命令](../2023-10-10-Linux-User-and-System-2023#linux-权限及-chmod-命令)）
 - `chwon`：修改文件所有者
 - `chgrp`：修改文件所属组
 - `su blackdn`：更改用户（switch user），从当前用户改为用户名为 blackdn 的用户
@@ -125,7 +125,7 @@ tags:
 - `lsblk -d`：只显示块设备，而不包括其子设备（如分区）的信息
 - `lsblk /dev/sda`：查看指定设备信息
 
-- `fdisk`：用于管理硬盘分区，对磁盘分区进行创建、删除、修改等。具体操作可见：[Linux 磁盘分区](../2023-10-10-Linux-User-and-System-2023/#linux-磁盘分区)
+- `fdisk`：用于管理硬盘分区，对磁盘分区进行创建、删除、修改等。具体操作可见：[Linux 磁盘分区](../2023-10-10-Linux-User-and-System-2023#linux-磁盘分区)
 
 - `shutdown`：关机，默认一分钟后关机
 - `shutdown -h now`：立即关机
