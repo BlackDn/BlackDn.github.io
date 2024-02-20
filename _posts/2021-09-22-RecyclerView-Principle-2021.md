@@ -22,7 +22,7 @@
 
 # 又见 RecyclerView：缓存原理
 
-之前写了下 RecyclerView 的基本用法，传送门：[初识 RecyclerView：基本使用](https://blackdn.github.io/2021/09/15/RecyclerView-Usage-2021/)  
+之前写了下 RecyclerView 的基本用法，传送门：[初识 RecyclerView：基本使用](../2021-09-15-RecyclerView-Usage-2021)  
 这里打算顺便学习下 RecyclerView**缓存**和**复用**的原理，你也就顺便看看。  
 下面内容应该会涉及到源码，因为篇幅问题不会给的很全，最好还是自己动手，对着源码翻翻看看。  
 对于缓存和复用，我们关心的无非就是**存到哪、存什么、什么时候存**的问题，搞懂这三个问题其实就差不多了。

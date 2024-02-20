@@ -18,7 +18,7 @@ tags:
 ## 前言
 
 **5121428 默哀**，RIP🕯️  
-之前我们在[Python 爬虫入门：爬取自己的博客文本](https://blackdn.github.io/2023/04/23/Python-Crawler-Intro-2023/)中爬取了文本，现在来爬一爬图片。  
+之前我们在[Python 爬虫入门：爬取自己的博客文本](../2023-04-23-Python-Crawler-Intro-2023)中爬取了文本，现在来爬一爬图片。  
 目标是**Bilibili 官号壁纸喵**的空间相册中的图片：[壁纸喵的相册空间](https://space.bilibili.com/6823116/album)
 
 ## 爬取文字和图片的区别
@@ -66,7 +66,7 @@ if not os.path.exists(dir_path):
 	os.makedirs(dir_path)
 ```
 
-最后提一嘴，`mkdir()`和`makrdirs()`都有一个默认的参数`mode`，用于配制我们创建的目录的权限，默认`mode=0o777`，表示 777 权限，即可读可写可执行。权限及其数值表示具体可见[Linux 权限及 chmod 命令](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)
+最后提一嘴，`mkdir()`和`makrdirs()`都有一个默认的参数`mode`，用于配制我们创建的目录的权限，默认`mode=0o777`，表示 777 权限，即可读可写可执行。权限及其数值表示具体可见[Linux 权限及 chmod 命令](../2023-10-10-Linux-User-and-System-2023#linux-权限及-chmod-命令)
 
 ### Python 操作 JSON 对象：json 库
 
@@ -301,5 +301,5 @@ for current_page in range(3):
 ## 参考
 
 1. [os — Miscellaneous operating system interfaces](https://docs.python.org/3/library/os.html)
-2. [Linux 权限及 chmod 命令](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)
+2. [Linux 权限及 chmod 命令](../2023-10-10-Linux-User-and-System-2023#linux-权限及-chmod-命令)
 3. [json — JSON encoder and decoder](https://docs.python.org/3/library/json.html)

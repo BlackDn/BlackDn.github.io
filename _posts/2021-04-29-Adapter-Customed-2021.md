@@ -23,7 +23,7 @@ tags:
 之前用 ArrayAdapter 和 SimpleAdapter 适配了 ListView，对 ListView 比较熟悉，那么这次就还以适配 ListView 为前提  
 和 SimpleAdapter 适配 ListView 的时候类似，每个 item 都是图文结合的  
 因此数据源和最后的效果相差不大，可以看看上一篇 Adapter 的博客，这里就不上图了  
-之前的传送门在这呢：[Adapter：ArrayAdapter 和 SimpleAdapter 适配 ListView](https://blackdn.github.io/2021/04/09/Adapter-ArrayAdapter-SimpleAdapter-2021/)
+之前的传送门在这呢：[Adapter：ArrayAdapter 和 SimpleAdapter 适配 ListView](../2021-04-09-Adapter-ArrayAdapter-SimpleAdapter-2021)
 
 ### 构造自定义 Adapter
 
@@ -297,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
 ### 小结
 
 到这自定义 Adapter 就算构建好并投入使用了  
-为了避免篇幅过长 item 和主界面的布局代码都没有改动，就不放了，想看的可以去[参考 1：之前的博客](https://blackdn.github.io/2021/04/09/Adapter-ArrayAdapter-SimpleAdapter-2021/)  
-最终结果实际上也和 SimpleAdapter 的一样不放了，同样可以看参考 1
+由于这篇文章紧接上篇的 **ArrayAdapter** 和 **SimpleAdapter** 介绍，为了避免篇幅过长， item 和主界面的布局代码都没有改动，这里就不展示了  
+最终结果实际上也和 SimpleAdapter 的一样
 
 简单来说自定义 Adapter 要经过三个步骤：
 
@@ -472,7 +472,7 @@ Adapter 这一块内容比较多，因为除了 ListView，还有 GridView、Rec
 
 ## 参考
 
-1. [我的博客：ArrayAdapter 和 SimpleAdapter 适配 ListView](https://blackdn.github.io/2021/04/09/Adapter-ArrayAdapter-SimpleAdapter-2021/)
+1. [我的博客：ArrayAdapter 和 SimpleAdapter 适配 ListView](../2021-04-09-Adapter-ArrayAdapter-SimpleAdapter-2021)
 2. [developers：Activity](https://developer.android.com/reference/android/app/Activity)
 3. [developers：View](https://developer.android.com/reference/android/view/View)
 4. [孙老师课堂-ListView2](https://www.bilibili.com/video/BV1Mx411L7DV)

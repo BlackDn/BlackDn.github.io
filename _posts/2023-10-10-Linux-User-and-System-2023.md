@@ -223,7 +223,7 @@ yang@root:~$ sudo cat /etc/sudoers
 yang is not in the sudoers file.  This incident will be reported.
 ```
 
-因此要为其提权，其实这个过程在[《给予 root 的权限》](https://blackdn.github.io/2022/01/01/Linux-in-Windows-2022/#%E7%BB%99%E4%BA%88root%E7%9A%84%E6%9D%83%E9%99%90)里提到过，现在再走一遍，简单来说就是修改`/etc/sudoers`文件（`/etc/sudoers`文件改错了会导致系统无法启动，建议做好备份，虚拟机可以打个快照）。  
+因此要为其提权，简单来说就是修改`/etc/sudoers`文件（`/etc/sudoers`文件改错了会导致系统无法启动，建议做好备份，虚拟机可以打个快照）。  
 `/etc/sudoers` 文件是用于配置 `sudo`命令（`"superuser do"`）命令的配置文件，其定义了**哪些用户**、可以在**哪些主机**上以超级用户（root）权限执行**哪些命令**，从而使管理员精确地控制权限分配。  
 （这里插一嘴，之所以有`sudo`这个命令也是出于安全性考虑，它允许管理员授予有限的特权给其他用户，而不必共享`root`密码。）
 
@@ -483,7 +483,7 @@ boot  etc  lib   media       opt  root  sbin  sys  usr
 - `/lib`：库文件（library），包含系统运行时所需的共享库文件
 - `/lost+found`：失物招领文件夹，通常为空，用于系统非法关机后的文件恢复
 - `/media`：用于挂载 Linux 识别到的媒体设备（U 盘、光驱等）
-- `/mnt`：用于临时**挂载（mount）** 别的文件系统，比如[WSL](https://blackdn.github.io/2022/01/01/Linux-in-Windows-2022/)里通过`/mnt`可以访问 Windows 主机的内容
+- `/mnt`：用于临时**挂载（mount）** 别的文件系统，比如[WSL](../2022-01-01-Linux-in-Windows-2022)里通过`/mnt`可以访问 Windows 主机的内容
 - `/opt`：用于安装可选软件（optional）的目录，通常由第三方软件包使用，如 ORACLE 数据库等
 - `/proc`：是一种**伪文件系统（虚拟文件系统）** ，包含有关正在运行的进程（Process）和系统内核状态的信息
 - `/root`：超级用户（root）的个人主目录

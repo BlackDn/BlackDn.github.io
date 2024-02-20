@@ -19,7 +19,7 @@ tags:
 准备看看 IOS 开发，所以先来做做热身  
 公司给的带有 M1 Pro 的 MacBook Pro 总不能浪费了吧（  
 每天写一点点，结果回头一看有这么多  
-所以就分成两篇文章啦，下一篇：[从 0 开始的 Swift（下）](https://blackdn.github.io/2022/11/18/Swift-Introduce-Part2-2022/)
+所以就分成两篇文章啦，下一篇：[从 0 开始的 Swift（下）](../2022-11-18-Swift-Introduce-Part2-2022)
 
 ## Swift 基础
 
@@ -1207,7 +1207,7 @@ print(evalExpression(finalExpression))
 
 ## 后话
 
-下一篇的传送门：[从 0 开始的 Swift（下）](https://blackdn.github.io/2022/11/18/Swift-Introduce-Part2-2022/)  
+下一篇的传送门：[从 0 开始的 Swift（下）](../2022-11-18-Swift-Introduce-Part2-2022)  
 因为本来是一片文章的，所以参考不分上下了，两篇都一样
 
 ## 参考

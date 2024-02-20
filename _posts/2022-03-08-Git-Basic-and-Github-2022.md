@@ -17,7 +17,7 @@ tags:
 
 ## 前言
 
-其实在古早时期写过一篇类似的文章：[Git 与 Github 的连接与使用](https://blackdn.github.io/2019/05/28/Git-Github-Use-2019/)  
+其实在古早时期写过一篇类似的文章：[Git 与 Github 的连接与使用](../2019-05-28-Git-Github-Use-2019)  
 但是那时候其实也是搞不太清  
 最近自己用的多了，想着应该没啥问题了吧，所以来重新梳理一下，都是些自己的理解  
 本内容只局限于基本使用，深度有限，如果看不起本文，或者想要深入学习，在文末给出了一些我觉得比较不错的 git 学习资源  
@@ -28,7 +28,7 @@ tags:
 Git 本身是一个版本控制工具，而根据其大致的操作流程，人们常将其分为**本地 git**和**远程 git**。  
 为了对命令本身有一个大致的印象，我们先从简单的本地 git 入手  
 Git 的安装就不多说了， 人家有自己的安装包的，所以不同操作系统下的 git 命令都差不多  
-这边有个常用 Git 命令汇总可以看看：[Git 指令整理](https://blackdn.github.io/2017/02/15/Git-Command-Arrangement/)
+这边有个常用 Git 命令汇总可以看看：[Git 指令整理](../2017-02-15-Git-Command-Arrangement)
 
 ### Git 创建本地仓库
 
@@ -37,7 +37,7 @@ Git 的安装就不多说了， 人家有自己的安装包的，所以不同操
 git init：创建git仓库
 ```
 
-为了方便操作，下面的演示都在 WSL 的 Linux 中进行（[WSL：Windows 自带 Linux 使用指南](https://blackdn.github.io/2022/01/01/Linux-in-Windows-2022/)）
+为了方便操作，下面的演示都在 WSL 的 Linux 中进行（[WSL：Windows 自带 Linux 使用指南](../2022-01-01-Linux-in-Windows-2022)）
 
 首先最基本的操作是创建一个本地 git 仓库，命令是`git init`：  
 这里建议用 root 用户创建噢，不然可能会因为权限问题而报错。
@@ -413,11 +413,9 @@ ok，至此，我们已经完全 git 入门，用 git 进行版本控制已经�
 
 ### 配置 SSH 密钥
 
-远程的 Git 我们以 GitHub 为例，当然许多其他代码库都是支持 git 连接的。  
-之前比较粗略的连接是这个：[Git 与 Github 的连接与使用](https://blackdn.github.io/2019/05/28/Git-Github-Use-2019/)。
+远程的 Git 我们以 GitHub 为例，当然许多其他代码库都是支持 git 连接的。
 
-第一步是要让 Github 知道，连接的是拥有 Github 账号的我们，这就需要进行 SSH 认证。
-
+第一步是要让 Github 知道，连接的是拥有 Github 账号的我们，这就需要进行 SSH 认证。  
 简单来说就是我们本地根据 Github 账号（邮箱）创建一个密钥，以下两种方式都可以选择，就是加密方式不同，分别为`ed25519`和`rsa`：
 
 ```bash
@@ -611,8 +609,8 @@ feat: add hat wobble
 
 ## 参考
 
-1. [Git 指令整理](https://blackdn.github.io/2017/02/15/Git-Command-Arrangement/)
-2. [Git 与 Github 的连接与使用](https://blackdn.github.io/2019/05/28/Git-Github-Use-2019/)
+1. [Git 指令整理](../2017-02-15-Git-Command-Arrangement)
+2. [Git 与 Github 的连接与使用](../2019-05-28-Git-Github-Use-2019)
 3. [使用 git add -p 整理 patch](https://blog.csdn.net/keocce/article/details/106471132)
 4. [Git 三大区域的操作分析](https://blog.csdn.net/a13590394462/article/details/74857360)
 5. [官方文档：生成新 SSH 密钥并添加到 ssh-agent](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)

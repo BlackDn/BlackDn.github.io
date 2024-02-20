@@ -40,7 +40,7 @@ tags:
 - `history`：查看历史命令
 - `pwd`：显示当前所在的目录
 - `type`：判断命令来源（是 bash 内置还是外部程序）
-- `chmod`：修改文件权限（具体可见：[Linux 权限及 chmod 命令](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E6%9D%83%E9%99%90%E5%8F%8Achmod%E5%91%BD%E4%BB%A4)）
+- `chmod`：修改文件权限（具体可见：[Linux 权限及 chmod 命令](../2023-10-10-Linux-User-and-System-2023/#linux-权限及-chmod-命令)）
 - `chwon`：修改文件所有者
 - `chgrp`：修改文件所属组
 - `su blackdn`：更改用户（switch user），从当前用户改为用户名为 blackdn 的用户
@@ -125,7 +125,7 @@ tags:
 - `lsblk -d`：只显示块设备，而不包括其子设备（如分区）的信息
 - `lsblk /dev/sda`：查看指定设备信息
 
-- `fdisk`：用于管理硬盘分区，对磁盘分区进行创建、删除、修改等。具体操作可见：[Linux 磁盘分区](https://blackdn.github.io/2023/10/10/Linux-User-and-System-2023/#linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA)
+- `fdisk`：用于管理硬盘分区，对磁盘分区进行创建、删除、修改等。具体操作可见：[Linux 磁盘分区](../2023-10-10-Linux-User-and-System-2023/#linux-磁盘分区)
 
 - `shutdown`：关机，默认一分钟后关机
 - `shutdown -h now`：立即关机

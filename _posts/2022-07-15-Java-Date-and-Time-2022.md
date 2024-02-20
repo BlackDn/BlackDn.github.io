@@ -16,7 +16,7 @@ tags:
 
 ## 前言
 
-之前写过一个[Java 日期表示](https://blackdn.github.io/2019/10/17/Java-Date-Expression-2019/)，但是没写全，只是比较简单地讲了下`Data类`和`Calendar类`  
+之前写过一个[Java 日期表示](../2019-10-17-Java-Date-Expression-2019)，但是没写全，只是比较简单地讲了下`Data类`和`Calendar类`  
 所以重新来整理一下，搞个相对全面的 Java 日期和时间的文章出来  
 最近经历了好多事情，毕业照、毕业视频、生日、漫协嘉年华，不过都一一落幕了  
 大学生活啊，已经结束了
@@ -451,7 +451,7 @@ calendar.setTimeInMillis(timeStamp);    //设置时间
 
 ## 参考
 
-1. [Java 日期表示](https://blackdn.github.io/2019/10/17/Java-Date-Expression-2019/)
+1. [Java 日期表示](../2019-10-17-Java-Date-Expression-2019)
 2. [廖雪峰：日期与时间](https://www.liaoxuefeng.com/wiki/1252599548343744/1255943660631584)
 3. [java 日期时间](https://blog.csdn.net/qq_37746118/article/details/106601198?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0-106601198-blog-118820816.pc_relevant_multi_platform_whitelistv1&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
 4. [JDK 官方文档：SimpleDateFormat](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/text/SimpleDateFormat.html)

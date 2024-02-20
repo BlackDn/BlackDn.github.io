@@ -16,7 +16,7 @@ tags:
 
 ## 前言
 
-上一篇在这：[从 0 开始的 Swift（上）](https://blackdn.github.io/2022/11/17/Swift-Introduce-Part1-2022/)  
+上一篇在这：[从 0 开始的 Swift（上）](../2022-11-17-Swift-Introduce-Part1-2022)  
 这篇主要是关于类、结构体、协议之类的东西，似乎是以面向对象为主。  
 稍微比上一篇少一丢丢
 
@@ -1002,7 +1002,7 @@ func makeASandwich() throws {
 
 ## 后话
 
-也先放一个上一篇的传送门：[从 0 开始的 Swift（上）](https://blackdn.github.io/2022/11/17/Swift-Introduce-Part1-2022/)  
+也先放一个上一篇的传送门：[从 0 开始的 Swift（上）](../2022-11-17-Swift-Introduce-Part1-2022)  
 写完一看，两篇加起来文字超过 1 万 8，总字符超过 5 万 6  
 笑死，下次就出书
 

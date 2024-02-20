@@ -151,7 +151,7 @@ ssh-rsa AAAAB3NzaC1yc2.....
 ```
 
 接下来再登录就不需要密码了。  
-不过要注意的是，如果之前配置过~/.ssh/config 的话（比如[Git 配置多用户](https://blackdn.github.io/2022/10/04/Git-Advance-2022/#%E4%B8%80%E4%B8%AA%E8%AE%BE%E5%A4%87%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AAgithub%E7%94%A8%E6%88%B7)），需要在其中额外为这次的 Linux 添加配置：
+不过要注意的是，如果之前配置过~/.ssh/config 的话（比如[Git 配置多用户](../2022-10-04-Git-Advance-2022)），需要在其中额外为这次的 Linux 添加配置：
 
 ```
 # Github ssh
