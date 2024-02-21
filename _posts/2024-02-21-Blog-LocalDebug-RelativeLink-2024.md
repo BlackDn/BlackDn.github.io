@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Blog
   - Jekyll
+  - Tutorial
 ---
 > "待到明年又一春，桃花红，梨花白，菜花黄。"
 
