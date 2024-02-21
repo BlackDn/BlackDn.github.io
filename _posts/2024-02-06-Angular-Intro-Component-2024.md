@@ -21,7 +21,7 @@ tags:
 开始学习 **Angular JS** ，开始整一篇基本用法，结果一看光是 **Component** 内容就多到可以喝一壶。其他像是 **Directive 指令** 等其他内容就放在之后的文章里吧  
 武汉大雪，银装素裹，怪好看的咧
 
-## Angular JS 入门指南
+## Angular JS 简介
 
 **Angular JS（简称 Angular）** 是一个由 Google 开源维护的 **JavaScript MVC 框架**，基于 HTML 和 **JavaScript**，不过随着其更新迭代，现在是基于 **TypeScript** ，并引入了一系列 MVVM 架构的思想特性  
 Angular JS 的主要特性和优势如下：
