@@ -167,6 +167,9 @@ document.addEventListener("visibilitychange", function () {
 ![title-result](https://s1.ax1x.com/2023/04/03/pphPKts.png)
 
 两种都可以，还可以改变颜色等，做一个自己喜欢的描边。  
+
+### 使用插件生成 .min.css 文件
+
 这里要注意一点，咱们项目中的`css`文件有两个，包括普通的`.css`和`.min.css`，但是实际上咱们的**Github Page**识别的只是`.min.css`；有空格和换行的`.css`是给我们人类看的。于是问题来了，你说我只修改 `.min.css`吧，看代码要看半天；你说我修改`.css`吧他又识别不了修改。  
 在之前的文章中我同时修改两个文件来让其保持一致，但是这样也挺麻烦的，于是今天我找了个插件来实现这个转换，在**VSCode**中安装**Minify**插件，然后在写完`.css`后打开内置命令行（Command Palette，默认快捷键`Ctrl/Cmd + Shift + P`），运行`Minify`命令，那么在同目录下就会生成对应的`.min.css`文件（暂时还没找到自动将`.css`变为`.min.css`的插件）。  
 所以以后只用修改`.css`，然后生成一下`.min.css`就好啦。
