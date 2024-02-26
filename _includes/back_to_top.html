@@ -1,0 +1,29 @@
+<div id="back-to-top">
+  <a href="#top" title="回到顶部">
+    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+  </a>
+</div>
+
+<script type="text/javascript">
+  $("#back-to-top").hide();
+  $(document).ready(() => {
+    // show / hide button by current position
+    $(window).scroll(() => {
+      if ($(this).scrollTop() > 500) {
+        $("#back-to-top").fadeIn();
+      } else {
+        $("#back-to-top").fadeOut();
+      }
+    });
+    // scroll animation
+    $("#back-to-top a").click(() => {
+      $("body,html").animate(
+        {
+          scrollTop: 0,
+        },
+        500
+      );
+      return false;
+    });
+  });
+</script>
