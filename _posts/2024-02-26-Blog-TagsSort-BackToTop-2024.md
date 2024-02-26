@@ -67,14 +67,14 @@ tags:
   <!-- 标签云 -->
   <div id="tag_cloud" class="tags">
 	{% raw %}{% assign sorted_tags = site.tags | sort %}{% endraw %}
-	{% raw %}{% for tag in sorted_tags %} %}{% endraw %}
+	{% raw %}{% for tag in sorted_tags %}{% endraw %}
 	...
 	{% raw %}{% endfor %}{% endraw %}
   </div>
 
   <!-- 标签列表 -->
-  {% raw %}{% {% assign sorted_tags = site.tags | sort %}{% endraw %}
-  {% raw %}{% for tag in sorted_tags %} %}{% endraw %}
+  {% raw %}{% assign sorted_tags = site.tags | sort %}{% endraw %}
+  {% raw %}{% for tag in sorted_tags %}{% endraw %}
   ...
   {% raw %}{% endfor %}{% endraw %}
   ...
@@ -102,7 +102,7 @@ tags:
 ```
 
 内容比较简单，就是一个按钮的布局。按钮的样式我们采用 [Font Awesome Icons](https://fontawesome.com/v4/icons/) ，找了个带圆圈背景的箭头，为标签 `<i>` 设置 `class="fa fa-arrow-circle-up"` 即可。  
-因为我们站点大部分用的都是 FA 的图标，这里保持一致，总体风格啊，颜色样式啊啥的都不需要额外修改，比较方便
+因为我们站点大部分用的都是 **FA** 的图标，这里保持一致，总体风格、颜色样式啊啥的都不需要额外修改，比较方便
 
 ### 按钮的显示隐藏及点击
 
@@ -111,7 +111,7 @@ tags:
 1. 页面向下滚动一段距离后展示按钮，否则隐藏按钮
 2. 点击按钮回到页面顶部
 
-因为涉及到功能，所以我们用**JS**代码实现。不过由于代码量不大，方便起见我们可以直接写在 `html` 文件里面，内容如下：
+这些功能我们用**JS**代码实现，由于代码量不大，方便起见我们可以直接写在 `html` 文件里面，内容如下：
 
 ```html
 <!-- _includes/back_to_top.html -->
@@ -147,11 +147,12 @@ tags:
 ```
 
 主要的两部分代码对应着上面的两个需求，首先我们会进行一个判断，如果当前位置和页面顶部的距离大于`500px` （`$(this).scrollTop() > 500`），则调用 `fadeIn()` 展示按钮，否则调用 `fadeOut()` 让按钮隐藏。当然这个 `500` 可以自己看心情改。  
-下面那部分就是按钮的点击事件，这里用了一个动画的滚动，在 `500ms` 的时间里滚动到 `scrollTop: 0` 的位置（就是页面顶部）
+下面那部分就是按钮的点击事件，这里用了一个滚动动画，在 `500ms` 的时间里滚动到 `scrollTop: 0` 的位置（即页面顶部）
 
 ### 添加按钮样式
 
-按钮的 `css` 样式我们直接放到 `hux-blog.css` 和 `hux-blo.min.css` 里要注意的是实际上站点识别的是 `hux-blo.min.css` ，而 `hux-blog.css` 只是我们更易读的版本。可以用 **Minify** 等插件生成 `.min.css`，或者自己手动复制内容到 `.min.css` 中。
+按钮的 `css` 样式我们直接放到 `hux-blog.css` 和 `hux-blo.min.css` 里。  
+要注意的是实际上站点识别的是 `hux-blo.min.css` ，而 `hux-blog.css` 只是我们更易读的版本。可以用 **Minify** 等插件生成 `.min.css`，或者自己手动复制内容到 `.min.css` 中。
 
 ```css
 /* ... */
