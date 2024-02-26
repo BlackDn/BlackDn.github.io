@@ -682,8 +682,8 @@ Angular 有很多自带库来实现一些常见的功能，比如路由、表单
 ## 参考
 
 1. [Angular JS 简介](https://www.angularjs.net.cn/tutorial/1.html)
-2. [What is Angular?](https://angular.io/guide/what-is-angular)
-3. [Understanding Angular](https://angular.io/guide/understanding-angular-overview)
+2. [Angular Docs: What is Angular?](https://angular.io/guide/what-is-angular)
+3. [Angular Docs: Understanding Angular](https://angular.io/guide/understanding-angular-overview)
 4. [深入理解 Angular 中 ng-container 和 ng-template](https://frontend.devrank.cn/traffic-information/7280490426879150117)
 5. [Everything you need to know about ng-template, ng-content, ng-container, and \*ngTemplateOutlet in Angular](https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/)
 6. 感谢 ChatGPT（由于 3.5 的知识库中最新的 Angular 版本为`v12`，如今已经到`v17`，很多新特性会回答有误或回答不上来）
