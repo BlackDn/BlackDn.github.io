@@ -184,12 +184,12 @@ tags:
 <!-- _layouts/default.html -->
 <!-- ... -->
 <body ontouchstart="">
-	{% include nav.html %}
-	{% include search.html %}
-	{{ content }}
-	{% include footer.html %}
+	{% raw %}{% include nav.html %}{% endraw %}
+	{% raw %}{% include search.html %}{% endraw %}
+	{% raw %}{{ content }}{% endraw %}
+	{% raw %}{% include footer.html %}{% endraw %}
 	<!-- 添加这一行 -->
-	{% include back_to_top.html %}
+	{% raw %}{% include back_to_top.html %}{% endraw %}
 </body>
 <!-- ... -->
 ```
