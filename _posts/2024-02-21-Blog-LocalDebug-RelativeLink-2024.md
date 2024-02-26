@@ -145,7 +145,7 @@ Configuration file: /xxx/BlackDn.github.io/_config.yml
 其中的`https://blackdn.github.io/`是 **Jekyll** 的 `baseurl`，后面的内容则是 **Jekyll** 通过解析文件名得到的。  
 当然用绝对路径多少有点弊端，比如我以后修改了`baseurl`，或者我不用**GitHub Pages**，换了个平台，或者自己租服务器搭博客网站，那所有绝对路径的内容都得再改。  
 
-另外还有一个理由，就是我想用上 **Obsidian**（我用的 **Markdown** 编辑器）的 **Graph View** 功能，它会根据文章间的互相引用生成一个可视化的图，但是只有使用**相对路径**才能让**Obsidian** 的 **Graph View** 自动识别并生成图：
+另外还有一个想用相对路径的理由，就是我想用上 **Obsidian**（我用的 **Markdown** 编辑器）的 **Graph View** 功能，它会根据文章间的互相引用生成一个可视化的图，但是只有使用**相对路径**才能让**Obsidian** 的 **Graph View** 自动识别并生成图：
 
 ![Obsidian Graph](https://s11.ax1x.com/2024/02/21/pFtUbeU.png)
 
@@ -160,34 +160,34 @@ Configuration file: /xxx/BlackDn.github.io/_config.yml
 有以下三种 **Markdown** 相对路径链接， **Obsidian** 都可以识别并跳转，也可以生成图：  
 
 ```markdown
-[Jump to XXX](2024-02-06-xxx-2024)
-[Jump to XXX](./2024-02-06-xxx-2024)
-[Jump to XXX](../2024-02-06-xxx-2024)
+[Jump to XXX](2024-02-06-xxx)
+[Jump to XXX](./2024-02-06-xxx)
+[Jump to XXX](../2024-02-06-xxx)
 ```
 
-反观 **Jekyll**，源文件名为 `2024-02-06-xxx-2024.md`的文章，我们将其看成 `{year}-{month}-{day}-{title}` 的格式 ，它会被 **Jekyll** 解析成：`https://blackdn.github.io/2024/02/06/xxx-2024/`  
+反观 **Jekyll**，源文件名为 `2024-02-06-xxx.md`的文章，我们将其看成 `{year}-{month}-{day}-{title}` 的格式 ，它会被 **Jekyll** 解析成：`https://blackdn.github.io/2024/02/06/xxx/`  
 即 `{baseurl}/{year}/{month}/{day}/{title}` 的格式   
 
 也就是说，目前的 **Jekyll** 会根据年月日依次创建出子目录。虽然子目录的形式看着更舒服，更易读，但同时也阻止我们直接套用上面的相对路径链接。 
-举个🌰，我们正在浏览的某篇文章源文件名为 `2022-02-22-Example-2022.md`  ，那么我们当前 `url` 为 `https://blackdn.github.io/2022/02/22/Example-2022/`  ，这个时候点击上面的三行 **Markdown** 跳转后，`url` 分别会变成：
+举个🌰，我们正在浏览的某篇文章源文件名为 `2022-02-22-Example.md`  ，那么我们当前 `url` 为 `https://blackdn.github.io/2022/02/22/Example/`  ，这个时候点击上面的三行 **Markdown** 跳转后，`url` 分别会变成：
 
 ```
-源文件：2022-02-22-Example-2022.md
-当前url：https://blackdn.github.io/2022/02/22/Example-2022/
+源文件：2022-02-22-Example.md
+当前url：https://blackdn.github.io/2022/02/22/Example/
 
-点击：[Jump to XXX](2024-02-06-xxx-2024)
-或   [Jump to XXX](./2024-02-06-xxx-2024)
+点击：[Jump to XXX](2024-02-06-xxx)
+或   [Jump to XXX](./2024-02-06-xxx)
 跳转到url：
-https://blackdn.github.io/2022/02/22/Example-2022/2024-02-06-xxx-2024
+https://blackdn.github.io/2022/02/22/Example-2022/2024-02-06-xxx
 
-点击：[Jump to XXX](../2024-02-06-xxx-2024)
+点击：[Jump to XXX](../2024-02-06-xxx)
 跳转到url：
-https://blackdn.github.io/2022/02/22/2024-02-06-xxx-2024
+https://blackdn.github.io/2022/02/22/2024-02-06-xxx
 
-而正确的url：https://blackdn.github.io/2024/02/06/xxx-2024/
+而正确的url：https://blackdn.github.io/2024/02/06/xxx/
 ```
 
-显然，上面跳转后的`url`都是错误的，都会跳到404页面。  
+显然，上面跳转后的`url`都是错误的，都会跳到**404页面**。  
 总而言之，相对路径在 **Markdown** 中是可行的，但是被 **Jekyll** 解析成 `url` 后出了错，主要存在着两个问题：
 1. 年月日带来的子目录让我们的相对路径不能正确地找到位置，总不能写成 `[Jump to XXX](../../../../xxx)`吧，太抽象了=。=
 2. 我们无法将源文件名中的年月日在 **Markdown** 的链接中解析成子目录（就是没法将年月日中间的`-`替换成`/`）
@@ -200,10 +200,10 @@ https://blackdn.github.io/2022/02/22/2024-02-06-xxx-2024
 没有了子目录，所有文章的 `url` 都变成 `{baseurl}/{源文件名}`，那么只要在 **Markdown** 是 `../{其他文件名}` 的形式，就可以跳转到其他文章了：
 
 ```
-源文件：2022-02-22-Example-2022.md
-当前url：https://blackdn.github.io/2022-02-22-Example-2022/
-点击：[Jump to XXX](../2024-02-06-xxx-2024)
-跳转到url：https://blackdn.github.io/2024-02-06-xxx-2024/
+源文件：2022-02-22-Example.md
+当前url：https://blackdn.github.io/2022-02-22-Example/
+点击：[Jump to XXX](../2024-02-06-xxx)
+跳转到url：https://blackdn.github.io/2024-02-06-xxx/
 ```
 
 合理！  
@@ -255,12 +255,12 @@ paginate: 10
 
 ```
 permalink: /:year_:month_:day_:title
-源文件名：2022-02-22-Example-2022.md
-url：https://blackdn.github.io/2022_02_22_Example-2022
+源文件名：2022-02-22-Example.md
+url：https://blackdn.github.io/2022_02_22_Example
 
 permalink: /:short_year/:i_month/:i_day/:title:output_ext
-源文件名：2022-02-03-Example-2022.md
-url：https://blackdn.github.io/22/2/3/Example-2022.md
+源文件名：2022-02-03-Example.md
+url：https://blackdn.github.io/22/2/3/Example.md
 ```
 
 此外，**Jekyll** 提供了一些内置的模板
@@ -324,10 +324,10 @@ Markdown链接：[Jump to XXX](../2022-02-03-XXX)
 
 （可能某些冷门的或者版本较低的浏览器不支持中文，但我就不考虑这么多了，反正我试了 **Google** 和 **Safari** 都是可以的）
 
-此外，虽然上面的 `url` 中，锚点与前面的内容之间有一个斜杠`/` （`...-2024/#angular-js-简介`），但我们在 **Markdown** 中需要把这个斜杠去掉，原因和上面类似， **Obsidian** 会认为这是一个文件夹而非文件，导致跳转失败。  
+此外，虽然上面的 `url` 中，锚点与前面的内容之间有一个斜杠`/` （`...-xxx/#angular-js-简介`），但我们在 **Markdown** 中需要把这个斜杠去掉，原因和上面类似， **Obsidian** 会认为这是一个文件夹而非文件，导致跳转失败。  
 
-不过要注意一点，如果标题中间含有空格，比如这个`...-2024/#angular-js-简介`的标题 **Angular JS 简介**，它在网页上可以成功定位锚点，在 **Obsidian** 中则会失败。（如果没有空格两那都能成功定位）    
-不过没事，它不妨碍 **Obsidian** 跳转到对应文章以及图的生成，只能说咱的 **Obsidian** 还有待加强🐶
+不过要注意一点，如果**标题中间含有空格**，比如这个`...-xxx/#angular-js-简介`的标题 **Angular JS 简介**，它在网页上可以成功定位锚点，在 **Obsidian** 中则会失败。     
+不过没事，锚点的失败不妨碍 **Obsidian** 跳转到对应文章以及图的生成，只能说咱的 **Obsidian** 还有待加强🐶
 
 #### 标签页的锚点跳转
 
