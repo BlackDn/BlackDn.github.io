@@ -159,9 +159,6 @@ tags:
   bottom: 30px;
   right: 0%;
   margin-right: 40px;
-  -webkit-transition: 0.7s;
-  -moz-transition: 0.7s;
-  transition: 0.7s;
 }
 #back-to-top a {
   text-decoration: none;
