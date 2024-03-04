@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Angular JS 入门指南
-subtitle: Angular JS 简介及 Component 使用
+title: Angular  入门指南：组件
+subtitle: Angular 简介及 Component 使用
 date: 2024-02-06
 author: BlackDn
 header-img: img/21mon1_30.jpg
@@ -13,38 +13,38 @@ tags:
 
 > "像亿万星辰奔波漫漫长夜，不诉怨语。"
 
-# Angular JS 入门指南
+# Angular 入门指南：组件
 
 ## 前言
 
 新年新气象，年前赶紧发一篇=v=  
-开始学习 **Angular JS** ，开始整一篇基本用法，结果一看光是 **Component** 内容就多到可以喝一壶。其他像是 **Directive 指令** 等其他内容就放在之后的文章里吧  
+开始学习 **Angular** ，结果光是 **Component** 内容就多到可以喝一壶，就先喝为敬    
 武汉大雪，银装素裹，怪好看的咧
 
-## Angular JS 简介
+要注意的是， **Angular** 更新了自己的**项目结构**，为了避免边看边做的童鞋们遇到奇怪的问题，这里提一嘴：   
+ **Angular** 之前是 **基于模块（Module-Based）** 的项目结构，现在推荐使用**独立项目结构（Standalone）**  
+具体内容由于篇幅原因就不过多介绍了，简单来说就是如果用的是之前 **基于模块的项目**，需要在`app.module.ts`文件中声明引用的组件；如果是用的是**独立项目结构** ，在当前组件的`imports` 中声明被引用组件即可
 
-**Angular JS（简称 Angular）** 是一个由 Google 开源维护的 **JavaScript MVC 框架**，基于 HTML 和 **JavaScript**，不过随着其更新迭代，现在是基于 **TypeScript** ，并引入了一系列 MVVM 架构的思想特性  
-Angular JS 的主要特性和优势如下：
+## Angular 简介
 
-- **基于 MVC**：通过 `Model`，`View`，`Controller` 的模式，将**数据层**、**表示层**、**业务逻辑层**拆分为单独的部分，从而以**声明式**的方式构建数据模型（Model）。Angular JS 认为，**声明式的代码在构建 UI 和组件时更加友好，而命令式的代码更擅长展现业务逻辑**。
-- **数据绑定（Data Binding）** ：Angular 能够实现 **自动化双向数据绑定**。通过在数据模型（Model）中声明需要绑定的数据后，Angular JS 会自动为我们同步数据。
-- **基于组件（Component-Based）**：Angular JS 允许我们构建 **HTML 组件** 并复用，以此将应用划分为可管理、组织良好、职责明确的结构，以提高代码的可维护性和可扩展性。
-- **指令（Directive）**：Angular JS 通过指令来**扩展 HTML 语法**。比如在 HTML 标签中加入 `ngIf` / `ngFor` 来实现是否渲染 / 循环渲染元素；支持自定义指令等。
-- **测试（Testing）**：Angular JS 支持**单元测试（Unit Test）** 和 **端到端测试（e2e Test）**，能很方便地使用 Google 自家出品的**Karma 测试框架**。
-- **Angular CLI**：Angular JS 有一套自己的命令行工具，比如用于编译项目的`ng build`、用于生成组件的`ng generate`、用于执行单元测试的`ng test`等。将一些**代码无关**的工作交给命令行工具，方便开发者专注于代码和构建应用。
-- ······
+开始的开始，**Google** 推出了 **AngularJS**（好像是收购的），它基于 **MVC** 架构，使用 **JavaScript** 语言开发。  
+不过后来微软推出了 **TypeScript**，相当于 **JS** 的升级版，特性更多更好用，所以 **AngularJS** 不甘示弱，用 **TypeScript** 重写了一下，推出了 **AngularJS 2.0**。由于两者从从代码结构到开发语言，差别有点大，大家觉得他们都叫 **AngularJS** 容易混淆，所以 `2.0` 之后，统一称之为 **Angular**。  
+如今 **AngularJS** 已经过时，官方不再支持，而 **Angular** 已经到了 `v17.1.x` （[Angular Doc: Actively supported versions](https://angular.io/guide/versions#actively-supported-versions)）。反正 **AngularJS** 有的 **Angular** 都有，我们就直接从 **Angular** 开始说起。
 
-要注意的是，[Angular 中文网](https://www.angularjs.net.cn/)和百度（百度抄的中文网）说**Angular JS**是**MVVM 架构**，而其他大部分博客和维基百科说是**MVC 架构**，那么到底谁对谁错呢？  
-事实上，**Angular JS** 是建立在**MVC 架构的基础**上的，但是在其迭代更新的过程中，逐渐融入了一些**MVVM 架构的概念**，比如**双向数据绑定**、比如“通过指令（Directives）扩展 HTML”类似于**视图模型（ViewModel）**。  
-所以严格来说，**AngularJS** 在设计上结合了 MVC 和 MVVM 的思想，但其基础是建立在 MVC 架构上的。
-
-简单来说，**Angular JS**的一系列特性和优势使其成为一个功能强大，易于构建、开发、测试、更新的开发框架
+**Angular** 的一些特性和优势如下，除了 **AngularJS** 就有的 **MVC** 特性，更是加入了 **MVVM** 的一些思想：
+- **基于组件（Component-Based）**：**Angular** 允许我们构建 **HTML 组件** 并复用，以此将应用划分为可管理、组织良好、职责明确的结构，以提高代码的可维护性和可扩展性。
+- **基于 MVC**：通过 `Model`，`View`，`Controller` 的模式，让每个组件有自己的模版、样式、控制器。**Angular** 认为，**“声明式的代码在构建 UI 和组件时更加友好，而命令式的代码更擅长展现业务逻辑”**。
+- **数据绑定（Data Binding）** ：**Angular** 能够实现 **自动化双向数据绑定**。通过在数据模型（Model）中声明需要绑定的数据后，**Angular** 会自动为我们同步数据。
+- **指令（Directive）**：**Angular** 通过指令来**扩展 HTML 语法**。比如在 HTML 标签中加入 `ngIf` / `ngFor` 来实现是否渲染 / 循环渲染元素；支持自定义指令等。
+- **测试（Testing）**：**Angular** 支持**单元测试（Unit Test）** 和 **端到端测试（e2e Test）**，能很方便地使用 Google 自家出品的**Karma 测试框架**。
+- **Angular CLI**：**Angular** 有一套自己的命令行工具，比如用于编译项目的`ng build`、用于生成组件的`ng generate`、用于执行单元测试的`ng test`等。将一些**代码无关**的工作交给命令行工具，方便开发者专注于代码和构建应用。
+- 路由、依赖注入、模块化······
 
 ## 组件 Components
 
-因为 Angular JS 是 **基于组件（Component-Based）** 的，因此我们就先接触一下组件及其相关功能/特性的使用
+因为 **Angular** 是 **基于组件（Component-Based）** 的，因此我们就先接触一下组件及其相关功能/特性的使用
 
-**Angular JS** 中的组件通常以  `component`  作为后缀，如  `my-name.component.ts` 。通常一个组件包含以下几个文件：
+**Angular** 中的组件通常以  `component`  作为后缀，如  `my-name.component.ts` 。通常一个组件包含以下几个文件：
 
 - `my-name.component.ts` ：当前组件的数据模型，相当于 MVC 中的 Model。组件的数据、行为、方法都在这里定义，同时声明了组件的**HTML 样式**和**css 样式**。
 - `my-name.component.html` ：当前组件的 HTML 模板文件，若 HTML 以代码形式声明则可以不用。
@@ -134,10 +134,10 @@ export class DemoComponent {
 在模板中我们用方括号`[]`传入动态属性，以实现数据绑定，即**属性绑定**。  
 这让 **Angular** 以 **Javascript** 来解释传入的内容，而非单纯的字符串，比如之前`hello-world`组件的示例：
 
-```javascript
+```html
   <hello-world
     [title]="myTitle"
-  ></app-product-alerts>
+  ></hello-world>
 ```
 
 我们给组件的`[title]`属性传入了`"myTitle"`，虽然用了双引号包裹，但实际上这个`myTitle` 是外部组件的一个**变量**
@@ -646,44 +646,18 @@ export class AgeComponent {
 `currentAge` 是父组件的一个变量，我们实现了将 `currentAge` 和子组件中的 `age` 属性双向绑定。  
 显示的数据是父组件传递给子组件的：`currentAge -> age` ，当我们点击按钮后执行`happyBirthday()` 方法，修改的是子组件自己的 `age` 属性，然后将修改完的结果传给父组件：`age -> currentAge`
 
-## CLI 和 自带库
-
-Angular 自带一套 CLI 工具（命令行工具），能简化许多任务，常用的命令如下：  
-（虽然没有明说，但是我觉得 `ng` 应该是 **Angular** 的音译，所以拿它来做前缀）
-
-| 命令          | 作用                                   |
-| ------------- | -------------------------------------- |
-| `ng build`    | 编译 Angualr 项目输出到指定目录        |
-| `ng serve`    | 构建并运行项目，文件变化后自动重新构建 |
-| `ng generate` | 生成对应文件                           |
-| `ng test`     | 运行单元测试                           |
-| `ng e2e`      | 编译并运行项目，且运行端到端测试       |
-
-一两句话解释起来有些云里雾里的，但是这些命令在某些时候确实挺方便的。如果我们想要新建一个组件，通常会有`.ts`，`.html`，`.css` 这些当前组件对应的文件，更别说还可能会有`.spec`测试文件等，自己一个个创建十分麻烦。  
-这时候可以使用命令 `ng generate component my-component`，这个时候 Angular 会在当前目录下创建一个文件夹，其中就包含了上述的所有文件，就不需要自己一个个新建了，十分方便。
-
-Angular 有很多自带库来实现一些常见的功能，比如路由、表单、请求、动画等。
-
-| 库                     | 作用                                                           |
-| ---------------------- | -------------------------------------------------------------- |
-| **Angular Router**     | 提供路由机制和导航功能，支持懒加载、嵌套路由、自定义路径匹配等 |
-| **Angular Forms**      | 表单填写和输入验证                                             |
-| **Angular HttpClient** | 客户端 - 服务器通信                                            |
-| **Angular Animations** | 动画                                                           |
-| **Angular PWA**        | 用于构建渐进式 Web 应用（Progressive Web App）                 |
-| **Angular Schematics** | 一系列部署、重构、升级的自动化工具                             |
-
 ## 后话
 
-到最后我们会发现，**Angular JS** 的大部分内容都离不开**模板**，或者说 **HTML** 代码。  
-也许是因为 Angular 主打一个**扩展 HTML**的招牌，不论是插值、绑定、内容投影，还是指令，最终都是为 HTML 服务的，因此都要回归 HTML 代码。  
+到最后我们会发现，**Angular** 的大部分内容都离不开**模板**，或者说 **HTML** 代码。  
+毕竟 **Angular** 主打一个**扩展 HTML**的招牌，让静态的 HTML 代码动态化。不论是插值、绑定、内容投影，还是指令，最终都是为 HTML 服务的，因此都要回归 HTML 代码。  
 所以每次写例子的时候最后都要再搞一块 HTML 内容，文章就会像这样嘎嘎长，哭 😭
 
 ## 参考
 
-1. [Angular JS 简介](https://www.angularjs.net.cn/tutorial/1.html)
-2. [Angular Docs: What is Angular?](https://angular.io/guide/what-is-angular)
-3. [Angular Docs: Understanding Angular](https://angular.io/guide/understanding-angular-overview)
-4. [深入理解 Angular 中 ng-container 和 ng-template](https://frontend.devrank.cn/traffic-information/7280490426879150117)
-5. [Everything you need to know about ng-template, ng-content, ng-container, and \*ngTemplateOutlet in Angular](https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/)
-6. 感谢 ChatGPT（由于 3.5 的知识库中最新的 Angular 版本为`v12`，如今已经到`v17`，很多新特性会回答有误或回答不上来）
+1. [AngularJS Doc](https://docs.angularjs.org/guide/introduction)
+2. [Angular Doc: Actively supported versions](https://angular.io/guide/versions#actively-supported-versions)
+3. [Angular Docs: What is Angular?](https://angular.io/guide/what-is-angular)
+4. [Angular Docs: Understanding Angular](https://angular.io/guide/understanding-angular-overview)
+5. [深入理解 Angular 中 ng-container 和 ng-template](https://frontend.devrank.cn/traffic-information/7280490426879150117)
+6. [Everything you need to know about ng-template, ng-content, ng-container, and \*ngTemplateOutlet in Angular](https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/)
+7. 感谢 ChatGPT（由于 3.5 的知识库中最新的 Angular 版本为`v12`，如今已经到`v17`，有些新特性会回答有误或回答不上来）

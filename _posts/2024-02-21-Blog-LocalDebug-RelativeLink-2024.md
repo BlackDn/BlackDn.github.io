@@ -31,7 +31,7 @@ tags:
 ### 添加本地的 Gemfile
 
 首先，我们知道我们的 **GitHub Pages** 站点是通过 **Jekyll** 生成的，按照正常运行 **Jekyll** 项目的套路，我们只需要先运行 `bundle install` 安装依赖包，然后再 `bundle exec jekyll serve` 启动本地调试即可。  
-遗憾的是，不出意外的话我们的 `bundle install` 会报错，提示当前目录没有 `Gemfile` 文件，这个文件就是包含项目所需的依赖，类似 `packages.json` 之于 `npm`。  
+遗憾的是，不出意外的话我们的 `bundle install` 会报错，提示当前目录没有 `Gemfile` 文件，这个文件就是包含项目所需的依赖，类似 `package.json` 之于 `npm`。  
 由于 **GitHub Pages** 在 GitHub 端编译生成网站，所以它那边自带 `Gemfile` ，不需要我们本地维护，因此我们的博客项目文件里是不包含 `Gemfile` 的。但是我们现在要本地调试，不得不需要这个 `Gemfile`，这就尬住了。  
 不过没关系，有个好消息，**GitHub Pages** 的 `Gemfile` 是开源的：[pages-gem](https://github.com/github/pages-gem)！
 
