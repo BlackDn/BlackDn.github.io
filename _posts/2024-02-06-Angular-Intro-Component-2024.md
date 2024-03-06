@@ -1,19 +1,19 @@
 ---
 layout: post
-title: Angular  入门指南：组件
+title: Angular  入门：组件
 subtitle: Angular 简介及 Component 使用
 date: 2024-02-06
 author: BlackDn
 header-img: img/21mon1_30.jpg
 catalog: true
 tags:
-  - JavaScript
-  - AngularJS
+  - Angular
+  - Web
 ---
 
 > "像亿万星辰奔波漫漫长夜，不诉怨语。"
 
-# Angular 入门指南：组件
+# Angular：组件 Component
 
 ## 前言
 
@@ -25,6 +25,7 @@ tags:
  **Angular** 之前是 **基于模块（Module-Based）** 的项目结构，现在推荐使用**独立项目结构（Standalone）**  
 具体内容由于篇幅原因就不过多介绍了，简单来说就是如果用的是之前 **基于模块的项目**，需要在`app.module.ts`文件中声明引用的组件；如果是用的是**独立项目结构** ，在当前组件的`imports` 中声明被引用组件即可
 
+新写了指令的文章：[Angular Directive](../2024-03-06-Angular-Intro-Directive-2024)
 ## Angular 简介
 
 开始的开始，**Google** 推出了 **AngularJS**（好像是收购的），它基于 **MVC** 架构，使用 **JavaScript** 语言开发。  
