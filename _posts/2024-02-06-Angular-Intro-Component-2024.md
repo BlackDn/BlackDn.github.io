@@ -40,7 +40,7 @@ tags:
 - **Angular CLI**：**Angular** 有一套自己的命令行工具，比如用于编译项目的`ng build`、用于生成组件的`ng generate`、用于执行单元测试的`ng test`等。将一些**代码无关**的工作交给命令行工具，方便开发者专注于代码和构建应用。
 - 路由、依赖注入、模块化······
 
-## 组件 Components
+## 组件
 
 因为 **Angular** 是 **基于组件（Component-Based）** 的，因此我们就先接触一下组件及其相关功能/特性的使用
 
@@ -99,9 +99,9 @@ export class HelloWorld {
 
 定义完的属性变量可以在模板中引用，而方法也可以在其中绑定给按钮啥的组件
 
-### 模板 Templates
+### 模板
 
-每个组件都有一个 **HTML 模板** ，可以是 `template` 声明的 **Typescript 的內联模版**（用 ` `` ` 包裹的 HTML 代码），也可以是`templateUrl`  指向的 **html 文件** ，实际开发中后者居多。  
+每个组件都有一个 **HTML 模板（HTML Templates）** ，可以是 `template` 声明的 **Typescript 的內联模版**（用 ` `` ` 包裹的 HTML 代码），也可以是`templateUrl`  指向的 **html 文件** ，实际开发中后者居多。  
 不过为了让示例代码更加简洁，下面的例子更多采用**內联模版**展示。
 
 #### 插值
@@ -151,7 +151,7 @@ export class DemoComponent {
 上面的`(click)`传入的`"onSave()"`就是外部已经写好的方法，即**事件绑定**。  
 如果需要传递 **事件对象** 本身，可以用 **Angular** 提供的一个隐式变量  `$event` ，例如`(myClick)="onSave($event)"`。
 
-### 样式 Styles
+### 样式
 
 样式比较简单，之前也提到过，可以用`styles`设置**内联样式**，也可以用 `styleUrl` 或 `styleUrls` 指定一个或多个 `css` 文件：
 
@@ -192,33 +192,6 @@ export class DemoComponent {
 大部分情况下，我们希望组件的**构造方法**简单且安全，所以对数据请求等复杂的耗时操作会放在 `ngOnInit()`中，而非构造方法中；  
 由于组件只有在构造方法结束后才会设置数据绑定的**输入属性**，这意味着构造方法中并不能正确地获取到输入属性，因此如果我们要对输入属性初始化，也应该放在`ngOnInit()`中，而非构造方法中。
 
-## 服务 Service
-
-**服务（Service）** 常用于在多个组件之间共用一段逻辑，比如共享一个全局的属性、数据或操作。可以简单理解成一个全局的工具  
-服务以  `service`  作为后缀（如  `my-custom-serv.service.ts` ），用 `@Injectable` 标识，其中需要有一个 `providedIn` 属性，用于定义哪些组件可以使用该服务，比如 `root` 表示任何组件都可以访问服务。  
-我们整一个计算两数之和的服务：
-
-```typescript
-<!-- sum.service.ts -->
-@Injectable({
-  providedIn: 'root',
-})
-class SumService {
-  sum(x: number, y: number) { return x + y; }
-}
-```
-
-在调用的时候，通过 `inject()` 方法获得一个服务的对象，就可以直接调用服务里的方法了：
-
-```typescript
-// hello-world.component.ts
-@Component({ ... })
-export class HelloWorld {
-	private sumService = inject(SumService);
-	total = this.SumService.sum(50, 25);
-}
-```
-
 ## 组件的交互
 
 ### 输入型绑定
@@ -231,83 +204,117 @@ import { Component, EventEmitter, Input } from '@angular/core';
 
 @Component({ ... })
 export class HelloWorld {
-  @Input() title: String;
-  @Input('taskContent') content: Stirng;
+  @Input() title: string;
+  @Input('taskContent') content: string;
 }
 ```
 
 上面的例子中，我们有两个参数`title`和 `content` ，不过在模板中传递的时候，如果有别名就得用别名：
 
-```javascript
+```html
   <hello-world
     [title]="myTitle"
     [taskContent]="myContent"
-  ></app-product-alerts>
+  ></hello-world>
 ```
 
-### 子组件通过 setter 监听输入属性
+### 子组件通过 setter 加工输入属性
 
 我们通常在子组件中通过`@Input`定义输入属性，而输入属性本身的值是来自父组件的。  
-通过 `setter`，我们得以在子组件中监听输入属性，并对其值进行处理。`setter` 使得我们将这段逻辑处理放在子组件中，无需污染外部组件。
+通过 `setter`，我们得以在子组件中监听输入属性，并对其值进行处理。`setter` 使得我们将这段逻辑处理放在子组件中，无需污染外部组件。  
 
-```typescript
+```ts
 @Component({
   selector: "hello-world",
-  template: '<p>"{{name}}"</p>',
+  template: `<p>{% raw %}{{name}}{% endraw %}</p>`,
 })
 export class HelloWorld {
-  private _name = "";
-  @Input()
-  get name(): String {
-    return this._name;
-  }
-  set name(name: String) {
-    this._name = "Hello " + name;
+  name = '';
+
+  @Input() set myName(name: string) {
+    this.name = 'Hello ' + name;
   }
 }
 ```
 
-上面这个例子 🌰 中，我们有个私有属性`_name`（为了和输入属性`name`区分加了个下划线），然后用`@Input`标识`name()`，这个`name()`就是我们的输入属性，需要用 `get` 标识。  
-而 `set` 则对这个输入属性`name`进行操作，通过`set`方法，我们给每个传入的`name`前面都加个`Hello`  
-在父组件的模板中使用的时候要用`@Input`标识的属性，这里是 `name` ：
+由于这里我们用 `@Input()` 标识了 `myName`，所以在传入属性的时候也就要用 `myName`：
+
+```html
+<hello-world [myName]="'blackdn'"></hello-world>
+```
+
+`setter` 的作用就是对输入值进行处理，这里我们为每个 `myName` 添加 `"Hello"` 前缀   
+我们用 `set` 标识输入型绑定，为了方便获取传入的值，后面加了类似参数列表的 `(name: string)`，这让我们的 `myName` 看着很像一个方法。   
+总而言之，就像流水线加工一样，我们传入的参数会先经过 `setter` 处理，然后再通过插值展示，所以这个栗子🌰展示的内容就是 `"Hello blackdn"`
+
+不过我们可以对上述代码进行优化，明明只需要用到一个 `name` 属性，我们却有两个变量（`name` 和 `myName`），看起来不是很优雅，修改代码如下：
+
+```typescript
+@Component({
+  selector: "hello-world",
+  template: `<p>{% raw %}{{name}}{% endraw %}</p>`,
+})
+export class HelloWorld {
+  private _name = '';
+  
+  get name(): string {
+    return this._name;
+  }
+  @Input() set name(name: string) {
+    this._name = `Hello ${name}`; // 改成了模板字符串
+  }
+}
+```
+
+在之前的基础上，我们采用 `private _name = ''` ，由于 `private` 修饰的变量不能在模板中使用，所以额外写了个 `getter`，即 `get name()` 来获取这个 `_name`。   
+如此一来，在外部我们可以通过 `name` 设置变量：
 
 ```html
 <hello-world [name]="'blackdn'"></hello-world>
 ```
 
-`setter` 就像是流水线的加工环节，原料是来自父组件的数据（`name`），产出则是听过`set`处理后的`_name`
-
-```
-name -> setter -> _.name
-```
+不过要注意的是，模板中的 `{% raw %}{{name}}{% endraw %}` 来自于 `get name()`，数据流从组件流向模板；而外部的 `[name]="'blackdn'"` 则是将数据传给 `set name()`，数据流从（父组件的）模板流向组件。   
+这样修改的好处是，不管在父组件模板还是自己模板中，用的都是 `name`，比较简洁；而且为本地 `_name` 添加 `private`，私有属性带来了更好的封装。
 
 ### 父组件监听子组件的事件
 
 简单点说就是**回调**啦，父组件的逻辑处理交给子组件调用，因此需要将回调方法传递给子组件。大部分点击事件都是通过这种方式进行回调。  
 因为方法在子组件中被调用，但是方法本体在父组件中，需要从父组件传入子组件，因此要用`@Output` 标识对应方法。  
-对于点击事件来说，这个方法通常是一个 `EventEmitter()` 对象
+对于点击事件来说，这个方法通常是一个 `EventEmitter()` 对象    
 
-```typescript
-@Component({})
+````ts
+@Component({
+  selector: 'app-my-text',
+  template: `
+    <p>my-text works! {{ name }}</p>
+    <button (click)="onClick()">Say Hello</button>
+  `,
+})
 export class HelloWorld {
-  @Output() clickButton = new EventEmitter();
+  @Output() greet = new EventEmitter();
+  onClick() {
+    this.greet.emit();
+  }
 }
-```
+````
 
-然后在模板中通过小括号传递`()`：
+子组件的按钮执行 `onClick()` ，实际上是 `this.greet.emit()`   
+这个 `greet` 则是来自父组件：
+
 
 ```typescript
 @Component({
   //...
-  template: '<hello-wrold (clickButton)="onButtonClick()"></hello-world>',
+  template: `<app-my-text (greet)="onGreet()"></app-my-text>`,
 })
 export class FatherComponent {
-  onButtonClick() {
-    //...
+  onGreet() {
+    alert('Hello');
   }
 }
 ```
 
+实际执行的方法是父组件的 `onGreet()`，通过 `@Output()` 所标识的 `greet`暴露给父组件。这个 `@Output() greet` 相当于是一个通知人，当我们调用 `this.greet.emit()` 的时候，通知父组件的 `onGreet()` 执行，从而实现回调。
 ### 父组件与子组件通过本地变量交互
 
 有些 **类似父组件获取子组件的引用**，这个本地的引用变量用井号`#`标识，和我们在`css`中为标签绑定 `id` 一样。  
@@ -349,125 +356,20 @@ export class FatherComponent {
 }
 ```
 
-### 父子组件通过服务通讯
+## 内容投影
 
-这个稍微复杂一些，我们先假定一个情景：实现一个学生签到的功能。  
-首先，我们有一个子组件类`Student`，用于表示学生：
+**内容投影（Content Projection）** 是一种将内容插入组件的形式。  
+之前我们使用子组件的时候，都是单纯的闭合标签，比如：  
+`<hello-world xxx=xxx></hello-world>`     
+通过内容投影，我们可以在标签中插入其他想要显示的内容，比如：
 
-```typescript
-// student.component.ts
-@Component({
-  selector: "app-student",
-  template: `
-    <div>
-      <p>Hello, I'm {{ name }}</p>
-    </div>
-  `,
-})
-export class StudentComponent {
-  @Input() name = "";
-}
+```html
+<hello-world xxx=xxx>
+  <p>Hello World</p>
+</hello-world>
 ```
 
-有个父组件包含学生名单 `students`，和一个签到表 `signPaper`。  
-在**模板**中遍历 `students` 来生成**Student 组件**，最后遍历 `signPaper` 来生成签到记录，当然现在是空的。
-
-```typescript
-// father.component.ts
-@Component({
-  selector: "app-father",
-  template: `
-    <div class="container">
-      <app-student *ngFor="let student of students" [name]="student"></app-student>
-
-      <ul>
-        <li *ngFor="let signedStudent of signPaper">
-          {{ signedStudent }}
-        </li>
-      </ul>
-    </div>
-  `,
-})
-export class FatherComponent {
-  students = ["Mike", "Alice", "Black"];
-  signPaper: string[] = [];
-}
-```
-
-然后我们可以开始写服务了，新建文件`sign.service.ts`，或者通过`ng generate service Sign`自动创建（会自动加上`Service`后缀，我们不用加）
-
-```typescript
-// sign.service.ts
-@Injectable({
-  providedIn: "root",
-})
-export class SignService {
-  private signedSource = new Subject<string>();
-  signed = this.signedSource.asObservable();
-  sign(student: string) {
-    this.signedSource.next(student);
-  }
-}
-```
-
-在文件中，我们有一个 `signedSource` 用来保存数据，不过它是私有的，通过`asObservable()`方法将其以订阅的方式暴露给外界，同时定义一个方法`sign`，用于接收外面的数据并保存到 `signedSource`中。
-
-```typescript
-// fater.component.ts
-@Component({
-  //...
-  providers: [SignService],
-})
-export class FatherComponent {
-  students = ["Mike", "Alice", "Black"];
-  signPaper: string[] = [];
-
-  constructor(private signService: SignService) {
-    signService.signed.subscribe((student) => {
-      this.signPaper.push(`${student} has signed!`);
-    });
-  }
-}
-```
-
-在父组件中，我们在**装饰器**中先用`providers`声明导入的服务，这里是`SignService`。然后在**构造方法**中得到这个服务的实例对象，并对`SignService`中的 `signed` 对象进行订阅，将其中所有学生姓名取出，放入父组件自身的 `signPaper` 中。
-
-然后来到子组件，首先我们在子组件的构造方法中将`SignService`对象注入，不过因为结构比较简单，构造方法中没啥要做的。  
-然后创建一个`sign()`方法作为按钮的点击事件，给每个子组件调用，它将每个子组件的名字属性 `name` 传给服务对象的`sign()`方法。即每个学生点击按钮签到后，将学生的名字存入服务的`signedSource`。
-
-```typescript
-// student.component.ts
-@Component({
-  //...
-  template: `
-    <div>
-      <p>Hello, I'm {{ name }}</p>
-      <button (click)="sign()">Sign</button>
-    </div>
-  `,
-})
-export class StudentComponent {
-  @Input() name = "";
-
-  constructor(private signService: SignService) {}
-  sign() {
-    this.signService.sign(this.name);
-  }
-}
-```
-
-到此为止，我们的子组件和父组件通过服务的通讯就实现了，我们的这个服务就像是一个存储数据的中间人，父子组件没有直接通讯，两者都和这个服务直接交流。  
-一开始服务的`signedSource`是空的，当我们点击子组件的按钮，子组件通过调用服务的`sign()`方法，将数据存入服务的`signedSource`中；然后父组件以`signedSource`为数据源，将其中数据放入自己的`signPaper`中，最后根据`signPaper`中的数据进行渲染。
-
-```
-子组件 --(点击签到按钮，调用sign()方法)-->
-服务(signedSource) --(获取数据，存入signPaper)--> 父组件渲染
-```
-
-## 内容投影 Content Projection
-
-**内容投影（Content Projection）** 是一种将内容插入组件的形式，主要通过 **Angular** 自带的 `<ng-content>` 标签实现。  
-之前我们使用子组件的时候，都是单纯的闭合标签，比如`<hello-world xxx=xxx></hello-world>`，而通过内容投影，我们可以在标签中插入其他想要显示的内容。这么一说还有点像 **React** 中的 `children`
+这么一说还有点像 **React** 中的 `children`   
 主要有以下三种内容投影：
 
 | 类型         | 描述                     |
@@ -507,12 +409,12 @@ export class HelloWorld {}
 <p>I am Single-Slot Content Projection</p>
 ```
 
-要注意的是，`<ng-content>` 元素是一个**占位符**，它不会创建真正的 DOM 元素，其中的自定义属性也会被忽略
+要注意的是，`<ng-content>` 元素是一个**占位符**，它不会创建真正的 DOM 元素，就是说在浏览器中 F12，是看不到`<ng-content>` 的
 
 ### 多槽内容投影
 
-**多槽内容投影（Multi-Slot Content Projection）** 就是有多个插槽（废话），其实就是有多个`<ng-content>`标签进行占位。  
-那么在投影的时候如何判断要投影到哪个插槽呢？我们可以给`<ng-content>`标签指定 `select` 属性：
+**多槽内容投影（Multi-Slot Content Projection）** 就是有多个插槽的投影（废话），其实就是有多个 `<ng-content>` 标签进行占位。  
+那么在投影的时候如何判断要投影到哪个插槽呢？我们可以给 `<ng-content>` 标签指定 `select` 属性：
 
 ```typescript
 @Component({
@@ -568,7 +470,8 @@ Question:
 </ng-container>
 ```
 
-上面这块内容在网页渲染出来的结果就只有 `<div>Hello World</div>`，`<ng-container>`标签会被解释成一段**注释**，不会被渲染。因此常在其中添加 `ngIf` 等指令，既能发挥作用，又不会被渲染，利于性能优化，一举两得。毕竟不论 `ngIf` 是否生效， 标签 `<ng-content>` 都会被初始化，这也是在这种情况下不推荐使用原因。
+上面这块内容在网页渲染出来的结果就只有 `<div>Hello World</div>`，`<ng-container>`标签会被解释成一段**注释**，不会被渲染。因此常在其中添加 `ngIf` 等指令，既能发挥作用，又不会被渲染，利于性能优化，一举两得。   
+反观 `<ng-content>` ，不论 `ngIf` 是否生效，它都会被初始化，这也是在这种情况下不推荐使用它原因。
 
 `<ng-template>` 是一个**模板元素**，它本身及其内部的内容都不会被渲染，通常用作定义可复用的模板。
 
@@ -640,7 +543,7 @@ export class AgeComponent {
 
 ```html
 <!-- father.component.html -->
-<app-student [(age)]="currentAge"> </app-student>
+<app-age [(age)]="currentAge"> </app-age>
 ```
 
 `currentAge` 是父组件的一个变量，我们实现了将 `currentAge` 和子组件中的 `age` 属性双向绑定。  
