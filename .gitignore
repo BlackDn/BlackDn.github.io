@@ -37,3 +37,6 @@ _site
 # Ignore local Gemfile as GitHub Pages has its own Gemfile
 Gemfile
 Gemfile.*
+
+# vscode settings
+.vscode
