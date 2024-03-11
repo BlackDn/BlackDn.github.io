@@ -55,7 +55,7 @@ gitalk:
   clientSecret: 79b9103623b3470b4ff821ec9c214c025e6fe7ce #生成的clientSecret
   repo: Gitalk-for-Blog #仓库名称
   owner: BlackDn #github用户名
-  admin: BlackDn
+  admin: [BlackDn]
   distractionFreeMode: false #是否启用类似FB的阴影遮罩
 
 # 统计
