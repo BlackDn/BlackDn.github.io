@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Angular 入门：指令
+title: Angular：指令 Direvtive
 subtitle: 从属性型指令、结构型指令 到 指令组合API
 date: 2024-03-06
 author: BlackDn

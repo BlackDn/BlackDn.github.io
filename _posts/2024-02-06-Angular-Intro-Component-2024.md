@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Angular  入门：组件
+title: Angular：组件 Component
 subtitle: Angular 简介及 Component 使用
 date: 2024-02-06
 author: BlackDn
