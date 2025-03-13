@@ -213,27 +213,30 @@ document.addEventListener("visibilitychange", function () {
 <!-- _includes/head.html -->
 <head>
   <!-- ······ -->
-  <script src="{{ site.baseurl }}/js/tab-title-change.js"></script>
+  <script src="{% raw %}{{ site.baseurl }}{% endraw %}/js/tab-title-change.js"></script>
 </head>
 ```
 
-前面这个 `{{ site.baseurl }}` 是 **Jekyll** 定义的项目根地址，比如我的这个网站就是 `https://blackdn.github.io` ，使用它来正确加载我们的脚本。
+前面这个 `{% raw %}{{ site.baseurl }}{% endraw %}` 是 **Jekyll** 定义的项目根地址，比如我的这个网站就是 `https://blackdn.github.io` ，使用它来正确加载我们的脚本。
 
-这个时候，虽然我们的脚本能正常运行，会在我们切换到其他页面的时候变换标题，但还是有些bug的——不管在哪个页面都会生效，且不管原来的页面标题是什么，最后都会变成`WelcomeQwQ`。  
-在我的这个网站中，只有首页的标题是`WelcomeQwQ`，其他页面就不一样了，比如**Tab页面**  是`Tab - WelcomeQwQ`，在文章页面则是文章的标题。因此在这些页面我们需要保留原来的标题，好让我们知道自己打开的是什么页面。   
-这所以有这个问题，其实也好理解，毕竟脚本里的标题是写死了的，所以我们需要进一步限定这个脚本生效的地方：
+完成上述操作后，脚本基本就能正常加载了。当我们切换到其他tab页面后，脚本会正常执行，从而改变标题。  
+不过更进一步，我只想在停留在博客首页的时候改变标题，在文章页等其他地方不想改变标题，毕竟这样可以提醒我当前打开的是哪个页面哪篇文章。
+
+因此，在`head.html`中载入脚本之前，我们需要判断当前页是否为首页，如果是才加载脚本实现标题的修改，否则就不需要加载脚本：
 
 ```html
 <!-- _includes/head.html -->
 <head>
   <!-- ······ -->  
-  {% raw %}{% if page.title == "WelcomeQwQ" %}{% endraw %}
-  <script src="{{ site.baseurl }}/js/tab-title-change.js"></script>
+  {% raw %}{% if page.url == "/" %}{% endraw %}
+  <script src="{% raw %}{{ site.baseurl }}{% endraw %}/js/tab-title-change.js"></script>
   {% raw %}{% endif %}{% endraw %}
 </head>
 ```
 
-这是**Liquid语言**的语法，我们通关当前页面的标题判断是否载入这个脚本。只有当页面标题为`WelcomeQwQ`的时候才启用这个动态改变标题的脚本，也就是只有在主页的时候，标题才会动态改变。  
+
+上面的   `{% raw %}{% if page.url == "/" %}{% endraw %}` 是**Liquid**语法，获取当前页面的路径后进行判断。如果是首页（即处于根目录），那么就是 `/`，进行一个脚本的加载      
+
 这样这个根据页面可见性动态修改标题的功能就算实现啦～
 
 ## 参考
