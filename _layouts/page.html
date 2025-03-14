@@ -187,7 +187,9 @@ layout: default
                             
                         </ul>
                         {% if site.email %}
-                            <p>✉️ {{site.email}}</p>
+                            {% for mail in site.email %}
+                                <a href="mailto:{{ mail }}"><p class="email-item">✉️ {{mail}}</p></a>
+                            {% endfor %}
                         {% endif %}
                     </div>
                 </section>

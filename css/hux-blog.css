@@ -45,6 +45,9 @@
   margin-top: 0px;
   margin-bottom: 20px;
 }
+.sidebar-container .short-about .email-item {
+  margin-bottom: 10px !important;
+}
 .sidebar-container .short-about .list-inline > li {
   padding-left: 0px;
 }
