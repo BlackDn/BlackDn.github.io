@@ -21,8 +21,9 @@ jobs:
       - name: Create Issues
         if: env.new_files != ''
         run: | 
-          echo "new files: $$new_files"
+          echo "luoyang new files: $new_files"
           for file in $new_files; do
+            echo "luoyang file: $file"
             filename=$(basename "$file" .md)
             path="/$filename/"
             id=$(echo -n "$path" | md5sum | awk '{print $1}')
