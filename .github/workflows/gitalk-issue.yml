@@ -21,6 +21,7 @@ jobs:
       - name: Create Issues
         if: env.new_files != ''
         run: | 
+          echo "new files: $$new_files"
           for file in $new_files; do
             filename=$(basename "$file" .md)
             path="/$filename/"
