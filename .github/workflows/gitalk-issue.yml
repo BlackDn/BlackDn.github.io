@@ -33,10 +33,12 @@ jobs:
             body="Comments for [$title]($path)"
             echo "luoyang body: $body"
 
-            
-            existing=$(curl -v \
+            http_status=$(curl "%{http_code}" \
               -H "Authorization: token ${{ secrets.GITALK_TOKEN }}" \
-              "https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues?state=open&labels=$id" \
-              | grep -c "\"labels\":")
+              "https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues?state=open&labels=$id")
+            echo "HTTP status: $http_status"
+
+            existing=$(curl -H "Authorization: token ${{ secrets.GITALK_TOKEN }}" \
+              "https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues?state=open&labels=$id")
             echo "luoyang existing: $existing"
           done
