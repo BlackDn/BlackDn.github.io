@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Git基本操作及连接Github
-subtitle: 勉强算是搞懂了git基础
+subtitle: 以及 Semantic Commit Messages：推荐 commit 消息格式
 date: 2022-03-08
 author: BlackDn
 header-img: img/19mon5_23.jpg
