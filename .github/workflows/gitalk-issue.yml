@@ -21,8 +21,9 @@ jobs:
       - name: Create Issues
         if: env.new_files != ''
         run: | 
+          IFS=$'\n' read -r -d '' -a files <<< "$new_files" || true
           echo "luoyang new files: $new_files"
-          for file in $new_files; do
+          for file in "${files[@]}"; do
             echo "luoyang file: $file"
             filename=$(basename "$file" .md)
             path="/$filename/"
