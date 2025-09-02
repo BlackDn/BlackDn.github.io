@@ -33,21 +33,10 @@ jobs:
             body="Comments for [$title]($path)"
             echo "luoyang body: $body"
 
-            echo "luoyang token: ${{ secrets.GITALK_TOKEN }}"
-            existing=$(curl -s \
+            
+            existing=$(curl -v \
               -H "Authorization: token ${{ secrets.GITALK_TOKEN }}" \
-              "https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues?state=all&labels=$id" \
+              "https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues?state=open&labels=$id" \
               | grep -c "\"labels\":")
             echo "luoyang existing: $existing"
-
-            if [ "$existing" -eq 0 ]; then
-            echo "Creating issue for $path"
-            curl -X POST \
-              -H "Authorization: token ${{ secrets.GITALK_TOKEN }}" \
-              -H "Accept: application/vnd.github.v3+json" \
-              https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues \
-              -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"gitalk\",\"$id\"]}"
-            else
-              echo "Issue for $path already exists, skipping."
-            fi
           done
