@@ -29,7 +29,7 @@ tags:
 
 **Gitalk** 的插件化集成基本能让他做到即开即用，非常方便，而且评论可使用 Markdown 格式、纯前端渲染，与 GitHub 账号绑定还能有效减少垃圾评论。最最重要的是他完全免费，超级香=v=
 
-## 准备工作
+## 配置并启用 Gitalk
 
 ### 新建 Gitalk Container 仓库
 
@@ -46,10 +46,8 @@ tags:
 ![RegisterOAuthApplication](https://s21.ax1x.com/2025/09/02/pVgmQCn.png)
 
 
-## 配置并启用 Gitalk
 
 接下来我们就需要修改我们的 **Jekyll** 代码，进行一些配置，启用 Gitalk 插件。
-
 ### 配置 Gitalk 参数
 
 由于除了文章页面外，我们在其他地方也可能用到评论（比如 `about` 页面），所以我选择在 `_config.yml` 配置一些全局变量，方便之后调用   
@@ -76,7 +74,6 @@ gitalk:
 - `owner`：**Gitalk Container** 仓库所有者的 **GitHub** 账号，我这是我自己
 - `admin`：**Gitalk Container** 仓库管理员的 **GitHub** 账号，其实就是仓库所有者和合作者（**collaborator**），有修改仓库 **Issue** 的权限，是一个列表
 - `distractionFreeMode`：是否启用类似 Facebook 的阴影遮罩，就是输入的时候会给输入框以外的地方加遮罩，要注意 `false` 才是开启
-
 
 #### Gitalk 可配置属性一览
 
@@ -161,7 +158,7 @@ gitalk:
 {% endif %}
 ```
 
-## Gitalk 实现流程及效果
+### Gitalk 实现流程及效果
 
 **Gitalk** 本质上是将评论内容存在Issue中，当我们进入页面时读取并展示。  
 因此如果想要看见评论，就需要有网络连接；如果想要进行评论，则需要登陆 GitHub 账号（因为本质是在 Issue 中进行内容发布）。
