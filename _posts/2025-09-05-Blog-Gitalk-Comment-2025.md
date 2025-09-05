@@ -36,7 +36,7 @@ tags:
 既然 **Gitalk** 的原理是把仓库中的 **Issue** 当作评论的数据库，那么我们就需要新建一个仓库作为 **Gitalk Container**   
 当然，这个仓库不需要任何代码，不过记得仓库是 `public` 的
 
-然后就没事了，咱们记下这个仓库名，配置的时候会用到。
+然后就没事了，咱们记下这个仓库名，配置的时候会用到。比如我的是 `Gitalk-for-Blog`
 
 ### 申请 OAuth Application
 
@@ -67,7 +67,7 @@ gitalk:
 
 这里配置的参数是比较常见的，稍微解释一下：
 
-- `enable`：emm，标识是否开启 `Gitalk`
+- `enable`：用于标识是否开启 `Gitalk`
 - `clientID`：就是我们上面申请 **OAuth Application** 之后得到的 `Client ID`
 - `clientSecret`：就是我们上面申请 **OAuth Application** 之后，生成的 `Client Secret`，相当于密码，别泄露给别人了
 - `repo`：之前申请的 **Gitalk Container** 的仓库名，我的是 `Gitalk-for-Blog`
@@ -248,11 +248,11 @@ jobs:
             body="Comments for [$title]($path)"
 
             curl -X POST \
-		        -H "Authorization: token ${{ secrets.GITALK_TOKEN }}" \
-		        -H "Accept: application/vnd.github.v3+json" \
-	            https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues \
-	            -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"gitalk\",\"$id\"]}"
-	      done
+              -H "Authorization: token ${{ secrets.GITALK_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues \
+              -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"gitalk\",\"$id\"]}"
+          done
 ```
 
 ### YAML 文件内容解析
