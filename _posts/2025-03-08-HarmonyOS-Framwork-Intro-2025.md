@@ -2,7 +2,7 @@
 layout: post
 title: HarmonyOS：鸿蒙简介及其应用程序框架
 subtitle: 鸿蒙系统简介、工程目录结构
-date: 2025-03-06
+date: 2025-03-08
 author: BlackDn
 header-img: img/21mon1_17.jpg
 catalog: true
@@ -263,4 +263,5 @@ Library类型的Module分为**Static静态**和**Shared动态**两种类型，�
 1. [鸿蒙生态应用开发白皮书](https://developer.huawei.com/consumer/cn/doc/guidebook/harmonyecoapp-guidebook-0000001761818040)
 2. [HarmonyOS 技术文档](https://developer.huawei.com/consumer/cn/doc/)，[HarmonyOS API参考](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/syscap-V5?catalogVersion=V5)
 3. [HarmonyOS API参考：Stage模型能力的接口](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/stage-api-reference-V5)
+4. [应用程序包开发与使用](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-package-dev-V5)
 

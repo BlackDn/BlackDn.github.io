@@ -2,7 +2,7 @@
 layout: post
 title: HarmonyOS：ArkTS 语言基础
 subtitle: 简单介绍一下 HarmonyOS 开发语言
-date: 2025-03-04
+date: 2025-03-06
 author: BlackDn
 header-img: img/21mon1_28.jpg
 catalog: true
