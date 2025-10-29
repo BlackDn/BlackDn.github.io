@@ -296,4 +296,5 @@ import('./Person').then((obj: ESObject) => {
 ## 参考
 
 1. [学习ArkTS语言](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/learning-arkts)
+2. [HarmonyOS开发指南：ArkTS（方舟编程语言）](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/arkts-V5)
 
