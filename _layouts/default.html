@@ -5,8 +5,6 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-    <!-- test -->
-    <script src="{{ '../js/click-firework.js' | relative_url }}" defer></script>
 
     {% include nav.html %}
 
@@ -18,9 +16,12 @@
 
     {% include back_to_top.html %}
 
-<!-- Image to hack wechat -->
-<img src="/img/apple-touch-icon.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
+    <!-- Image to hack wechat -->
+    <img src="/img/apple-touch-icon.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work -->
+
+    <!-- test -->
+    <script src="{{ '../js/click-firework.js' | relative_url }}" defer></script>
 
 </body>
 
