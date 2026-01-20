@@ -184,7 +184,7 @@ app.event('app_mention', async ({ event, say }) => {
 node index_for_socket.js
 ```
 
-![](https://s41.ax1x.com/2026/01/20/pZ6fia4.png)
+![](https://s41.ax1x.com/2026/01/20/pZ6hBnK.png)
 
 ![](https://s41.ax1x.com/2025/12/25/pZJCPmD.png)
 
