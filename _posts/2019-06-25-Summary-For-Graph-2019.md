@@ -102,7 +102,8 @@ tags:
 
 一个平面图，将其每个平面（包括外侧平面）用一个结点代替，经过平面图的每条边连接新的结点形成新的边，产生的新的图成为该平面图的对偶图  
 如果平面图有一条边单独伸出（一个结点仅有一条关联的边），则其对偶图表现为一条环  
-![DualGraph](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Graph/DualGraph.png?raw=true)
+
+![DualGraph](https://s41.ax1x.com/2026/09/01/pnFCGqA.png)
 
 #### 着色
 
@@ -119,4 +120,5 @@ tags:
 2. 用第一种颜色，对第一点着色，并按排列次序对与前面结点不相邻的每一点着同样的颜色
 3. 按排列顺序向下检查，用第二种颜色对尚未着色的点重复第 2 步
 4. 重复 直到所有的点都着上颜色为止
-   ![WelchPowell](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Graph/WelchPowell.png?raw=true)
+
+   ![WelchPowell](https://s41.ax1x.com/2026/09/01/pnFC8rd.png)

@@ -14,9 +14,6 @@ tags:
 
 # 前言
 
-我好像找到了一种能正常现实图片的方法...虽然还是比较麻烦...不过我的 Microsoft Edge 不会图裂了，感动  
-其实还是上传的 GitHub，用开发人员工具扣出图片的 utl，在前面加上"https://github.com/...."  
-不过要注意，在这里图片的名称要英文，不要特殊字符  
 这份总结主要是因为离散的集合那一块，概念太多太多，又容易混在一起。  
 之前小测的时候我连符号都不知道是什么意思....  
 估计之后学图的时候还得总结一份 QAQ
@@ -33,7 +30,7 @@ tags:
 6. F⚪G：G 对 F 的右合成。第一元素 x 来自 F，第二元素 y 来自 G，如果 F 中存在<x，t>，G 中存在<t，y>，则结果为所有<x，y>组成的集合。（F 到 G 的传递）
 7. IA：基于 A 的恒等关系。即所有元素既作为第一元素也作为第二元素<x，x>所组成的集合
 
-![calculate](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/calculate.png?raw=true)
+![calculate](https://s41.ax1x.com/2026/09/04/pnk264f.png)
 
 ### 关系的性质
 
@@ -49,7 +46,7 @@ tags:
 6. 不可传递：R 中存在<x，y>，也存在<y，z>，但是没有<x，z>  
    综上，如果关系 R 不是可传递的，那就是不可传递的。当且仅当所有的<x，y>、<y，z>都有<x，z>，才是可传递的。即不存在和不全存在都为不可传递。
 
-![property](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/property.png?raw=true)
+![property](https://s41.ax1x.com/2026/09/04/pnk2L2F.png)
 
 ### 关系的闭包运算
 
@@ -58,7 +55,7 @@ tags:
 3. t(R)：传递闭包。公式上等于 R^1 并上 R^2 并上 R^3....直到趋于无穷。通常会陷入循环或一开始就等于本身。若陷入循环则结果为第一段循环。  
    可用 wallshall 算法来求得
 
-![closure](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/closure.png?raw=true)
+![closure](https://s41.ax1x.com/2026/09/04/pnk2gC8.png)
 
 ### 特殊关系
 
@@ -70,12 +67,15 @@ tags:
 4. 等价类：等价关系下一个划分组成的集合
 5. 商集：所有等价类作为元素的集合  
    不难看出，商集中的集合（所有等价类）构成了此关系的划分。等价关系->等价类->商集->划分。  
-   ![equivalence](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/equivalence.png?raw=true)
-6. **相容关系**：关系 R 同时满足自反、对称
-7. 最大相容类：满足相容的集合有一个子集，这个子集中的任何一个元素与子集其他所有元素能构成相容关系，但是和这个子集外的任何元素没有相容关系，则这个子集称为最大相容类
+
+   ![equivalence](https://s41.ax1x.com/2026/09/04/pnk228S.png)
+
+7. **相容关系**：关系 R 同时满足自反、对称
+8. 最大相容类：满足相容的集合有一个子集，这个子集中的任何一个元素与子集其他所有元素能构成相容关系，但是和这个子集外的任何元素没有相容关系，则这个子集称为最大相容类
    判断相容类或者最大相容类的时候，通过关系图能很好进行判断  
    两两相连的就是相容类，再加一个元素就不满足两两相连的相容类就是最大相容类  
-   ![ReCompatibility](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/ReCompatibility.png?raw=true)
+
+   ![ReCompatibility](https://s41.ax1x.com/2026/09/04/pnk2WvQ.png)
 
 ### 次序关系
 
@@ -83,7 +83,7 @@ tags:
 2. 拟序关系：R 是**反自反的**、**可传递的**，称 R 是 A 中的拟序关系。用＜表示拟序关系
 3. 全序关系：R 是偏序关系，对于 A 中每一个 x，y，都有 x 小于等于 y 或 y 小于等于 x。即满足线性关系（一条线），哈斯图中一层只有一个元素
 
-![partial](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/partial.png?raw=true)
+![partial](https://s41.ax1x.com/2026/09/04/pnk25bn.png)
 
 #### 哈斯图
 
@@ -98,4 +98,4 @@ tags:
 7. 上确界（最小上界）：在整个集合中选，可以不存在，存在则唯一。上届中最小的元素，即哈斯图中上界的最底层。若最底层不唯一则不存在。
 8. 下确界（最大下界）：在整个集合中选，可以不存在，存在则唯一。下届中最大的元素，即哈斯图中下界的最高层。若最高层不唯一则不存在。
 
-![Hasse](https://github.com/BlackDn/BlackDn.github.io/blob/master/img/Post_Set/Hasse.png?raw=true)
+![Hasse](https://s41.ax1x.com/2026/09/04/pnk275V.png)
