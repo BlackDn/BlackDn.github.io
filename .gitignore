@@ -40,3 +40,7 @@ Gemfile.*
 
 # vscode settings
 .vscode
+
+# mise
+mise.toml
+mise.*
