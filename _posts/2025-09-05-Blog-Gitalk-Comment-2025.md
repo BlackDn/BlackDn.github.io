@@ -25,8 +25,7 @@ tags:
 
 ## Gitalk简介
 
-**Gitalk** 是一款基于 **GitHub Issues** 的轻量级评论系统，广泛应用于静态博客（如 Jekyll、Hexo、Hugo 等）。它通过 GitHub 登录，利用仓库的 Issue 来存储评论内容，无需独立服务器或数据库。   
-
+[**Gitalk**](https://github.com/gitalk/gitalk/tree/master) 是一款基于 **GitHub Issues** 的轻量级评论系统，广泛应用于静态博客（如 Jekyll、Hexo、Hugo 等）。它通过 GitHub 登录，利用仓库的 Issue 来存储评论内容，无需独立服务器或数据库。   
 **Gitalk** 的插件化集成基本能让他做到即开即用，非常方便，而且评论可使用 Markdown 格式、纯前端渲染，与 GitHub 账号绑定还能有效减少垃圾评论。最最重要的是他完全免费，超级香=v=
 
 ## 配置并启用 Gitalk
@@ -79,28 +78,27 @@ gitalk:
 
 这里放出所有可配置的属性
 
-| 属性                    | 作用                                                              | 默认值                                              |     |
-| --------------------- | --------------------------------------------------------------- | ------------------------------------------------ | --- |
-| `enable`              | 是否启用 **Gitalk**                                                 | （必填）                                             |     |
-| `clientID`            | **OAuth Application** 的 `Client ID`                             | （必填）                                             |     |
-| `clientSecret`        | **OAuth Application** 的 `Client Secret`                         | （必填）                                             |     |
-| `repo`                | **Gitalk Container** 的仓库名                                       | （必填）                                             |     |
-| `owner`               | **Gitalk Container** 的仓库所有者                                     | （必填）                                             |     |
-| `admin`               | **Gitalk Container** 的仓库管理员                                     | （必填）                                             |     |
-| `id`                  | 页面的唯一标识符（长度小于50）                                                | `location.href`                                  |     |
-| `number`              | 页面的 issue ID 标识，若未定义则会使用`id`定位                                  | -1                                               |     |
-| `labels`              | GitHub issue 的标签                                                | `['Gitalk']`                                     |     |
-| `title`               | GitHub issue 的标题                                                | `document.title`                                 |     |
-| `body`                | GitHub issue 的内容                                                | `location.href + header.meta[description]`       |     |
-| `language`            | 设置语言，支持 `[en, zh-CN, zh-TW, es-ES, fr, ru, de, pl, ko, fa, ja]` | `navigator.language \|\| navigator.userLanguage` |     |
-| `perPage`             | 每次加载的数据大小，最多 100                                                | 10                                               |     |
-| `distractionFreeMode` | 类似Facebook评论框的全屏遮罩效果                                            | `false`                                          |     |
-| `pagerDirection`      | 评论排序方式， `last`为按评论创建时间倒叙，`first`为按创建时间正序                        | `last`                                           |     |
-| `createIssueManually` | 如果当前页面没有相应的 isssue 且登录的用户属于 admin，则会自动创建 issue                  | `false`                                          |     |
-| `proxy`               | GitHub oauth 请求到反向代理，为了支持 CORS                                  | 太长了不想贴                                           |     |
-| `flipMoveOptions`     | 评论列表的动画                                                         | 太长了不想贴                                           |     |
-| `enableHotKey`        | 启用快捷键`(cmd\|ctrl + enter)` 提交评论                                 | `true`                                           |     |
-
+| 属性                    | 作用                                                              | 默认值                                              |
+| --------------------- | --------------------------------------------------------------- | ------------------------------------------------ |
+| `enable`              | 是否启用 **Gitalk**                                                 | （必填）                                             |
+| `clientID`            | **OAuth Application** 的 `Client ID`                             | （必填）                                             |
+| `clientSecret`        | **OAuth Application** 的 `Client Secret`                         | （必填）                                             |
+| `repo`                | **Gitalk Container** 的仓库名                                       | （必填）                                             |
+| `owner`               | **Gitalk Container** 的仓库所有者                                     | （必填）                                             |
+| `admin`               | **Gitalk Container** 的仓库管理员                                     | （必填）                                             |
+| `id`                  | 页面的唯一标识符（长度小于50）                                                | `location.href`                                  |
+| `number`              | 页面的 issue ID 标识，若未定义则会使用`id`定位                                  | -1                                               |
+| `labels`              | GitHub issue 的标签                                                | `['Gitalk']`                                     |
+| `title`               | GitHub issue 的标题                                                | `document.title`                                 |
+| `body`                | GitHub issue 的内容                                                | `location.href + header.meta[description]`       |
+| `language`            | 设置语言，支持 `[en, zh-CN, zh-TW, es-ES, fr, ru, de, pl, ko, fa, ja]` | `navigator.language \|\| navigator.userLanguage` |
+| `perPage`             | 每次加载的数据大小，最多 100                                                | 10                                               |
+| `distractionFreeMode` | 类似Facebook评论框的全屏遮罩效果                                            | `false`                                          |
+| `pagerDirection`      | 评论排序方式， `last`为按评论创建时间倒叙，`first`为按创建时间正序                        | `last`                                           |
+| `createIssueManually` | 如果当前页面没有相应的 isssue 且登录的用户属于 admin，则会自动创建 issue                  | `false`                                          |
+| `proxy`               | GitHub oauth 请求到反向代理，为了支持 CORS                                  | 太长了不想贴                                           |
+| `flipMoveOptions`     | 评论列表的动画                                                         | 太长了不想贴                                           |
+| `enableHotKey`        | 启用快捷键`(cmd\|ctrl + enter)` 提交评论                                 | `true`                                           |
 
 ### 嵌入 JS 代码启用 Gitalk
 
@@ -210,7 +208,7 @@ gitalk:
 
 **GitHub Actions** 是 GitHub 自己的持续集成和持续交付 (CI/CD) 平台，可用于自动执行生成、测试和跑pipeline，这里就不过多介绍了。  
 在项目仓库的代码中，**GitHub Actions** 使用 **YAML** 语法来定义工作流，每个工作流都作为单独的 **YAML** 文件存储在 `.github/workflows` 目录中。
-所以我们新建文件：`.github/workflows/gitalk-issue.yml`：
+所以我们新建文件 `.github/workflows/gitalk-issue.yml`：
 
 ```yaml
 name: Auto Create Gitalk Issues
@@ -301,7 +299,7 @@ M    _posts/2025-09-03-Old.md
 D    _posts/2025-09-02-Delete.md
 ```
 
-前面的字母表示操作类型，比如 **A** 表示`add`，新增文；，**M** 表示 `modified`，修改文件；**D** 表示 `delete`，删除文件等。     
+前面的字母表示操作类型，比如 **A** 表示`add`，新增文件；**M** 表示 `modified`，修改文件；**D** 表示 `delete`，删除文件等。     
 我们需要判断是否有新增的文章，即 `_posts` 目录下是否有新增的文件，就有了后续的一系列操作，然后把结果（新增的文章文件名）保存到 `NEW_FILES` 变量中。  
 最后通过 `echo "new_files=$NEW_FILES" >> $GITHUB_ENV` 把结果保存到 **GitHub Actions** 的环境变量中，方便后续任务调用。
 

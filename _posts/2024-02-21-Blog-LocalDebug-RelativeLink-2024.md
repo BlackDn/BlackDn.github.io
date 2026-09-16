@@ -35,13 +35,14 @@ tags:
 由于 **GitHub Pages** 在 GitHub 端编译生成网站，所以它那边自带 `Gemfile` ，不需要我们本地维护，因此我们的博客项目文件里是不包含 `Gemfile` 的。但是我们现在要本地调试，不得不需要这个 `Gemfile`，这就尬住了。  
 不过没关系，有个好消息，**GitHub Pages** 的 `Gemfile` 是开源的：[pages-gem](https://github.com/github/pages-gem)！
 
-简单来说，我们没有 `Gemfile` ，就新建一个 `Gemfile` ，然后为我们的 `Gemfile` 添加这一行：
+简单来说，我们没有 `Gemfile` ，就新建一个 `Gemfile` ，内容如下：
 
 ```
+source "https://rubygems.org"
 gem 'github-pages', group: :jekyll_plugins
 ```
 
-虽然我们的 `Gemfile` 只有一行，只包含了 `github-pages` 这个包，但是这个包中又有很多其他的依赖包，指定了 `jekyll`、`kramdown`、`liquid`等依赖及其版本，所以我们只用加这一行就行了。
+`source` 指定了依赖的下载源，如果没有的话默认会从本地找，但是我们本地啥都没有所以就会报错。虽然现在只包含了 `github-pages` 这个包，但是这个包中又有很多其他的依赖包，指定了 `jekyll`、`kramdown`、`liquid`等依赖及其版本，所以我们只用加这一行就行了。
 
 ### 安装不同版本的ruby
 
