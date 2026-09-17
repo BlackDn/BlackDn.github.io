@@ -191,13 +191,13 @@ world
 
 #### Connection: keep-alive
 
-这个字段在 **HTTP/1.0** 和 **HTTP/1.1** 中使用的比较多，由于每次连接都是在客户端发起请求之前建立的，而在服务器发送响应后则会被关闭，但在某些情况下一些客户端和服务器希望保持这些连接，方便后续交互。这就催生了这个头字段 `Connection: keep-alive`。  
+这个字段在 **HTTP/1.0** 和 **HTTP/1.1** 中使用的比较多，通常情况下 HTTP 连接都是在客户端发起请求之前建立的，而在服务器发送响应后则会被关闭，但在某些情况下一些客户端和服务器希望保持这些连接，方便后续交互。这就催生了这个头字段 `Connection: keep-alive`。  
 严格来说，我们称它用于保持 **HTTP 持久连接（persistent connection）**，而在大部分情况下 HTTP 持久连接通常是建立在同一个 TCP 连接之上的，所以我们可以简单理解为：
 
 > `Connection: keep-alive` 允许多个 HTTP 请求/响应复用同一个 TCP连接。
 
 知道它的作用后，我们很容易得出一个结论：`Connection: keep-alive` 在 SSE 中并没有什么关键作用，或者可以说，没什么作用。  
-`Connection: keep-alive` 聚焦于两次请求使用同一个 HTTP 连接；而 SSE 的需求是，在单次请求中保持连接，服务端得以持续发送小心。  
+`Connection: keep-alive` 聚焦于两次请求使用同一个 HTTP 连接；而 SSE 的需求是，在单次请求中保持连接，服务端得以持续发送消息。  
 所以他们完全处于不同领域，不要因为它的名字而被混淆了。  
 
 不过现在基本没这个问题了，因为 `Connection: keep-alive` 在 **HTTP/2** 和 **HTTP/3** 中已被禁用，主流浏览器如 Firefox、Chrome 会将其自动忽略。比如在 ChatGPT 中，他的请求头和响应头中就没有这个字段。
@@ -223,8 +223,8 @@ const source = new EventSource("/api/conversations");
 这样发送的消息自己就是 `event-stream`，不需要我们再构造请求头。  
 此外在收到服务端的消息时，也会自动帮我们解析 JSON。还有默认的断线重连，很方便。  
 
-不过，他的缺陷也比较明显，原生 `EventSource` 主要是 GET 请求，而现代 AI 服务大多需要 `Authorization` 等自定义请求头，但原生 `EventSource` 不支持这一点。  
-很多 AI Chat 并不是直接使用 `EventSource`，而是利用 `fetch + ReadableStream` 来消费 SSE 数据流：
+不过，他的缺陷也比较明显，原生 `EventSource` 主要是 GET 请求，而现代 AI 服务大多需要 `Authorization` 等自定义请求头，但 `EventSource` 不支持这一点。  
+因此很多 AI Chat 并不是直接使用 `EventSource`，而是利用 `fetch + ReadableStream` 来消费 SSE 数据流：
 
 ```javascript
 const response = await fetch("/chat", {
