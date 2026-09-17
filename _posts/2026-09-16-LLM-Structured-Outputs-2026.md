@@ -7,7 +7,8 @@ author: BlackDn
 header-img: img/21mon1_06.jpg
 catalog: true
 tags:
-  -
+  - AI
+  - LLM
 ---
 
 # Structured Outputs：约束 LLM 结构化输出
