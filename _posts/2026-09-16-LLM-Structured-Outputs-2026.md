@@ -15,8 +15,7 @@ tags:
 
 ## 前言
 
-还没有前言，先不急  
-发给俊朗看让朗哥帮我改改
+之前提到过 SSE 的内容，这次跨一大步，深入模型内部，看看要如何才能让大模型百分百输出想要的结构化内容。
 ## Structured Outputs 结构化输出
 
 顾名思义，**Structured Outputs（结构化输出）** 表示“让 AI 按照指定的数据结构输出结果”。  
@@ -125,7 +124,7 @@ AI 可能回答：
 ## Grammar 文法
 
 为了解决这个问题，我们需要一个更强硬的规则，来定义输出内容合法与否。  
-这套规则就是 **Grammar**。  
+这套规则就是 **Grammar 文法**。  
 
 比如 `answer ::= "YES" | "NO"` 就定义了 `answer` 的值要么是 “YES”，要么是 “NO”。  
 既然如此，我们可以用 **Grammar** 来描述 **JSON**：
@@ -160,9 +159,24 @@ Grammar
 描述合法输出形式
 ```
 
+### Chomsky Hierarchy 乔姆斯基层级
+
+在 **Grammar** 之中，也分了不同层级。不同层级的 **Grammar** ，对复杂结构的表达能力不同。  
+在**形式语言理论（Formal Language Theory）** 中，**Noam Chomsky** 提出了著名的 **Chomsky Hierarchy（乔姆斯基层级/乔姆斯基谱系）**，把形式文法按照表达能力分成不同的层级：
+
+| 层级     | 含义                                 |
+| ------ | ---------------------------------- |
+| Type-0 | 无限制文法                              |
+| Type-1 | 上下文有关文法（Context-Sensitive Grammar） |
+| Type-2 | 上下文无关文法（Context-Free Grammar, CFG） |
+| Type-3 | 正则文法（Regular Grammar）              |
+
+越往上，Grammar 能表达的结构越复杂；  
+越往下，规则越简单，也越容易进行高效处理。
+
 ### CFG：上下文无关文法
 
-在某些复杂的情况下，JSON 会出现对象的嵌套或递归：
+在某些复杂的情况下，JSON 会出现对象的**嵌套**或**递归**：
 
 ```JSON
 {
@@ -177,7 +191,8 @@ Grammar
 为了**完整且精确**地描述这类嵌套/递归的 JSON 格式，我们就需要依靠 **CFG（Context-Free Grammar）**，即上下文无关文法：
 
 **“上下文无关（Context-Free）”** 的意思是：在替换或展开一个语法变量（非终结符）时，完全不需要考虑它前后相邻的字符是什么。  
-即无论该变量出现在句子的什么位置、上下文环境如何，只要看到它，就可以直接按照规则替换。
+即无论该变量出现在句子的什么位置、上下文环境如何，只要看到它，就可以直接按照规则替换。 
+比如遇到 `<json_value>  ::= <array> | <string> | "null"`，系统不需要检查它的前后是什么文本，可以直接按照规则进行文本的替换/生成。
 
 ```BNF
 ; 核心递归定义
@@ -321,7 +336,8 @@ OpenAI 的[公开技术说明](https://openai.com/index/introducing-structured-o
 ## 参考
 
 1. [OpenAI: Introducing Structured Outputs in the API](https://openai.com/index/introducing-structured-outputs-in-the-api/)
-2. [llama.cpp: GBNF Guide](https://github.com/ggml-org/llama.cpp/blob/master/grammars/README.md)
-3. [AWS: Structured outputs on Amazon Bedrock: Schema-compliant AI responses](https://aws.amazon.com/cn/blogs/machine-learning/structured-outputs-on-amazon-bedrock-schema-compliant-ai-responses/)
-4. [Structured Outputs and Constrained Decoding: Building LLM Pipelines That Never Return Broken JSON](https://www.chaitanyaprabuddha.com/blog/structured-outputs-constrained-decoding)
-5. [Structured Output from LLMs: Constrained JSON Decoding](https://sesen.ai/blog/structured-output-llm-constrained-decoding)
+2. [Wikipedia: Chomsky Hierarchy](https://en.wikipedia.org/wiki/Chomsky_hierarchy)
+3. [llama.cpp: GBNF Guide](https://github.com/ggml-org/llama.cpp/blob/master/grammars/README.md)
+4. [AWS: Structured outputs on Amazon Bedrock: Schema-compliant AI responses](https://aws.amazon.com/cn/blogs/machine-learning/structured-outputs-on-amazon-bedrock-schema-compliant-ai-responses/)
+5. [Structured Outputs and Constrained Decoding: Building LLM Pipelines That Never Return Broken JSON](https://www.chaitanyaprabuddha.com/blog/structured-outputs-constrained-decoding)
+6. [Structured Output from LLMs: Constrained JSON Decoding](https://sesen.ai/blog/structured-output-llm-constrained-decoding)
