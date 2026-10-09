@@ -35,6 +35,7 @@ AI 可能回答：
 这个问题可以尝试重试。
 ```
 
+得到结果是文本，我们需要自己手动去执行。  
 后来，项目引入了一个非常先进的软件，这个软件可以接收 AI 的分析结果，自动处理错误，比如重新发送 Kafka 消息。不过要求是 AI 必须给这个软件传输一个 **JSON** 数据：
 
 ```JSON
@@ -46,7 +47,7 @@ AI 可能回答：
 ```
 
 那么为了让这个自动工作流顺利进行，保证 AI 输出的结果是 JSON 就变得非常重要。  
-显然，仅仅在 `Prompt` 中加入“请输出 JSON 格式”是不能百分百保证这个条件的。  
+显然，仅仅在 `Prompt` 中加入“请输出 JSON 格式”是不能百分百保证这个条件的。可能会多个括号少个逗号的导致 JSON 格式错误；也可能会让 JSON 的内容不是我们想要的输出内容。  
 
 当 AI 开始和程序直接通信时，输出格式就变得非常重要。我们称这些特定结构的输出为 **Structured Outputs**。
 
@@ -85,7 +86,7 @@ AI 可能回答：
 它对许多字段进行了定义，比如 `"type": "object"` 表示这个数据是什么类型；`severity.type` 和 `summary.type` 需要是 `string`；`retryable.type` 需要是个 `boolean`；`severity.enum` 的值是 “P1～P4” 中的一个；`required` 表示上述三个字段都必须要有。   
 所以这份 Schema 可以简单翻译成：
 
-> 我要一个 JSON Object，它必须有 `severity`、`summary` 和 `retryable` 三个字段。其中 `severity` 只能是 P1～P4。
+> 我要一个 JSON Object，它有且仅有 `severity`、`summary` 和 `retryable` 三个字段。其中 `severity` 只能是 P1～P4。
 
 好了，我们现在已经有 **JSON Schema** 了，直接告诉 AI “请按照这个 Schema 输出” 不就好了吗？当然没有这么简单，这就不得不提 LLM 生成文字的逻辑了。
 ## LLM 和它的 Token
@@ -126,7 +127,7 @@ AI 可能回答：
 为了解决这个问题，我们需要一个更强硬的规则，来定义输出内容合法与否。  
 这套规则就是 **Grammar 文法**。  
 
-比如 `answer ::= "YES" | "NO"` 就定义了 `answer` 的值要么是 “YES”，要么是 “NO”。  
+比如 `answer ::= "YES" | "NO"` 就规定了 `answer` 的值要么是 “YES”，要么是 “NO”。  
 既然如此，我们可以用 **Grammar** 来描述 **JSON**：
 
 ```
@@ -228,7 +229,7 @@ Grammar
 
 ### Logits Masking
 
-假设模型现在已经生成到了（Schema 要求 `answer ::= "YES" | "NO"`）：
+假设模型现在已经生成到了这里：（ **Schema** 要求 `answer ::= "YES" | "NO"`）   
 
 ```
   "answer":
@@ -255,7 +256,7 @@ world    ❌
 | world | 0.8   | 0    |
 | 123   | 0.2   | 0    |
 
-此时，之前打上的标记会和其原有的 **Logit** 结合，对于非法 token，会把把它的 `logit` 设置成 `-∞`，最终的结果就是：
+此时，之前打上的标记会和其原有的 **Logit** 结合，对于非法 token，会把它的 `logit` 设置成 `-∞`，最终的结果就是：
 
 | Token | Masked Logit |
 | ----- | ------------ |
