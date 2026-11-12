@@ -211,9 +211,10 @@ gitalk:
 所以我们新建文件 `.github/workflows/gitalk-issue.yml`：
 
 ```yaml
+
 name: Auto Create Gitalk Issues
 
-on: 
+on:
   push:
     paths:
       - "_posts/**"
@@ -228,100 +229,76 @@ jobs:
       - name: Get new posts
         run: |
           git fetch origin ${{ github.event.before }}
+
           NEW_FILES=$(git diff --name-status ${{ github.event.before }} ${{ github.sha }} \
-          | grep "^A" \
-          | awk '{print $2}' \
-          | grep "^_posts/" || true)
+            | awk '$1 == "A" && $2 ~ /^_posts\// {print $2}')
+
           echo "new_files=$NEW_FILES" >> $GITHUB_ENV
-      
+
       - name: Create Issues
         if: env.new_files != ''
-        run: | 
+        env:
+          GITALK_TOKEN: ${{ secrets.GITALK_TOKEN }}
+          BASE_URL: https://blackdn.github.io
+        run: |
+          echo "New files: $new_files"
+
           for file in $new_files
           do
+            echo "Processing file: $file"
+
             filename=$(basename "$file" .md)
+            echo "Filename: $filename"
+
+            # Generate Gitalk path and ID
             path="/$filename/"
             id=$(echo -n "$path" | md5sum | awk '{print $1}')
-            title="$filename"
-            body="Comments for [$title]($path)"
 
-            curl -X POST \
-              -H "Authorization: token ${{ secrets.GITALK_TOKEN }}" \
+            # Generate absolute URL
+            url="${BASE_URL}${path}"
+
+            # Generate issue title and body
+            title="$filename"
+            body="Comments for [$title]($url)"
+
+            echo "Issue ID: $id"
+            echo "Issue URL: $url"
+            echo "Issue body: $body"
+
+            # Create GitHub Issue
+            payload=$(jq -n \
+              --arg title "$title" \
+              --arg body "$body" \
+              --arg id "$id" \
+              '{
+                title: $title,
+                body: $body,
+                labels: ["gitalk", $id]
+              }')
+
+            curl --fail-with-body -X POST \
+              -H "Authorization: token $GITALK_TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
               https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues \
-              -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"gitalk\",\"$id\"]}"
+              -d "$payload"
           done
+
 ```
 
-### YAML 文件内容解析
-
-#### name: Auto Create Gitalk Issues
-
-这里就是自定义的 **Actions** 名字，没啥大作用
-
-#### on: 触发时机
-
-``` yaml
-on: 
-  push:
-    paths:
-      - "_posts/**"
-```
-
-`on` 部分内容用来决定该工作流什么时候被触发，我们这里表示 `_posts` 目录下有文件被 `push` 的时候触发
-
-#### jobs: 执行的任务
-
-`jobs` 规定了工作流被触发时要执行的任务，这里我们规定了三个任务
-
-##### - name: Checkout code
-
-第一个任务 `- name: Checkout code` 十分常见，算是公式任务了，他的作用是将当前触发 **GitHub Actions** 的仓库代码检出到虚拟机（runner）上，方便后续任务访问文件。  
-##### - name: Get new posts
-
-第二个任务 `- name: Get new posts` 用来筛选出新增的文章。
-
-通过 `git fetch origin ${{ github.event.before }}` 拉取上一个 **git** 提交记录，以便后续 `git diff` 能成功执行。  
-
-``` bash
-NEW_FILES=$(git diff --name-status ${{ github.event.before }} ${{ github.sha }} \
-  | grep "^A" \
-  | awk '{print $2}' \
-  | grep "^_posts/" || true)
-```
-
-这里先通过 `git diff` 比较上一次提交（`github.event.before`）和当前提交（`github.sha`）的变化，类似输出的结果如下：
-
-```mathematica
-A    _posts/2025-09-04-Test.md
-A    _img/icon.jpg
-M    _posts/2025-09-03-Old.md
-D    _posts/2025-09-02-Delete.md
-```
-
-前面的字母表示操作类型，比如 **A** 表示`add`，新增文件；**M** 表示 `modified`，修改文件；**D** 表示 `delete`，删除文件等。     
-我们需要判断是否有新增的文章，即 `_posts` 目录下是否有新增的文件，就有了后续的一系列操作，然后把结果（新增的文章文件名）保存到 `NEW_FILES` 变量中。  
-最后通过 `echo "new_files=$NEW_FILES" >> $GITHUB_ENV` 把结果保存到 **GitHub Actions** 的环境变量中，方便后续任务调用。
-
-##### - name: Create Issues
-
-这个任务主要就是为新增的文章创建对应的 **Issue** 了。  
-因为上面我们把结果存在了环境变量的 `new_files` 中，这里正好用上。`if: env.new_files != ''` 是对该任务是否执行的一个前置判断，如果没有新增文章，就不需要创建 **Issue** 了；即如果 `env.new_files` 为空，就不需要执行当前任务了。
-
-然后进入一个 `for` 循环，遍历 `new_files` 变量中的每个新增文章文件路径，类似 `_posts/2025-09-04-Test.md`；  
-先去掉路径和文件后缀，获得文件名（`filename=$(basename "$file" .md)`），然后加上前后的斜杠（`path="/$filename/"`），最后的结果就类似 `/2025-09-04-Test/`。   
-这里之所以要加上前后两个斜杠，是为了和 **Jekyll permalink** 匹配，即博客站点中的 `location.pathname`。只有保持原文一致，才能保证 `md5` 的转换结果一致，才能给生成的 **Issue** 形成正确的一对一映射。
-
-我们将文件名作为 **Issue** 标题（`title="$filename"`），一个指向文章的链接作为 **Issue** 的第一条内容（`body="Comments for [$title]($path)"`）。    
-最后通过 **GitHub API** 发送一条创建 **Issue** 的请求。请求头中的 `Authorization` 就是我们之前 在 `Repository Secret` 中添加的，这里通过 `secrets.GITALK_TOKEN` 调用。   
-`https://api.github.com/repos/BlackDn/Gitalk-for-Blog/issues` 是 `GitHub API` 定义的 `url`，把 **GitHub账号名** 和 **Issue 仓库名** 替换一下就行： `https://api.github.com/repos/<GitHub Name>/<Issue Repo Name>/issues`  
-`-d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"gitalk\",\"$id\"]}` 中我们传入具体的数据作为请求体，都是上面定义好的变量，比较好理解。  
+一开始写的时候下面跟了个 `gitalk-issue.yml` 的代码审计，不过后面发现有 bug 又修了几版，现在懒得再写审计了，有代码问题直接问 AI 好了😋。
 
 ### 触发 GitHub Actions
 
 确保 `.github/workflows/gitalk-issue.yml` 的文件改好后先把这个文件 `push` 到博客仓库。之后每次提交，如果在 `_post/` 中存在新增的文件，就会触发 **GitHub Actions**，最终在 **Issue 仓库** 根据文件名创建一个新的 Issue。   
 而在文章页面渲染时，**Gitalk** 根据 `id` 找到对应的 **Issue**，就直接渲染出评论区了，不用再用 admin 账号触发一次初始化。
 
+### 补救措施
+
+如果出现各种原因导致自动创建 Issue 失败，我们还可以手动创建一个 Issue，并为这个 Issue 添加 `Label`：`Gitalk` 和 `“md5加密后的结果”`  
+`md5` 加密的明文则是 `/{{文章不带路径和后缀的文件名}}/`。  
+比如提交了一篇文章：`/post/My-New-Post.md/`，加密的明文就是 `/My-New-Post/`。
+
+但是为什么要这么麻烦呢？谁还记得只要用 Owner 账号进入文章页面， **Gitalk** 会自动帮我们创建 Issue 这回事🐶
 
 ## 参考
 
