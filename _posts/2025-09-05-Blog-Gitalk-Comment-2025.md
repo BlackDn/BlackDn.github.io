@@ -204,7 +204,7 @@ gitalk:
 ![AddSecret](https://s21.ax1x.com/2025/09/02/pVgm5xP.png)
 
 
-### 配置 GitHub Actions YMAL
+### 配置 GitHub Actions YAML
 
 **GitHub Actions** 是 GitHub 自己的持续集成和持续交付 (CI/CD) 平台，可用于自动执行生成、测试和跑pipeline，这里就不过多介绍了。  
 在项目仓库的代码中，**GitHub Actions** 使用 **YAML** 语法来定义工作流，每个工作流都作为单独的 **YAML** 文件存储在 `.github/workflows` 目录中。
