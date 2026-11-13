@@ -1,0 +1,94 @@
+
+/* Code block container */
+.code-fold-wrapper {
+  position: relative !important;
+}
+
+/* Toggle button: inside the top-right corner */
+.code-fold-toolbar {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  left: auto !important;
+  z-index: 20;
+
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: block !important;
+  background: transparent !important;
+}
+
+/* Minimal toggle button */
+.code-fold-toggle {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px !important;
+  height: 26px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 1px solid rgba(128, 128, 128, 0.2) !important;
+  border-radius: 5px !important;
+  background: rgba(128, 128, 128, 0.12) !important;
+
+  color: inherit !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.code-fold-wrapper:hover .code-fold-toggle {
+  opacity: 0.9;
+}
+
+.code-fold-toggle:hover {
+  opacity: 1 !important;
+  background: rgba(128, 128, 128, 0.25) !important;
+}
+
+/* Reserve a dedicated area for the toggle button */
+.code-fold-wrapper {
+  padding-top: 36px !important;
+}
+
+/* Keep the button inside the reserved area */
+.code-fold-toolbar {
+  top: 5px !important;
+  right: 8px !important;
+}
+
+/* Remove the previous horizontal space reservation */
+.code-fold-wrapper pre {
+  padding-right: initial !important;
+}
+
+/* Collapsed state: keep the first line visible */
+.code-fold-wrapper.is-collapsed pre {
+  max-height: 3.5em !important;
+  overflow: hidden !important;
+}
+
+/* Collapse hint */
+.code-fold-hint {
+  display: none;
+  margin: 0;
+  padding: 5px 12px;
+
+  font-size: 12px;
+  line-height: 1.5;
+  color: #888;
+  opacity: 0.85;
+}
+
+.code-fold-wrapper.is-collapsed .code-fold-hint {
+  display: block;
+}
